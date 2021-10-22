@@ -1,0 +1,36 @@
+{
+  "name": "atelier",
+  "version": "1.0.0",
+  "description": "FEC sprint repository",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack": "webpack -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rpp31-fec-relish/Atelier.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rpp31-fec-relish/Atelier/issues"
+  },
+  "homepage": "https://github.com/rpp31-fec-relish/Atelier#readme",
+  "dependencies": {
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "@babel/preset-react": "^7.14.5",
+    "babel-loader": "^8.2.3",
+    "express": "^4.17.1",
+    "jest": "^27.3.1",
+    "react": "^17.0.2",
+    "react-cli": "^0.3.1",
+    "react-dom": "^17.0.2",
+    "webpack": "^5.59.1"
+  },
+  "devDependencies": {
+    "webpack-cli": "^4.9.1"
+  }
+}
