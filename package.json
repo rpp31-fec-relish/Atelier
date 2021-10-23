@@ -4,7 +4,8 @@
   "description": "FEC sprint repository",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
+    "start": "nodemon start server.js",
     "webpack": "webpack -w"
   },
   "repository": {
@@ -25,6 +26,7 @@
     "babel-loader": "^8.2.3",
     "express": "^4.17.1",
     "jest": "^27.3.1",
+    "nodemon": "^2.0.14",
     "react": "^17.0.2",
     "react-cli": "^0.3.1",
     "react-dom": "^17.0.2",
