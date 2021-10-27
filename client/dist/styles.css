@@ -1,3 +1,39 @@
 body {
   text-align: center;
 }
+
+#QandAContainer {
+  font-family: Arial;
+  font-weight: lighter;
+  font-size: 12px;
+  text-align: left;
+}
+
+#QandATitle {
+  font-family: Arial;
+  font-size:25px;
+  font-weight: lighter;
+}
+
+#QandASearchBar {
+  border: 1px solid grey;
+  font-weight: bold;
+  width: 75%;
+  height: 5%;
+  resize: both;
+  overflow: auto;
+  padding: 5px;
+}
+
+#MoreAnswers {
+  border: none;
+  background: transparent;
+}
+
+#MoreAnswerdQuestionsButton, #AddQuestionButtton {
+  border-radius: 0px;
+  background: transparent;
+  padding: 15px;
+  margin-right: 15px;
+  border: 1px solid grey;
+}
