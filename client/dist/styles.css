@@ -1,3 +1,16 @@
 body {
   text-align: center;
 }
+
+div.product {
+  overflow: auto;
+  white-space: nowrap;
+}
+
+div.product a {
+  display: inline-block;
+  color: black;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+}
