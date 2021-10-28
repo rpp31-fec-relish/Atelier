@@ -8,16 +8,19 @@ class Reviews extends React.Component {
     super(props);
     this.state = {
       reviewsArr: [];
+      reviewMetaData: {};
     }
   }
 
   render() {
     //---will use CSS styling for specific placement
     return (
-      <button className="review-list-item-button" /*---turn into dropdown list that when selected will create get request with sort perameters*/>Sort by relavence</button>
-      <ReviewList reviewsArr={this.state.reviewsArr}/>
-      <ReviewMeta /*---will sort to the side with CSS*//>
-      <CreateReview /*---will link this to a button which will toggle a form*/ />
+      <div id="Reviews">
+        <button className="review-list-item-button" /*---turn into dropdown list that when selected will create get request with sort perameters*/>Sort by relavence</button>
+        <ReviewList reviewsArr={this.state.reviewsArr}/>
+        <ReviewMeta reviewsMetaData={this.state.reviewMetaData}/*---will sort to the side with CSS*//>
+        <CreateReview /*---will link this to a button which will toggle a form, still debating where to place button*/ />
+      </div>
     );
   }
 
