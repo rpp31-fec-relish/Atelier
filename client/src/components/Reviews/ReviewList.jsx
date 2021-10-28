@@ -8,6 +8,7 @@ import ReactDOM from 'react-dom';
 const ReviewList = (props) => (
 <div className="reviewList">
   <ul>
+    <div>Sample Review Placement</div>
     {props.reviewsArr.map((review) => <li className="reviewListItem" key = {review.review_id}>
       <div className="reviewListItemScore" /*---we probably will need an function to convert the rating into star based images here. Maybe we have a top level helper function we invoke here? */>{review.rating}</div>
       <div className="reviewListItemDate">{review.date}</div>
