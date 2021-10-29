@@ -35,6 +35,7 @@ const RelatedProducts = (props) => {
 
   return (
     <div class="product">
+      <h4>Related Products</h4>
       <a href="#category">Category</a>
       <a href="#title">Title</a>
       <a href="#price">Price</a>
