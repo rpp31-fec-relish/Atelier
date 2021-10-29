@@ -4,7 +4,7 @@ const Outfits = (props) => {
   return (
     <div id="outfits">
       <h4>Outfits</h4>
-      <div id="product">
+      <div id="outfits-product">
         <input type="image" alt="image"></input>
         <h6>Category</h6>
         <h6>Title</h6>
