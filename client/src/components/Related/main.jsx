@@ -1,13 +1,12 @@
 import React from 'react';
 import RelatedProducts from './RelatedProducts.jsx';
+import Outfits from './Outfits.jsx';
 
 class Related extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      product_id: '59553'
-    }
+    this.state = {}
   }
 
   componentDidMount() {
@@ -22,11 +21,9 @@ class Related extends React.Component {
   render() {
     return (
       <div>
-        <header>
-          <h2>Related Products</h2>
-        </header>
         <ul id="related" style={{border: "1px solid black"}}>
-          <RelatedProducts product_id={this.state.product_id}/>
+          <RelatedProducts product_id={this.props.currentProduct}/>
+          <Outfits />
         </ul>
       </div>
     );

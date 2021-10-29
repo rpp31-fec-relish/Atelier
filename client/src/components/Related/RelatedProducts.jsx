@@ -34,11 +34,15 @@ const RelatedProducts = (props) => {
     )
 
   return (
-    <div class="product">
-      <a href="#category">Category</a>
-      <a href="#title">Title</a>
-      <a href="#price">Price</a>
-      <a href="#rating">Rating</a>
+    <div id="related">
+      <h4>Related Products</h4>
+      <div id="related-products">
+        <input type="image" alt="image"></input>
+        <h6>Category</h6>
+        <h6>Title</h6>
+        <h6>Price</h6>
+        <h6>Rating</h6>
+      </div>
     </div>
   )
 
