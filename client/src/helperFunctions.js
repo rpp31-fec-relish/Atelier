@@ -5,6 +5,13 @@ const helperFunctions = {
   // Note: these functions return a promise that, when resolved, contains
   // the information requested. (Since they'll have to make network calls async)
   //
+  // Function List:
+  // getProductById(product_id);
+  // getProductList(?pageNumber, ?resultsPerPage);
+  // getProductStylesById(product_id);
+  // getRelatedProductIdsById(product_id);
+  // getRelatedProductsById(product_id); <-- expensive function, multiple API calls
+  //
   getProductById(product_id) {
     // I: A product id number or string
     // O: A promise resolving to a product object
@@ -21,7 +28,7 @@ const helperFunctions = {
   },
 
   getProductList(pageNumber = 1, resultsPerPage = 5) {
-    // I: A ?page number and ?number of results per page.  Defaults to first page and
+    // I: An optional ?page number and optional ?number of results per page.  Defaults to first page and
     //    5 results per page
     // O: A promise resolving to an array of (<= resultsPerPage) product objects, starting
     //    at (pageNumber*resultsPerPage+1)
@@ -89,6 +96,83 @@ const helperFunctions = {
     });
 
   },
+
+  getReviewsById(product_id, page = 1, count = 5, sort = 'newest') {
+    // I: A product id number or string, optionally a ?page number, ?count per page, and ?sort order
+    // O: A promise resolving to an array of review objects for the provided product_id.
+    if (sort != 'newest' && sort != 'helpful' && sort != 'relevant') {
+      return new Error('sort parameter must be \'newest\', \'helpful\' or \'relevant\'');
+    }
+    return fetch(`./api/reviews?product_id=${product_id}&page=${page}&count=${count}&sort=${sort}`, {
+      method: 'GET'
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((object) => {
+      if (!object.results) {
+        throw new Error('Response from the server did not contain a results property');
+      } else if (object.product != product_id ){
+        throw new Error(`Server responded with styles for a different product.  Expected: ${product_id}, Received: ${object.product}`);
+      } else {
+        return object.results;
+      }
+    })
+    .catch((err) => {
+      console.error('Error retrieving reviews from the server: ', err);
+    });
+
+  },
+
+  getReviewsMetaById(product_id) {
+    // I: A product id number or string
+    // O: A promise resolving to an array containing the metadata of reviews of the provided product
+
+    return fetch(`./api/reviews/meta?product_id=${product_id}`, {
+      method: 'GET'
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.error('Error retrieving reviews metadata from the server: ', err);
+    });
+
+  },
+
+  postReview(review) {
+    // I: A review object with parameters:
+    //  product_id (int),
+    //  rating (int),
+    //  ?summary (string),
+    //  body (string),
+    //  recommended (bool),
+    //  name (string),
+    //  email (string),
+    //  ?photos (array of strings),
+    //  characteristics (object of key=characteristic_id value=int)
+    // O: A promise which will resolve with '201' if successfully posted
+    if (!review.product_id || !review.rating || !review.body || !review.recommended || !review.name || !review.email || !review.characteristics) {
+      return new Error('review object missing required parameter');
+    }
+    console.log('review: ', JSON.stringify(review));
+    return fetch('./api/reviews', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(review)
+    })
+    .then((response) => {
+      return response.statusCode;
+    })
+    .catch((err) => {
+      console.error('Error posting new review to the server: ', err);
+    });
+
+  }
+
+
 
 }
 
