@@ -39,7 +39,7 @@ app.all('/api/*', (req, res) => {
     }).on('end', () => {
       body = Buffer.concat(body).toString();
       console.log('response body: ', body);
-      res.send(body);
+      res.status(response.statusCode).send(body);
     }).on('error', (err) => {
       console.error(err);
     });

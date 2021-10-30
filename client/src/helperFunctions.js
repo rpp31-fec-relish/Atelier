@@ -170,6 +170,30 @@ const helperFunctions = {
       console.error('Error posting new review to the server: ', err);
     });
 
+  },
+
+  markReviewHelpfulById(review_id) {
+    // I: A review id number or string
+    // O: A promise that resolves when the request has completed
+    return fetch(`./api/reviews/${review_id}/helpful`, {
+      method: 'PUT'
+    })
+    .catch((err) => {
+      console.error('Error marking review as helpful: ', err);
+    });
+
+  },
+
+  reportReviewById(review_id) {
+    // I: A review id number or string
+    // O: A promise that resolves when the request has completed
+    return fetch(`./api/reviews/${review_id}/report`, {
+      method: 'PUT'
+    })
+    .catch((err) => {
+      console.error('Error reporting review: ', err);
+    });
+
   }
 
 
