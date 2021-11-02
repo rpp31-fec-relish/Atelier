@@ -13,6 +13,8 @@ class Reviews extends React.Component {
     }
   }
 
+  //so we should create a function that pulls
+
   //---will need multiple helper functions, functions include various ajax requests (though that may be top level), switching
 
   render() {
