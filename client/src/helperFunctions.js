@@ -12,6 +12,11 @@ const helperFunctions = {
   // getRelatedProductIdsById(product_id);
   // getRelatedProductsById(product_id); <-- expensive function, multiple API calls
   //
+
+  //
+  // PRODUCTS:
+  //
+
   getProductById(product_id) {
     // I: A product id number or string
     // O: A promise resolving to a product object
@@ -97,6 +102,10 @@ const helperFunctions = {
 
   },
 
+  //
+  // REVIEWS:
+  //
+
   getReviewsById(product_id, page = 1, count = 5, sort = 'newest') {
     // I: A product id number or string, optionally a ?page number, ?count per page, and ?sort order
     // O: A promise resolving to an array of review objects for the provided product_id.
@@ -146,13 +155,13 @@ const helperFunctions = {
     //  rating (int),
     //  ?summary (string),
     //  body (string),
-    //  recommended (bool),
+    //  recommend (bool),
     //  name (string),
     //  email (string),
     //  ?photos (array of strings),
     //  characteristics (object of key=characteristic_id value=int)
     // O: A promise which will resolve with '201' if successfully posted
-    if (!review.product_id || !review.rating || !review.body || !review.recommended || !review.name || !review.email || !review.characteristics) {
+    if (!review.product_id || !review.rating || !review.body || !review.recommend || !review.name || !review.email || !review.characteristics) {
       return new Error('review object missing required parameter');
     }
     console.log('review: ', JSON.stringify(review));
@@ -194,7 +203,62 @@ const helperFunctions = {
       console.error('Error reporting review: ', err);
     });
 
-  }
+  },
+
+  //
+  // QUESTIONS AND ANSWERS:
+  //
+
+  getQuestionsById(product_id, page = 1, count = 5) {
+    // I: A product id number or string, optionally a page number and count per page
+    // O: A promise that resolves to an array of question objects
+
+    return fetch(`./api/qa/questions?product_id=${product_id}&page=${page}&count=${count}`, {
+      method: 'GET'
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((object) => {
+      if (!object.results) {
+        throw new Error('Response from the server did not contain a results property');
+      } else if (object.product_id != product_id ){
+        throw new Error(`Server responded with questions for a different product.  Expected: ${product_id}, Received: ${object.product_id}`);
+      } else {
+        return object.results;
+      }
+    })
+    .catch((err) => {
+      console.error('Error retrieving questions from the server: ', err);
+    });
+
+  },
+
+  getAnswersByQuestionId(question_id, page = 1, count = 5) {
+
+    return fetch(`./api/qa/questions/${question_id}/answers?page=${page}&count=${count}`, {
+      method: 'GET'
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((object) => {
+      if (!object.results) {
+        throw new Error('Response from the server did not contain a results property');
+      } else if (object.question != question_id ){
+        throw new Error(`Server responded with answers for a different question.  Expected: ${question_id}, Received: ${object.question}`);
+      } else {
+        return object.results;
+      }
+    })
+    .catch((err) => {
+      console.error('Error retrieving answers from the server: ', err);
+    });
+
+  },
+
+
+
 
 
 
