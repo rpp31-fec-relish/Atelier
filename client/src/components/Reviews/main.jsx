@@ -2,6 +2,7 @@ import React from 'react';
 import ReviewList from './ReviewList.jsx';
 import ReviewMeta from './ReviewMeta.jsx';
 import CreateReview from './CreateReview.jsx';
+import helperFunctions from '../../helperFunctions';
 
 class Reviews extends React.Component {
 
@@ -13,7 +14,19 @@ class Reviews extends React.Component {
     }
   }
 
-  //so we should create a function that pulls
+  componentDidMount(){
+    console.log('reviews mounted');
+    let currentProduct = this.props.currentProduct;
+    helperFunctions.getReviewsById(currentProduct)
+    .then((reviews) => {
+      this.setState({
+        reviewsArr:reviews
+      })
+    })
+    .catch((err) => {
+      console.error('Error setting state of reviews', err)
+    })
+  }
 
   //---will need multiple helper functions, functions include various ajax requests (though that may be top level), switching
 
