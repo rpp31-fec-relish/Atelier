@@ -164,7 +164,6 @@ const helperFunctions = {
     if (!review.product_id || !review.rating || !review.body || !review.recommend || !review.name || !review.email || !review.characteristics) {
       return new Error('review object missing required parameter');
     }
-    console.log('review: ', JSON.stringify(review));
     return fetch('./api/reviews', {
       method: 'POST',
       headers: {
@@ -269,7 +268,6 @@ const helperFunctions = {
     if (!question.product_id || !question.body || !question.name || question.email){
       return new Error('question object missing required parameter');
     }
-    console.log('question: ', JSON.stringify(review));
     return fetch('./api/qa/questions', {
       method: 'POST',
       headers: {
@@ -297,7 +295,6 @@ const helperFunctions = {
     if (!answer.question_id || !answer.body || !answer.name || question.email){
       return new Error('question object missing required parameter');
     }
-    console.log('answer: ', JSON.stringify(review));
     return fetch(`./api/qa/questions/${answer.question_id}/answers`, {
       method: 'POST',
       headers: {
@@ -368,6 +365,8 @@ const helperFunctions = {
 
 
   getCart() {
+    // I: none
+    // O: A promise that resolves to an array of sku objects (skus and quantities) in the cart
     return fetch('./api/cart', {
       method: 'GET'
     })
@@ -380,6 +379,8 @@ const helperFunctions = {
   }
 
   addToCart(sku_id) {
+    // I: an sku_id integer or string
+    // O: a promise that resolves to 201 when successfully posted
     return fetch('./api/cart', {
       method: 'POST',
       headers: {
