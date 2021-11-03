@@ -164,7 +164,6 @@ const helperFunctions = {
     if (!review.product_id || !review.rating || !review.body || !review.recommend || !review.name || !review.email || !review.characteristics) {
       return new Error('review object missing required parameter');
     }
-    console.log('review: ', JSON.stringify(review));
     return fetch('./api/reviews', {
       method: 'POST',
       headers: {
@@ -235,6 +234,8 @@ const helperFunctions = {
   },
 
   getAnswersByQuestionId(question_id, page = 1, count = 5) {
+    // I: A question id, optionally a page number and count per page
+    // O: An array of answer objects associated with that question
 
     return fetch(`./api/qa/questions/${question_id}/answers?page=${page}&count=${count}`, {
       method: 'GET'
@@ -257,8 +258,143 @@ const helperFunctions = {
 
   },
 
+  postQuestion(question) {
+    // I: A question object with parameters:
+    //  product_id (int),
+    //  body (string),
+    //  name (string),
+    //  email (string)
+    // O: A promise which will resolve with '201' if successfully posted
+    if (!question.product_id || !question.body || !question.name || question.email){
+      return new Error('question object missing required parameter');
+    }
+    return fetch('./api/qa/questions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(question)
+    })
+    .then((response) => {
+      return response.statusCode;
+    })
+    .catch((err) => {
+      console.error('Error posting new question to the server: ', err);
+    });
+
+  },
+
+  postAnswer(answer) {
+    // I: An answer object with parameters:
+    //  question_id (int),
+    //  body (string),
+    //  name (string),
+    //  email (string),
+    //  photos (array of urls)
+    // O: A promise which will resolve with '201' if successfully posted
+    if (!answer.question_id || !answer.body || !answer.name || question.email){
+      return new Error('question object missing required parameter');
+    }
+    return fetch(`./api/qa/questions/${answer.question_id}/answers`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(answer)
+    })
+    .then((response) => {
+      return response.statusCode;
+    })
+    .catch((err) => {
+      console.error('Error posting new answer to the server: ', err);
+    });
+
+  },
+
+  markQuestionHelpfulById(question_id) {
+    // I: A question id number or string
+    // O: A promise that resolves when the request has completed
+    return fetch(`./api/qa/questions/${question_id}/helpful`, {
+      method: 'PUT'
+    })
+    .catch((err) => {
+      console.error('Error marking question as helpful: ', err);
+    });
+
+  },
+
+  reportQuestionById(question_id) {
+    // I: A question id number or string
+    // O: A promise that resolves when the request has completed
+    return fetch(`./api/qa/questions/${question_id}/report`, {
+      method: 'PUT'
+    })
+    .catch((err) => {
+      console.error('Error reporting question: ', err);
+    });
+
+  },
+
+  markAnswerHelpfulById(answer_id) {
+    // I: An answer id number or string
+    // O: A promise that resolves when the request has completed
+    return fetch(`./api/qa/answers/${answer_id}/helpful`, {
+      method: 'PUT'
+    })
+    .catch((err) => {
+      console.error('Error marking answer as helpful: ', err);
+    });
+
+  },
+
+  reportAnswerById(answer_id) {
+    // I: An answer id number or string
+    // O: A promise that resolves when the request has completed
+    return fetch(`./api/qa/answers/${answer_id}/report`, {
+      method: 'PUT'
+    })
+    .catch((err) => {
+      console.error('Error reporting answer: ', err);
+    });
+
+  },
+
+  //
+  // SHOPPING CART
+  //
 
 
+  getCart() {
+    // I: none
+    // O: A promise that resolves to an array of sku objects (skus and quantities) in the cart
+    return fetch('./api/cart', {
+      method: 'GET'
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.error('Error retrieving cart from the server: ', err);
+    });
+  }
+
+  addToCart(sku_id) {
+    // I: an sku_id integer or string
+    // O: a promise that resolves to 201 when successfully posted
+    return fetch('./api/cart', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({sku_id})
+    })
+    .then((response) => {
+      return response.statusCode;
+    })
+    .catch((err) => {
+      console.error('Error sending new cart item to the server: ', err);
+    });
+  }
 
 
 
