@@ -362,6 +362,38 @@ const helperFunctions = {
 
   },
 
+  //
+  // SHOPPING CART
+  //
+
+
+  getCart() {
+    return fetch('./api/cart', {
+      method: 'GET'
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.error('Error retrieving cart from the server: ', err);
+    });
+  }
+
+  addToCart(sku_id) {
+    return fetch('./api/cart', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({sku_id})
+    })
+    .then((response) => {
+      return response.statusCode;
+    })
+    .catch((err) => {
+      console.error('Error sending new cart item to the server: ', err);
+    });
+  }
 
 
 
