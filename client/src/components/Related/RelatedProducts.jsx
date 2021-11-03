@@ -1,37 +1,27 @@
 import React from 'react';
+import helperFunctions from './../../helperFunctions.js';
 
 const RelatedProducts = (props) => {
   let product_id = props.product_id;
-  // This gets the list of ids related to a specific product
-  fetch(`./api/products/${product_id}/related`)
-    .then(
-      function(response) {
-        response.json().then(function(related_ids) {
-          //console.log(related_ids);
-          related_ids.forEach(product => {
-            // Add each product onto the main page
-            fetch(`./api/products/${product}`)
-              .then(
-                function(response) {
-                  response.json().then(function(product_info) {
-                    //console.log(product_info); // category, default_price, name
-                  })
-                }
-              )
-              .catch(
-                function(err) {
-                  console.log('ERR: ', err);
-                }
-              )
-          })
-        })
-      }
-    )
-    .catch(
-      function(err) {
-        console.log('ERR: ', err);
-      }
-    )
+  console.log(product_id);
+
+  let product = helperFunctions.getRelatedProductsById(product_id)
+    .then(result => result.map(product => {
+      console.log(product);
+      let product_category = product.category;
+      let product_name = product.name;
+      let product_price = product.default_price;
+      console.log(product_category);
+      console.log(product_name);
+      console.log(product_price);
+      return ([product_category, product_name, product_price]);
+    }))
+    .then(data => console.log(data))
+    .catch(err => console.log(err))
+
+  let rating = helperFunctions.getReviewsById(product_id)
+    .then(product => console.log(product))
+    .catch(err => console.log(err))
 
   return (
     <div id="related">
@@ -46,7 +36,14 @@ const RelatedProducts = (props) => {
     </div>
   )
 
+  // return (
+  //   <div id="product" key={product.id}>
+  //     <div id="category">{product.category}</div>
+  //     <div id="name">{product.name}</div>
+  //     <div id="price">{product.price}</div>
+  //     <div id="rating">3.5</div>
+  //   </div>
+  // )
 }
 
 export default RelatedProducts;
-

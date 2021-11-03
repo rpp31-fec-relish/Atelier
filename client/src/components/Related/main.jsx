@@ -10,7 +10,7 @@ class Related extends React.Component {
   }
 
   componentDidMount() {
-    console.log('relatedproducts mounted');
+    //console.log('relatedproducts mounted');
   }
 
   comparisonChart() {
@@ -21,10 +21,10 @@ class Related extends React.Component {
   render() {
     return (
       <div>
-        <ul id="related" style={{border: "1px solid black"}}>
+        <div id="related" style={{border: "1px solid black"}}>
           <RelatedProducts product_id={this.props.currentProduct}/>
-          <Outfits />
-        </ul>
+          <Outfits outfits={this.props.outfits}/>
+        </div>
       </div>
     );
   }
