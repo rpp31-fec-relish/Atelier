@@ -235,6 +235,8 @@ const helperFunctions = {
   },
 
   getAnswersByQuestionId(question_id, page = 1, count = 5) {
+    // I: A question id, optionally a page number and count per page
+    // O: An array of answer objects associated with that question
 
     return fetch(`./api/qa/questions/${question_id}/answers?page=${page}&count=${count}`, {
       method: 'GET'
@@ -257,7 +259,108 @@ const helperFunctions = {
 
   },
 
+  postQuestion(question) {
+    // I: A question object with parameters:
+    //  product_id (int),
+    //  body (string),
+    //  name (string),
+    //  email (string)
+    // O: A promise which will resolve with '201' if successfully posted
+    if (!question.product_id || !question.body || !question.name || question.email){
+      return new Error('question object missing required parameter');
+    }
+    console.log('question: ', JSON.stringify(review));
+    return fetch('./api/qa/questions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(question)
+    })
+    .then((response) => {
+      return response.statusCode;
+    })
+    .catch((err) => {
+      console.error('Error posting new question to the server: ', err);
+    });
 
+  },
+
+  postAnswer(answer) {
+    // I: An answer object with parameters:
+    //  question_id (int),
+    //  body (string),
+    //  name (string),
+    //  email (string),
+    //  photos (array of urls)
+    // O: A promise which will resolve with '201' if successfully posted
+    if (!answer.question_id || !answer.body || !answer.name || question.email){
+      return new Error('question object missing required parameter');
+    }
+    console.log('answer: ', JSON.stringify(review));
+    return fetch(`./api/qa/questions/${answer.question_id}/answers`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(answer)
+    })
+    .then((response) => {
+      return response.statusCode;
+    })
+    .catch((err) => {
+      console.error('Error posting new answer to the server: ', err);
+    });
+
+  },
+
+  markQuestionHelpfulById(question_id) {
+    // I: A question id number or string
+    // O: A promise that resolves when the request has completed
+    return fetch(`./api/qa/questions/${question_id}/helpful`, {
+      method: 'PUT'
+    })
+    .catch((err) => {
+      console.error('Error marking question as helpful: ', err);
+    });
+
+  },
+
+  reportQuestionById(question_id) {
+    // I: A question id number or string
+    // O: A promise that resolves when the request has completed
+    return fetch(`./api/qa/questions/${question_id}/report`, {
+      method: 'PUT'
+    })
+    .catch((err) => {
+      console.error('Error reporting question: ', err);
+    });
+
+  },
+
+  markAnswerHelpfulById(answer_id) {
+    // I: An answer id number or string
+    // O: A promise that resolves when the request has completed
+    return fetch(`./api/qa/answers/${answer_id}/helpful`, {
+      method: 'PUT'
+    })
+    .catch((err) => {
+      console.error('Error marking answer as helpful: ', err);
+    });
+
+  },
+
+  reportAnswerById(answer_id) {
+    // I: An answer id number or string
+    // O: A promise that resolves when the request has completed
+    return fetch(`./api/qa/answers/${answer_id}/report`, {
+      method: 'PUT'
+    })
+    .catch((err) => {
+      console.error('Error reporting answer: ', err);
+    });
+
+  },
 
 
 
