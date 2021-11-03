@@ -376,7 +376,7 @@ const helperFunctions = {
     .catch((err) => {
       console.error('Error retrieving cart from the server: ', err);
     });
-  }
+  },
 
   addToCart(sku_id) {
     // I: an sku_id integer or string
