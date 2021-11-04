@@ -50,3 +50,13 @@ div.product a {
   padding: 14px;
   text-decoration: none;
 }
+
+#QuestionHelpful {
+  text-align: right;
+}
+
+#HelpfulButton, #ReportButton, #AddAnswerButton {
+  border: none;
+  background: transparent;
+  text-decoration: underline;
+}
