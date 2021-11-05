@@ -28,8 +28,6 @@ class Overview extends React.Component {
     .then((productStyles) => this.setState({productStyles}));
 
   }
-
-  componentDidUpdate() {}
   // table for now, will do layout properly in CSS
   render() {
     return (
