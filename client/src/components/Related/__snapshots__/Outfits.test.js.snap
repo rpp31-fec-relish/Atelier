@@ -15,7 +15,7 @@ exports[`Outfits renders correctly 1`] = `
       type="image"
     />
     <h6>
-      Category
+      Test
     </h6>
     <h6>
       Title

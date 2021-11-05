@@ -10,7 +10,6 @@ class Related extends React.Component {
   }
 
   componentDidMount() {
-    console.log('relatedproducts mounted');
   }
 
   comparisonChart() {

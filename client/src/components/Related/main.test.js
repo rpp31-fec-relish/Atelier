@@ -6,6 +6,7 @@ import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 
 Enzyme.configure({ adapter: new Adapter() });
 
+// describe - it - expect
 describe('Related', () => {
   it('renders correctly', () => {
     const wrapper = shallow(<Related />);

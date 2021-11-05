@@ -4,7 +4,7 @@
   "description": "FEC sprint repository",
   "main": "index.js",
   "scripts": {
-    "test": "jest --coverage",
+    "test": "jest --coverage --watch",
     "start": "nodemon start server.js",
     "webpack": "webpack -w"
   },
@@ -43,6 +43,8 @@
   "jest": {
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
-    ]
+    ],
+    "coverageDirectory": "./__tests__/coverage/",
+    "modulePathIgnorePatterns": ["./__tests__/coverage/"]
   }
 }
