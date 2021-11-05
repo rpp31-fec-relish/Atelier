@@ -38,15 +38,29 @@ body {
   border: 1px solid grey;
 }
 
-  div.product {
-  overflow: auto;
-  white-space: nowrap;
+#RelatedProductsWidget {
+  display: flex;
+  justify-content: space-between;
 }
 
-div.product a {
-  display: inline-block;
-  color: black;
-  text-align: center;
-  padding: 14px;
-  text-decoration: none;
+#RelatedProduct {
+  justify-content: center;
+  display: flex;
+  flex: 0 1 calc(25% - 1em);
+  border: 1px solid black;
+}
+
+#RP-image img {
+  max-width: 100%;
+}
+
+#OutfitsWidget {
+  display: flex;
+  justify-content: space-between;
+}
+
+#OutfitItem {
+  display: flex;
+  flex: 0 1 calc(25% - 1em);
+  border: 1px solid black;
 }

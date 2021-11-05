@@ -21,8 +21,10 @@ class Related extends React.Component {
   render() {
     return (
       <div>
-        <div id="related" style={{border: "1px solid black"}}>
+        <div id="RelatedProductsAndOutfits" style={{border: "1px solid black"}}>
+          <h4>Related Products</h4>
           <RelatedProducts product_id={this.props.currentProduct}/>
+          <h4>Outfits</h4>
           <Outfits outfits={this.props.outfits}/>
         </div>
       </div>

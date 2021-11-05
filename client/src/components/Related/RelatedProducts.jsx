@@ -3,7 +3,7 @@ import helperFunctions from './../../helperFunctions.js';
 
 const RelatedProducts = (props) => {
   let product_id = props.product_id;
-  console.log(product_id);
+  //console.log(product_id);
 
   let product = helperFunctions.getRelatedProductsById(product_id)
     .then(result => result.map(product => {
@@ -11,9 +11,9 @@ const RelatedProducts = (props) => {
       let product_category = product.category;
       let product_name = product.name;
       let product_price = product.default_price;
-      console.log(product_category);
-      console.log(product_name);
-      console.log(product_price);
+      // console.log(product_category);
+      // console.log(product_name);
+      // console.log(product_price);
       return ([product_category, product_name, product_price]);
     }))
     .then(data => console.log(data))
@@ -24,16 +24,44 @@ const RelatedProducts = (props) => {
     .catch(err => console.log(err))
 
   return (
-    <div id="related">
-      <h4>Related Products</h4>
-      <div id="related-products">
-        <input type="image" alt="image"></input>
-        <h6>Category</h6>
-        <h6>Title</h6>
-        <h6>Price</h6>
-        <h6>Rating</h6>
+    <section id="RelatedProductsWidget">
+      <div id="RelatedProduct">
+        <p>
+          <input id="RP-image" type="image" alt="image"></input>
+          <h6>Category</h6>
+          <h6>Title</h6>
+          <h6>Price</h6>
+          <h6>Rating</h6>
+        </p>
       </div>
-    </div>
+      <div id="RelatedProduct">
+        <p>
+          <input id="RP-image" type="image" alt="image"></input>
+          <h6>Category</h6>
+          <h6>Title</h6>
+          <h6>Price</h6>
+          <h6>Rating</h6>
+        </p>
+      </div>
+      <div id="RelatedProduct">
+        <p>
+          <input id="RP-image" type="image" alt="image"></input>
+          <h6>Category</h6>
+          <h6>Title</h6>
+          <h6>Price</h6>
+          <h6>Rating</h6>
+        </p>
+      </div>
+      <div id="RelatedProduct">
+        <p>
+          <input id="RP-image" type="image" alt="image"></input>
+          <h6>Category</h6>
+          <h6>Title</h6>
+          <h6>Price</h6>
+          <h6>Rating</h6>
+        </p>
+      </div>
+    </section>
   )
 
   // return (
