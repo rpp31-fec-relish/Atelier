@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Outfits renders correctly 1`] = `
+<div
+  id="outfits"
+>
+  <h4>
+    Outfits
+  </h4>
+  <div
+    id="outfits-product"
+  >
+    <input
+      alt="image"
+      type="image"
+    />
+    <h6>
+      Category
+    </h6>
+    <h6>
+      Title
+    </h6>
+    <h6>
+      Price
+    </h6>
+    <h6>
+      Rating
+    </h6>
+  </div>
+</div>
+`;

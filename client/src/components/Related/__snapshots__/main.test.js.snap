@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Related renders correctly 1`] = `
+<div>
+  <ul
+    id="related"
+    style={
+      Object {
+        "border": "1px solid black",
+      }
+    }
+  >
+    <RelatedProducts />
+    <Outfits />
+  </ul>
+</div>
+`;
