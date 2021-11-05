@@ -39,14 +39,14 @@ class Overview extends React.Component {
                 <OverviewImages product={this.state.product} productStyles={this.state.productStyles}/>
               </td>
               <td>
-                <OverviewInformation />
+                <OverviewInformation product={this.state.product}/>
                 <OverviewStyles />
                 <OverviewCart />
               </td>
             </tr>
             <tr>
               <td>
-                <OverviewDescription />
+                <OverviewDescription product={this.state.product}/>
               </td>
             </tr>
           </tbody>
