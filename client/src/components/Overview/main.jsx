@@ -13,21 +13,51 @@ class Overview extends React.Component {
 
     this.state = {
       product: null,
-      productStyles: null
+      productStyles: null,
+      currentStyle: null
     }
 
   }
 
+  getDefaultStyle() {
+    if (this.state.productStyles && this.state.productStyles.length > 0) {
+      for (let i = 0; i < this.state.productStyles.length; i++) {
+        if (this.state.productStyles[i]['default?']) {
+          return this.state.productStyles[i];
+        }
+      }
+      // if no style marked default, choose first style
+      return this.state.productStyles[0];
+    }
+  }
+
   componentDidMount() {
 
-    // future: avoid calling two setstates
+    // future: avoid calling three setstates
     helperFunctions.getProductById(this.props.currentProduct)
-    .then((product) => this.setState({product}));
-
-    helperFunctions.getProductStylesById(this.props.currentProduct)
-    .then((productStyles) => this.setState({productStyles}));
+    .then((product) => {
+      console.log('setting product');
+      this.setState({product});
+    })
+    .then(() => {
+      console.log('getting styles');
+      return helperFunctions.getProductStylesById(this.props.currentProduct);
+    })
+    .then((productStyles) => {
+      console.log('setting styles');
+      this.setState({productStyles});
+    })
+    .then(() => {
+      // todo: clear currentStyle when product changes
+      console.log('setting currentStyle ', this.state.currentStyle, this.getDefaultStyle());
+      if (!this.state.currentStyle) {
+        this.setState({currentStyle: this.getDefaultStyle()});
+      }
+    })
+    .catch((error) => console.error(error));
 
   }
+
   // table for now, will do layout properly in CSS
   render() {
     return (
@@ -36,11 +66,11 @@ class Overview extends React.Component {
           <tbody>
             <tr>
               <td>
-                <OverviewImages product={this.state.product} productStyles={this.state.productStyles}/>
+                <OverviewImages product={this.state.product} currentStyle={this.state.currentStyle}/>
               </td>
               <td>
-                <OverviewInformation product={this.state.product}/>
-                <OverviewStyles />
+                <OverviewInformation product={this.state.product} currentStyle={this.state.currentStyle}/>
+                <OverviewStyles productStyles={this.state.productStyles} currentStyle={this.state.currentStyle}/>
                 <OverviewCart />
               </td>
             </tr>

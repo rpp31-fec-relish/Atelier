@@ -7,26 +7,15 @@ class OverviewImages extends React.Component {
 
   // Component for image gallery of current product
   constructor(props) {
-    super(props)
-  }
-
-  getDefaultStyle() {
-    if (this.props.productStyles && this.props.productStyles.length > 0) {
-      for (let i = 0; i < this.props.productStyles.length; i++) {
-        if (this.props.productStyles[i]['default?']) {
-          return this.props.productStyles[i];
-        }
-      }
-      // if no style marked default, choose first style
-      return this.props.productStyles[0];
-    }
+    super(props);
   }
 
   getDefaultThumbnail() {
-    let defaultStyle = this.getDefaultStyle();
+    let defaultStyle = this.props.currentStyle;
     if (defaultStyle && defaultStyle.photos && defaultStyle.photos.length > 0) {
       for (let i = 0; i < defaultStyle.photos.length; i++) {
         if (defaultStyle.photos[i].thumbnail_url) {
+          console.log('getting Thubmnail: ', defaultStyle.photos[i].thumbnail_url);
           return defaultStyle.photos[i].thumbnail_url;
         }
       }
@@ -39,7 +28,7 @@ class OverviewImages extends React.Component {
     imageURL = imageURL ? imageURL : PlaceholderPhoto;
 
     // todo: add alt text for accessibility
-    if (this.props.productStyles) {
+    if (this.props.currentStyle) {
       return (
         <div>
           <img src={imageURL} width='300'></img>
