@@ -2,10 +2,14 @@ import React from 'react';
 
 class OverviewInformation extends React.Component {
 
-  // todo: render rating, price based on style
+  // todo: render rating
 
   render() {
     if (this.props.product) {
+      let price = this.props.currentStyle.original_price;
+      if (this.props.currentStyle.sale_price) {
+        price = (<div><del>{price}</del> {this.props.currentStyle.sale_price}</div>);
+      }
       return (
         <div id='overviewInformation'>
           <div id='rating'>
@@ -19,7 +23,7 @@ class OverviewInformation extends React.Component {
             {this.props.product.name}
           </div>
           <div id='price'>
-            {this.props.product.default_price}
+            {price}
           </div>
         </div>
       )
