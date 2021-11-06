@@ -31,6 +31,11 @@ class Overview extends React.Component {
     }
   }
 
+  setCurrentStyle(productStyle) {
+    // todo: validation, handle productStyle as optional ID
+    this.setState({currentStyle: productStyle});
+  }
+
   componentDidMount() {
 
     // todo: clear currentStyle when product changes
@@ -40,7 +45,6 @@ class Overview extends React.Component {
     .then((product) => {
       return helperFunctions.getProductStylesById(this.props.currentProduct)
         .then((productStyles) => {
-          console.log({product, productStyles});
           if (!this.state.currentStyle) {
             this.setState({
               product: product,
@@ -71,8 +75,8 @@ class Overview extends React.Component {
               </td>
               <td>
                 <OverviewInformation product={this.state.product} currentStyle={this.state.currentStyle}/>
-                <OverviewStyles productStyles={this.state.productStyles} currentStyle={this.state.currentStyle}/>
-                <OverviewCart />
+                <OverviewStyles productStyles={this.state.productStyles} currentStyle={this.state.currentStyle} setStyle={this.setCurrentStyle.bind(this)}/>
+                <OverviewCart currentStyle={this.state.currentStyle}/>
               </td>
             </tr>
             <tr>

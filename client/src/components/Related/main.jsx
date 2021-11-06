@@ -34,7 +34,7 @@ class Related extends React.Component {
           <h4>RELATED PRODUCTS</h4>
           <RelatedProductsWidget currentProduct={this.props.currentProduct} assignImage={this.assignImage}/>
           <h4>YOUR OUTFITS</h4>
-          <OutfitsWidget outfits={this.props.outfits} assignImage={this.assignImage}/>
+          <OutfitsWidget currentProduct={this.props.currentProduct} outfits={this.props.outfits} assignImage={this.assignImage} addToOutfit={this.props.addToOutfit}/>
         </div>
       </div>
     );
