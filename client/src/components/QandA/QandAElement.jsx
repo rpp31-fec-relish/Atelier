@@ -41,7 +41,7 @@ class QandAElement extends React.Component {
         <div id='QuestionHelpful'>
         Helpful?
         <button id='HelpfulButton'> Yes </button> |
-        <button id='AddAnswerButton'> Add Anser </button>
+        <button id='AddAnswerButton'> Add Answer </button>
          </div>
         <div>{answers}</div>
         <div>
