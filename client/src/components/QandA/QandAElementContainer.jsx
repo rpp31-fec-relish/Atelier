@@ -12,6 +12,9 @@ class QandAElementContainer extends React.Component {
     const elements = this.props.questions.map((question) => {
       return <QandAElement question={question}/>
     });
+    if (elements.length === 0) {
+      return (<div id='noQuestions'> There are no questions yet! </div>)
+    }
     return (<div>{elements}</div>);
   }
 

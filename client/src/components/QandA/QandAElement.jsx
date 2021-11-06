@@ -32,7 +32,7 @@ class QandAElement extends React.Component {
       </div>
       );
     });
-    if (this.props.question.answers.len > 2) {
+    if (this.props.question.answers.length > 2) {
       return (
         <div key={this.props.question.question_id}>
           <div>
