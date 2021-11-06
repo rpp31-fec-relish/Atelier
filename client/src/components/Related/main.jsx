@@ -13,15 +13,14 @@ class Related extends React.Component {
   }
 
   assignImage(imageArray) {
-    //temporary placeholder image; --later--discuss global placeholder image
-    let placeholderPhoto = 'https://lessonpix.com/drawings/1709614/380x380/Relish.png';
+    const PlaceholderPhoto = './images/missingImage.svg';
 
     if (imageArray) {
       if (imageArray[0].thumbnail_url) {
         return imageArray[0].thumbnail_url;
       }
     }
-    return placeholderPhoto;
+    return PlaceholderPhoto;
   }
 
   comparisonChart() {
