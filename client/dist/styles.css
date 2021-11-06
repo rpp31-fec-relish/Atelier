@@ -38,15 +38,50 @@ body {
   border: 1px solid grey;
 }
 
-  div.product {
-  overflow: auto;
-  white-space: nowrap;
+#RelatedProductsAndOutfits h4 {
+  text-align: left;
+  font-family: Arial;
+  font-weight: lighter;
+  color: rgb(110, 110, 110);
+  font-size: 12px;
 }
 
-div.product a {
+#RelatedProductsWidget {
+  display: flex;
+  /* justify-content: space-between; */
+}
+
+#RelatedProduct {
+  justify-content: center;
   display: inline-block;
-  color: black;
-  text-align: center;
-  padding: 14px;
-  text-decoration: none;
+  flex: 0 1 calc(25% - 1em);
+  border: 1px solid black;
+}
+
+#RP-image {
+  width: 150px;
+  height: 150px;
+}
+
+#OutfitsWidget {
+  display: flex;
+  justify-content: space-between;
+}
+
+#AddToOutfit h4{
+  display: inline-block;
+  font-size: 15px;
+}
+
+#OutfitItem {
+  display: inline-block;
+  flex: 0 1 calc(25% - 1em);
+  width: 200px;
+  height: 210px;
+  border: 1px solid black;
+}
+
+#Outfit-image {
+  width: 150px;
+  height: 150px;
 }

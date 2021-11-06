@@ -19,7 +19,7 @@ class App extends React.Component {
     <div>
       <h1>HELLO WORLD</h1>
       <Overview currentProduct={this.state.currentProduct}/>
-      <Related currentProduct={this.state.currentProduct}/>
+      <Related currentProduct={this.state.currentProduct} outfits={this.state.outfits}/>
       <QandA currentProduct={this.state.currentProduct}/>
       <Reviews currentProduct={this.state.currentProduct}/>
     </div>
