@@ -4,21 +4,28 @@ import OutfitItem from './OutfitItem.jsx';
 class OutfitsWidget extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      addToOutfit: true
-    }
+    this.state = {};
+
+    this.handleTextChange = this.handleTextChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
-  // go through global outfits array, get each item via helperfunction
 
-  // const changeText = () => {
-  //   if (props.outfits.includes(props.currentProduct)) {
-  //     this.setState({!addToOutfit});
-  //   }
-  // }
+  handleTextChange() {
+    if (this.props.outfits.includes(this.props.currentProduct)) {
+      return 'REMOVE FROM OUTFIT';
+    } else {
+      return 'ADD TO OUTFIT';
+    }
+  }
 
   handleClick(e) {
-    alert('click');
+    e.preventDefault();
+    console.log(e.target.text);
+    if (e.target.text.includes('ADD')) {
+      console.log('add current product to outfits');
+    } else {
+      console.log('remove current product from outfits')
+    }
   }
 
   // if (props.outfits.length === 0) {
@@ -29,8 +36,8 @@ class OutfitsWidget extends React.Component {
     return (
       <section id="OutfitsWidget">
         <div id="OutfitItem">
-          <div id="AddToOutfit">
-            <h4 onClick={this.handleClick}>+</h4>
+          <div id="addToOutfit">
+            <a href='#add-outfit' id="OutfitText" onClick={this.handleClick}>+ {this.handleTextChange()}</a>
           </div>
         </div>
         <OutfitItem assignImage={this.props.assignImage} outfits={this.props.outfits}/>

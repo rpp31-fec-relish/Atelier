@@ -72,9 +72,13 @@ body {
   justify-content: space-between;
 }
 
-#AddToOutfit h4{
+#OutfitText{
   display: inline-block;
-  font-size: 15px;
+  font-size: 14px;
+  font-family: Arial;
+  font-weight: lighter;
+  color: rgb(110, 110, 110);
+  padding: 70px 0;
 }
 
 #OutfitItem {
