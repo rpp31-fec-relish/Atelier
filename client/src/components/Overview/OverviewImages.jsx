@@ -15,7 +15,6 @@ class OverviewImages extends React.Component {
     if (defaultStyle && defaultStyle.photos && defaultStyle.photos.length > 0) {
       for (let i = 0; i < defaultStyle.photos.length; i++) {
         if (defaultStyle.photos[i].thumbnail_url) {
-          console.log('getting Thubmnail: ', defaultStyle.photos[i].thumbnail_url);
           return defaultStyle.photos[i].thumbnail_url;
         }
       }
