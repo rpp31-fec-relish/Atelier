@@ -68,9 +68,16 @@ body {
   justify-content: space-between;
 }
 
+#AddToOutfit h4{
+  display: inline-block;
+  font-size: 15px;
+}
+
 #OutfitItem {
   display: inline-block;
   flex: 0 1 calc(25% - 1em);
+  width: 200px;
+  height: 210px;
   border: 1px solid black;
 }
 
