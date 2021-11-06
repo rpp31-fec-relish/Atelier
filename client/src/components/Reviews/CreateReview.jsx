@@ -147,7 +147,6 @@ class CreateReview extends React.Component {
   //might need to put this at the main level, leaving commented out till I can test charecteristics
 
   handleSubmit(e) {
-    e.preventDefault();
     let review = {
       product_id: this.state.newReview.product_id,
       rating: this.state.newReview.rating,
