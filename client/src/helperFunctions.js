@@ -149,6 +149,8 @@ const helperFunctions = {
 
   },
 
+  //may need to change this to new review just for consistency sake
+
   postReview(review) {
     // I: A review object with parameters:
     //  product_id (int),
