@@ -12,14 +12,29 @@ class App extends React.Component {
       currentProduct: 59553,
       outfits: []
     };
+
+    this.addToOutfit = this.addToOutfit.bind(this);
+  }
+
+  addToOutfit(productId) {
+    let index = this.state.outfits.indexOf(productId);
+    if (index > -1) {
+      // Removes productId in outfits if it exists
+      let newOutfitsData = [...this.state.outfits].splice(index, 1);
+      this.setState({outfits: newOutfitsData});
+      console.log('Outfit removed');
+    } else {
+      this.setState({outfits: [...this.state.outfits, productId]});
+      console.log('Outfit added');
+    }
   }
 
   render() {
     return (
     <div>
       <h1>HELLO WORLD</h1>
-      <Overview currentProduct={this.state.currentProduct}/>
-      <Related currentProduct={this.state.currentProduct} outfits={this.state.outfits}/>
+      <Overview currentProduct={this.state.currentProduct} addToOutfit={this.addToOutfit}/>
+      <Related currentProduct={this.state.currentProduct} outfits={this.state.outfits} addToOutfit={this.addToOutfit}/>
       <QandA currentProduct={this.state.currentProduct}/>
       <Reviews currentProduct={this.state.currentProduct}/>
     </div>
