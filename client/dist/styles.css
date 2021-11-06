@@ -85,3 +85,13 @@ body {
   width: 150px;
   height: 150px;
 }
+
+#QuestionHelpful {
+  text-align: right;
+}
+
+#HelpfulButton, #ReportButton, #AddAnswerButton {
+  border: none;
+  background: transparent;
+  text-decoration: underline;
+}
