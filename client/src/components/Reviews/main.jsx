@@ -11,6 +11,7 @@ class Reviews extends React.Component {
     this.state = {
       reviewsArr: [],
       reviewMetaData: {},
+      reviewCount: 2
     }
   }
 
@@ -26,6 +27,7 @@ class Reviews extends React.Component {
     .catch((err) => {
       console.error('Error setting state of reviews', err)
     })
+    console.log(helperFunctions.getReviewsMetaById(currentProduct))
   }
 
   //---will need multiple helper functions, functions include various ajax requests (though that may be top level), switching
@@ -36,7 +38,7 @@ class Reviews extends React.Component {
       <div id="reviews">
         <button className="reviewListSortButton" /*---turn into dropdown list that when selected will create get request with sort perameters*/>Sort reviews by relavence</button>
         <ReviewList reviewsArr={this.state.reviewsArr} /*---will need to limit rendering to two unless 'More Reviews' button is pressed, in which case it will render two more*//>
-        <ReviewMeta reviewMetaData={this.state.reviewMetaData}/*---will place to the side with CSS*//>
+        <ReviewMeta currentProduct={this.props.currentProduct} /*---will place to the side with CSS*//>
         <button className="createReviewLinkButton" /*---will link Create Review to this button which will toggle a form*/>Link to Create review</button>
         <button className="reviewListMoreReviewsButton" /*---this will toggle two more reviews to be displayed to the review list*/>More Reviews</button>
       </div>
