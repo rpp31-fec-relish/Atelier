@@ -210,7 +210,7 @@ const helperFunctions = {
   // QUESTIONS AND ANSWERS:
   //
 
-  getQuestionsById(product_id, page = 1, count = 5) {
+  getQuestionsById(product_id, page = 1, count = 2) {
     // I: A product id number or string, optionally a page number and count per page
     // O: A promise that resolves to an array of question objects
 
