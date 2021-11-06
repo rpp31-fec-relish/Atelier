@@ -1,12 +1,25 @@
 import React from 'react';
 import OutfitItem from './OutfitItem.jsx';
 
-const OutfitsWidget = (props) => {
+class OutfitsWidget extends React.Components {
+  constructor(props) {
+    super(props);
+    this.state = {
+      addToOutfit = true;
+    }
+  }
   // go through global outfits array, get each item via helperfunction
 
-  const AddToOutfits = () => {
-    // if current product id isnt in outfits array, return 'Add to Outfits'; otherwise, return 'Remove from Outfits'
+  const changeText = () => {
+    if (props.outfits.includes(props.currentProduct)) {
+      this.setState({!addToOutfit});
+    }
   }
+
+  const handleClick = (e) => {
+    alert('click');
+  }
+
   // if (props.outfits.length === 0) {
   //   return '';
   // } else {
@@ -14,7 +27,7 @@ const OutfitsWidget = (props) => {
       <section id="OutfitsWidget">
         <div id="OutfitItem">
           <div id="AddToOutfit">
-            <h4>+{"\n"}Add To Outfit</h4>
+            <h4 onClick={handleClick}>+</h4>
           </div>
         </div>
         <OutfitItem assignImage={props.assignImage} outfits={props.outfits}/>
