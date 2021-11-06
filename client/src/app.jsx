@@ -23,10 +23,8 @@ class App extends React.Component {
       let newOutfitsData = [...this.state.outfits];
       newOutfitsData.splice(index, 1);
       this.setState({outfits: newOutfitsData});
-      console.log('Outfit removed');
     } else {
       this.setState({outfits: [...this.state.outfits, productId]});
-      console.log('Outfit added');
     }
   }
 
