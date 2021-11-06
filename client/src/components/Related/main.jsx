@@ -1,30 +1,41 @@
 import React from 'react';
-import RelatedProducts from './RelatedProducts.jsx';
-import Outfits from './Outfits.jsx';
+import RelatedProductsWidget from './RelatedProductsWidget.jsx';
+import OutfitsWidget from './OutfitsWidget.jsx';
+import helperFunctions from '../../helperFunctions.js';
 
 class Related extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {}
+
+    this.assignImage = this.assignImage.bind(this);
   }
 
-  componentDidMount() {
-    console.log('relatedproducts mounted');
+  assignImage(imageArray) {
+    const PlaceholderPhoto = './images/missingImage.svg';
+
+    if (imageArray) {
+      if (imageArray[0].thumbnail_url) {
+        return imageArray[0].thumbnail_url;
+      }
+    }
+    return PlaceholderPhoto;
   }
 
   comparisonChart() {
     // compare product a to product b
-    alert('click');
   }
 
   render() {
     return (
       <div>
-        <ul id="related" style={{border: "1px solid black"}}>
-          <RelatedProducts product_id={this.props.currentProduct}/>
-          <Outfits />
-        </ul>
+        <div id="RelatedProductsAndOutfits">
+          <h4>RELATED PRODUCTS</h4>
+          <RelatedProductsWidget currentProduct={this.props.currentProduct} assignImage={this.assignImage}/>
+          <h4>YOUR OUTFITS</h4>
+          <OutfitsWidget outfits={this.props.outfits} assignImage={this.assignImage}/>
+        </div>
       </div>
     );
   }
