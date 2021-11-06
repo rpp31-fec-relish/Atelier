@@ -13,21 +13,52 @@ class Overview extends React.Component {
 
     this.state = {
       product: null,
-      productStyles: null
+      productStyles: null,
+      currentStyle: null
     }
 
   }
 
+  getDefaultStyle(productStyles) {
+    if (productStyles && productStyles.length > 0) {
+      for (let i = 0; i < productStyles.length; i++) {
+        if (productStyles[i]['default?']) {
+          return productStyles[i];
+        }
+      }
+      // if no style marked default, choose first style
+      return this.productStyles[0];
+    }
+  }
+
   componentDidMount() {
 
-    // future: avoid calling two setstates
+    // todo: clear currentStyle when product changes
+    // had to do it nested like this to have access to
+    // all the results for one setState
     helperFunctions.getProductById(this.props.currentProduct)
-    .then((product) => this.setState({product}));
-
-    helperFunctions.getProductStylesById(this.props.currentProduct)
-    .then((productStyles) => this.setState({productStyles}));
+    .then((product) => {
+      return helperFunctions.getProductStylesById(this.props.currentProduct)
+        .then((productStyles) => {
+          console.log({product, productStyles});
+          if (!this.state.currentStyle) {
+            this.setState({
+              product: product,
+              productStyles: productStyles,
+              currentStyle: this.getDefaultStyle(productStyles)
+            });
+          } else {
+            this.setState({
+              product: product,
+              productStyles: productStyles
+            });
+          }
+        })
+    })
+    .catch((error) => console.error(error));
 
   }
+
   // table for now, will do layout properly in CSS
   render() {
     return (
@@ -36,17 +67,17 @@ class Overview extends React.Component {
           <tbody>
             <tr>
               <td>
-                <OverviewImages product={this.state.product} productStyles={this.state.productStyles}/>
+                <OverviewImages product={this.state.product} currentStyle={this.state.currentStyle}/>
               </td>
               <td>
-                <OverviewInformation />
-                <OverviewStyles />
+                <OverviewInformation product={this.state.product} currentStyle={this.state.currentStyle}/>
+                <OverviewStyles productStyles={this.state.productStyles} currentStyle={this.state.currentStyle}/>
                 <OverviewCart />
               </td>
             </tr>
             <tr>
-              <td>
-                <OverviewDescription />
+              <td colSpan='2'>
+                <OverviewDescription product={this.state.product}/>
               </td>
             </tr>
           </tbody>

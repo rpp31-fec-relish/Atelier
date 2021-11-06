@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   text-align: center;
 }
@@ -94,4 +98,9 @@ body {
   border: none;
   background: transparent;
   text-decoration: underline;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
 }
