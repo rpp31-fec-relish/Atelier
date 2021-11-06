@@ -1,6 +1,7 @@
 import React from 'react';
-import RelatedProducts from './RelatedProducts.jsx';
-import Outfits from './Outfits.jsx';
+import RelatedProductsWidget from './RelatedProductsWidget.jsx';
+import OutfitsWidget from './OutfitsWidget.jsx';
+import helperFunctions from '../../helperFunctions.js';
 
 class Related extends React.Component {
 
@@ -10,7 +11,6 @@ class Related extends React.Component {
   }
 
   componentDidMount() {
-    //console.log('relatedproducts mounted');
   }
 
   comparisonChart() {
@@ -23,9 +23,9 @@ class Related extends React.Component {
       <div>
         <div id="RelatedProductsAndOutfits" style={{border: "1px solid black"}}>
           <h4>Related Products</h4>
-          <RelatedProducts product_id={this.props.currentProduct}/>
+          <RelatedProductsWidget currentProduct={this.props.currentProduct}/>
           <h4>Outfits</h4>
-          <Outfits outfits={this.props.outfits}/>
+          <OutfitsWidget outfits={this.props.outfits}/>
         </div>
       </div>
     );

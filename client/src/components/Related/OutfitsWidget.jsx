@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Outfits = (props) => {
+const OutfitsWidget = (props) => {
   if (props.outfits.length === 0) {
     return '';
   } else {
@@ -47,4 +47,4 @@ const Outfits = (props) => {
   }
 }
 
-export default Outfits;
+export default OutfitsWidget;

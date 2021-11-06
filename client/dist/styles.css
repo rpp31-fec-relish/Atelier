@@ -50,8 +50,8 @@ body {
   border: 1px solid black;
 }
 
-#RP-image img {
-  max-width: 100%;
+#RP-image {
+  width: 100px;
 }
 
 #OutfitsWidget {
