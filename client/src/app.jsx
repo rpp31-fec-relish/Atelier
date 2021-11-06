@@ -34,7 +34,7 @@ class App extends React.Component {
     return (
       <div>
         <h1>ATELIER</h1>
-        <Overview currentProduct={this.state.currentProduct}addToOutfit={this.addToOutfit}/>
+        <Overview currentProduct={this.state.currentProduct} addToOutfit={this.addToOutfit}/>
         <Related currentProduct={this.state.currentProduct} outfits={this.state.outfits} addToOutfit={this.addToOutfit}/>
         <QandA currentProduct={this.state.currentProduct}/>
         <Reviews currentProduct={this.state.currentProduct}/>
