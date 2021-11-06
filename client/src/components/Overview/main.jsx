@@ -45,7 +45,6 @@ class Overview extends React.Component {
     .then((product) => {
       return helperFunctions.getProductStylesById(this.props.currentProduct)
         .then((productStyles) => {
-          console.log({product, productStyles});
           if (!this.state.currentStyle) {
             this.setState({
               product: product,

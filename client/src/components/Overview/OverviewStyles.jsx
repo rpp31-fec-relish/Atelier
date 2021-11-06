@@ -14,7 +14,6 @@ class OverviewStyles extends React.Component {
     return this.props.productStyles.map((style, index) => {
         let url = style.photos[0].thumbnail_url;
         if (style.style_id && this.props.currentStyle.style_id === style.style_id) {
-          console.log('found selected style: ', style.id);
           if (url) {
             return (<img className='OverviewSelectedStyle' id={index} key={index} src={url} width='50' height='50' onClick={this.handleStyleClick.bind(this)}/>);
           } else {
