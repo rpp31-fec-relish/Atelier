@@ -4,18 +4,24 @@ class OverviewStyles extends React.Component {
 
   // Component for displaying and selecting styles of product
 
+  handleStyleClick(event) {
+    this.props.setStyle(this.props.productStyles[event.target.id]);
+  }
+
   constructStylePicker() {
 
     // todo: avoid warping when resizing
     return this.props.productStyles.map((style, index) => {
         let url = style.photos[0].thumbnail_url;
         if (url) {
-          return (<img key={index} src={url} width='50' height='50'/>);
+          return (<img id={index} key={index} src={url} width='50' height='50' onClick={this.handleStyleClick.bind(this)}/>);
         } else {
-          return (<img key={index} src='./images/missingImage.svg' width='50' height='50'/>);
+          return (<img id={index} key={index} src='./images/missingImage.svg' width='50' height='50'/>);
         }
       });
   }
+
+
 
   render() {
     if (this.props.currentStyle && this.props.productStyles) {
