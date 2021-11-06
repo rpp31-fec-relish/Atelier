@@ -32,7 +32,7 @@ class ReviewMeta extends React.Component {
   render() {
     return (
       <div className="reviewMeta">
-        <div /*---will display product rating, but again unsure where exactly we are pulling the data from, as it is not in the reviewMeta data. Also thinking of changing this into a table, this is for proof of concept for now*//>
+        <div /*will use an agregate of the ratings, will discuss with pair, may potnetially put in helper functions for global access*//>
         <div>Characteristics:</div>
         {Object.keys(this.state.characteristics).map((trait) => <div key={this.state.characteristics[trait].id}>{trait}: {this.state.characteristics[trait].value}</div>)}
         <div>Recomended: </div>

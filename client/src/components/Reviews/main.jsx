@@ -28,17 +28,6 @@ class Reviews extends React.Component {
       console.error('Error setting state of reviews', err)
     })
     console.log(helperFunctions.getReviewsMetaById(currentProduct))
-    helperFunctions.getReviewsMetaById(currentProduct)
-    .then((metaData)  => {
-      console.log('metaData: ', metaData);
-      this.setState({
-        reviewMetaData: metaData
-      })
-      console.log(this.state.reviewMetaData);
-    })
-    .catch((err) => {
-      console.error('Error setting state of reviewMetaData', err)
-    })
   }
 
   //---will need multiple helper functions, functions include various ajax requests (though that may be top level), switching
