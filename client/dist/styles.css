@@ -100,6 +100,36 @@ body {
   text-decoration: underline;
 }
 
+.modalBackground {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(200,200,200, .50);
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+}
+
+.modalContainer {
+  width: 500px;
+  height: 500px;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, .35) 0px, 5px, 15px;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+}
+
+.modalCloseButton {
+  display: flex;
+  justify-content: flex-end;
+  border: none;
+  background: transparent;
+}
+
 table {
   margin-left: auto;
   margin-right: auto;
