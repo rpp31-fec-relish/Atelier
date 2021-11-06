@@ -17,7 +17,7 @@ class App extends React.Component {
   render() {
     return (
     <div>
-      <h1>HELLO WORLD</h1>
+      <h1>ATELIER</h1>
       <Overview currentProduct={this.state.currentProduct}/>
       <Related currentProduct={this.state.currentProduct} outfits={this.state.outfits}/>
       <QandA currentProduct={this.state.currentProduct}/>
