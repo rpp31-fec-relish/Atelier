@@ -12,7 +12,7 @@ class RelatedProductsWidget extends React.Component {
 
   componentDidMount() {
     let currentProduct = this.props.currentProduct;
-    // gets the related products array based on the current product
+
     helperFunctions.getRelatedProductsById(currentProduct)
       .then(products => {
         let newData = [];
@@ -27,13 +27,11 @@ class RelatedProductsWidget extends React.Component {
         results.forEach(product => {
           helperFunctions.getProductStylesById(product[0])
             .then(productStyle => {
-              // for now, just get the photos of the first style/listing
               if (productStyle.length > 0) {
                 product.push(productStyle[0].photos);
               } else {
                 console.error('No product styles');
               }
-              // --later--consider what to do when the photo doesn't exist (`null`)
               return results;
             })
             .then(relevantData => {
@@ -46,10 +44,9 @@ class RelatedProductsWidget extends React.Component {
   }
 
   render() {
-    console.log(this.state.relatedProducts);
     return (
       <section id="RelatedProductsWidget">
-        {this.state.relatedProducts.map((item) => <RelatedProduct key={'relatedProduct_' + item[0]} id={item[0]} name={item[1]} category={item[2]} price={item[3]} image={item[5]}/>)}
+        {this.state.relatedProducts.map((item) => <RelatedProduct key={'relatedProduct_' + item[0]} id={item[0]} name={item[1]} category={item[2]} price={item[3]} image={item[5]} assignImage={this.props.assignImage}/>)}
       </section>
     )
   }

@@ -38,20 +38,29 @@ body {
   border: 1px solid grey;
 }
 
+#RelatedProductsAndOutfits h4 {
+  text-align: left;
+  font-family: Arial;
+  font-weight: lighter;
+  color: rgb(110, 110, 110);
+  font-size: 12px;
+}
+
 #RelatedProductsWidget {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 }
 
 #RelatedProduct {
   justify-content: center;
-  display: flex;
+  display: inline-block;
   flex: 0 1 calc(25% - 1em);
   border: 1px solid black;
 }
 
 #RP-image {
-  width: 100px;
+  width: 150px;
+  height: 150px;
 }
 
 #OutfitsWidget {
@@ -60,7 +69,12 @@ body {
 }
 
 #OutfitItem {
-  display: flex;
+  display: inline-block;
   flex: 0 1 calc(25% - 1em);
   border: 1px solid black;
+}
+
+#Outfit-image {
+  width: 150px;
+  height: 150px;
 }
