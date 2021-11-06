@@ -54,3 +54,8 @@ div.product a {
   padding: 14px;
   text-decoration: none;
 }
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+}

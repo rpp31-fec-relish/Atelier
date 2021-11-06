@@ -2,6 +2,8 @@ import React from 'react';
 
 class OverviewInformation extends React.Component {
 
+  // todo: render rating, price based on style
+
   render() {
     if (this.props.product) {
       return (

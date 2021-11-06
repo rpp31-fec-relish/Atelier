@@ -19,40 +19,41 @@ class Overview extends React.Component {
 
   }
 
-  getDefaultStyle() {
-    if (this.state.productStyles && this.state.productStyles.length > 0) {
-      for (let i = 0; i < this.state.productStyles.length; i++) {
-        if (this.state.productStyles[i]['default?']) {
-          return this.state.productStyles[i];
+  getDefaultStyle(productStyles) {
+    if (productStyles && productStyles.length > 0) {
+      for (let i = 0; i < productStyles.length; i++) {
+        if (productStyles[i]['default?']) {
+          return productStyles[i];
         }
       }
       // if no style marked default, choose first style
-      return this.state.productStyles[0];
+      return this.productStyles[0];
     }
   }
 
   componentDidMount() {
 
-    // future: avoid calling three setstates
+    // todo: clear currentStyle when product changes
+    // had to do it nested like this to have access to
+    // all the results for one setState
     helperFunctions.getProductById(this.props.currentProduct)
     .then((product) => {
-      console.log('setting product');
-      this.setState({product});
-    })
-    .then(() => {
-      console.log('getting styles');
-      return helperFunctions.getProductStylesById(this.props.currentProduct);
-    })
-    .then((productStyles) => {
-      console.log('setting styles');
-      this.setState({productStyles});
-    })
-    .then(() => {
-      // todo: clear currentStyle when product changes
-      console.log('setting currentStyle ', this.state.currentStyle, this.getDefaultStyle());
-      if (!this.state.currentStyle) {
-        this.setState({currentStyle: this.getDefaultStyle()});
-      }
+      return helperFunctions.getProductStylesById(this.props.currentProduct)
+        .then((productStyles) => {
+          console.log({product, productStyles});
+          if (!this.state.currentStyle) {
+            this.setState({
+              product: product,
+              productStyles: productStyles,
+              currentStyle: this.getDefaultStyle(productStyles)
+            });
+          } else {
+            this.setState({
+              product: product,
+              productStyles: productStyles
+            });
+          }
+        })
     })
     .catch((error) => console.error(error));
 
@@ -75,7 +76,7 @@ class Overview extends React.Component {
               </td>
             </tr>
             <tr>
-              <td>
+              <td colSpan='2'>
                 <OverviewDescription product={this.state.product}/>
               </td>
             </tr>
