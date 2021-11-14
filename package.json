@@ -4,7 +4,7 @@
   "description": "FEC sprint repository",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "start": "nodemon start server.js",
     "webpack": "webpack -w"
   },
