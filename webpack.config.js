@@ -1,12 +1,16 @@
 var path = require("path");
 var SRC_DIR = path.join(__dirname, "/client/src");
 var DIST_DIR = path.join(__dirname, "/client/dist");
+var OVERVIEW_DIR = path.join(__dirname, "/client/src/components/Overview/");
 
 module.exports = {
-  entry: `${SRC_DIR}/app.jsx`,
+  entry: {
+    app: `${SRC_DIR}/app.jsx`,
+    test: `${OVERVIEW_DIR}/maintest.jsx`
+  },
   mode: "development",
   output: {
-    filename: "app.js",
+    filename: "[name].js",
     path: DIST_DIR,
   },
   module: {
