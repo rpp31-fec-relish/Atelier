@@ -2,3 +2,4 @@ node_modules
 githubtoken.js
 client/dist/app.js
 .DS_Store
+coverage
