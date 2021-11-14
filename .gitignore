@@ -1,4 +1,5 @@
 node_modules
 githubtoken.js
 client/dist/app.js
+client/dist/test.js
 .DS_Store
