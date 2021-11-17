@@ -7,11 +7,10 @@ module.exports = {
   mode: 'development',
   plugins: [new CompressionPlugin()],
   entry: `${SRC_DIR}/app.jsx`,
-  // entry: ['regenerator-runtime/runtime.js'],
   module: {
     rules: [
       {
-        test: [/\.jsx$/],
+        test: /\.js*?/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -27,7 +26,6 @@ module.exports = {
     ]
   },
   output: {
-    //filename: 'bundle.js'
     filename: 'app.js',
     path: DIST_DIR,
   },
