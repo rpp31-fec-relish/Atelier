@@ -1,7 +1,7 @@
 import React from 'react';
 
 const OutfitItem = (props) => {
-  if (props.outfits.length > 0) {
+  if (props.outfits) {
     return (
       <div id="OutfitItem">
         <input id="Outfit-image" type="image" alt="image" src={props.assignImage()}></input>
