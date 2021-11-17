@@ -6,7 +6,8 @@ var DIST_DIR = path.join(__dirname, "/client/dist");
 module.exports = {
   mode: 'development',
   plugins: [new CompressionPlugin()],
-  entry: ['regenerator-runtime/runtime.js'],
+  entry: `${SRC_DIR}/app.jsx`,
+  // entry: ['regenerator-runtime/runtime.js'],
   module: {
     rules: [
       {
@@ -26,7 +27,8 @@ module.exports = {
     ]
   },
   output: {
-    filename: 'bundle.js',
+    //filename: 'bundle.js'
+    filename: 'app.js',
     path: DIST_DIR,
   },
 };
