@@ -3,7 +3,6 @@ import {setupServer} from 'msw/node';
 import {render, fireEvent, waitFor, screen, act, cleanup} from '@testing-library/react';
 import React from 'react';
 import '@testing-library/jest-dom';
-import TestRenderer from 'react-test-renderer';
 import axios, { get } from 'axios';
 import Related from '../../client/src/components/Related/main.jsx';
 import "regenerator-runtime/runtime.js";
