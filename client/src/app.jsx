@@ -10,7 +10,7 @@ function App(props) {
   const [outfits, setOutfits] = useState([]);
 
   const changeCurrentProduct = (productId) =>  {
-    setCurrentProduct(productId)
+    setCurrentProduct(productId);
   }
 
   const addToOutfit = (productId) => {
@@ -29,7 +29,7 @@ function App(props) {
     <div>
       <h1>ATELIER</h1>
       <Overview currentProduct={currentProduct} addToOutfit={addToOutfit}/>
-      <Related currentProduct={currentProduct} outfits={outfits} addToOutfit={addToOutfit}/>
+      <Related currentProduct={currentProduct} outfits={outfits} addToOutfit={addToOutfit} changeCurrentProduct={changeCurrentProduct}/>
       <QandA currentProduct={currentProduct}/>
       <Reviews currentProduct={currentProduct}/>
     </div>

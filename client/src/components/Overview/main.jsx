@@ -63,6 +63,12 @@ class Overview extends React.Component {
 
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.currentProduct !== this.props.currentProduct) {
+      this.componentDidMount();
+    }
+  }
+
   // table for now, will do layout properly in CSS
   render() {
     return (

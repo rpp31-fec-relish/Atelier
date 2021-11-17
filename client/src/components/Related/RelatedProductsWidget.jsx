@@ -43,10 +43,16 @@ class RelatedProductsWidget extends React.Component {
       .catch(err => console.error(err));
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.currentProduct !== this.props.currentProduct) {
+      this.componentDidMount();
+    }
+  }
+
   render() {
     return (
       <section id="RelatedProductsWidget">
-        {this.state.relatedProducts.map((item) => <RelatedProduct key={'relatedProduct_' + item[0]} id={item[0]} name={item[1]} category={item[2]} price={item[3]} image={item[5]} assignImage={this.props.assignImage}/>)}
+        {this.state.relatedProducts.map((item) => <RelatedProduct key={'relatedProduct_' + item[0]} id={item[0]} name={item[1]} category={item[2]} price={item[3]} image={item[5]} assignImage={this.props.assignImage} changeCurrentProduct={this.props.changeCurrentProduct}/>)}
       </section>
     )
   }
