@@ -1,6 +1,49 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import helperFunctions from '../../helperFunctions';
+
+// function CreateReview(props) {
+
+//   const[buttonText, changeButtonText] = useState('Recommended?')
+//   const[newReview, ] = useState(....)
+
+
+//   componentDidMount() {
+//     console.log(this.props.currentProduct)
+//     let currentProduct = this.props.currentProduct;
+//     helperFunctions.getReviewsMetaById(currentProduct)
+//     .then((metaData)  => {
+//       console.log('metaData: ', metaData);
+//       let updatedProducts = {
+//           product_id: props.currentProduct ,
+//           rating: 0,
+//           summary: "",
+//           body: "",
+//           recommend: false,
+//           name: "",
+//           email: "",
+//           // "photos": ["", ""],
+//           characteristics: {
+
+//           }
+
+
+//         //have the object be populated with the meta data information to add to state for the charectertics, it will dynamicly fill out the state data and updata without usseing the 'setstate' function but instead an
+//       }
+//     })
+//     .catch((err) => {
+//       console.error('Error setting state of reviewMetaData', err)
+//     })
+//   }
+
+// }
+
+
+//this is a hook version of it
+
+
+
+
 
 class CreateReview extends React.Component {
   constructor(props){
@@ -43,42 +86,42 @@ class CreateReview extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    console.log(this.props.currentProduct)
-    let currentProduct = this.props.currentProduct;
-    helperFunctions.getReviewsMetaById(currentProduct)
-    .then((metaData)  => {
-      console.log('metaData: ', metaData);
-      this.setState({
-        ...this.state,
-        newReview: {
-          ...this.state.newReview,
-          characteristics: {
-            ...this.state.newReview.characteristics,
-            Comfort: {
-              ...this.state.newReview.characteristics.Comfort,
-              id: metaData.characteristics.Comfort.id
-            },
-            Fit: {
-              ...this.state.newReview.characteristics.Fit,
-              id: metaData.characteristics.Fit.id
-            },
-            Length: {
-              ...this.state.newReview.characteristics.Length,
-              id: metaData.characteristics.Length.id
-            },
-            Quality: {
-              ...this.state.newReview.characteristics.Quality,
-              id: metaData.characteristics.Quality.id
-            },
-          }
-        }
-      })
-    })
-    .catch((err) => {
-      console.error('Error setting state of reviewMetaData', err)
-    })
-  }
+  // componentDidMount() {
+  //   console.log(this.props.currentProduct)
+  //   let currentProduct = this.props.currentProduct;
+  //   helperFunctions.getReviewsMetaById(currentProduct)
+  //   .then((metaData)  => {
+  //     console.log('metaData: ', metaData);
+  //     this.setState({
+  //       ...this.state,
+  //       newReview: {
+  //         ...this.state.newReview,
+  //         characteristics: {
+  //           ...this.state.newReview.characteristics,
+  //           Comfort: {
+  //             ...this.state.newReview.characteristics.Comfort,
+  //             id: metaData.characteristics.Comfort.id
+  //           },
+  //           Fit: {
+  //             ...this.state.newReview.characteristics.Fit,
+  //             id: metaData.characteristics.Fit.id
+  //           },
+  //           Length: {
+  //             ...this.state.newReview.characteristics.Length,
+  //             id: metaData.characteristics.Length.id
+  //           },
+  //           Quality: {
+  //             ...this.state.newReview.characteristics.Quality,
+  //             id: metaData.characteristics.Quality.id
+  //           },
+  //         }
+  //       }
+  //     })
+  //   })
+  //   .catch((err) => {
+  //     console.error('Error setting state of reviewMetaData', err)
+  //   })
+  // }
 
   recommend(e) {
     e.preventDefault();
