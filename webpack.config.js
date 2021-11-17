@@ -6,11 +6,11 @@ var DIST_DIR = path.join(__dirname, "/client/dist");
 module.exports = {
   mode: 'development',
   plugins: [new CompressionPlugin()],
-  entry: ['regenerator-runtime/runtime.js'],
+  entry: `${SRC_DIR}/app.jsx`,
   module: {
     rules: [
       {
-        test: [/\.jsx$/],
+        test: /\.js*?/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -26,7 +26,7 @@ module.exports = {
     ]
   },
   output: {
-    filename: 'bundle.js',
+    filename: 'app.js',
     path: DIST_DIR,
   },
 };
