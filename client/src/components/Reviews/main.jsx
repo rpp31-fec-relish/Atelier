@@ -35,9 +35,9 @@ class Reviews extends React.Component {
   }
 
   handleClickOne() {
-    this.setState ({
-      displayCreateReview: true
-    })
+    this.setState (prevState => ({
+      displayCreateReview: (!prevState.displayCreateReview)
+    }))
   }
 
   //---will need multiple helper functions, functions include various ajax requests (though that may be top level), switching
@@ -46,7 +46,7 @@ class Reviews extends React.Component {
     //---will use CSS styling for specific placement
     let reviews;
     if (this.state.displayCreateReview) {
-      reviews = <CreateReview currentProduct={this.props.currentProduct}/>
+      reviews = <CreateReview currentProduct={this.props.currentProduct} displayCreateReview={this.handleClickOne}/>
     } else {
       reviews = <div id="reviews">
         <button className="reviewListSortButton" /*---turn into dropdown list that when selected will create get request with sort perameters*/>Sort reviews by relavence</button>

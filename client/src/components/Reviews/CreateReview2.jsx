@@ -37,28 +37,31 @@ function CreateReview2(props) {
   }, [])
 
 
-
-
   return (
-      <form>
-        <label>
-          Summary:
-          <textarea className="createReviewSummary" name='summary'/>
-        </label>
-        <label>
-          Body:
-          <textarea className="createReviewBody" name='body'/>
-        </label>
-        <label>
-          Name:
-          <input className="createReviewName" name='name'></input>
-        </label>
-        <label>
-          Email:
-          <input className="createReviewEmail" name="email"></input>
-        </label>
-        <button className="createReviewSubmitButton" type='submit'>Submit</button>
-      </form>
+    <div className="modalBackground">
+      <div className="modalContainer">
+      <button className="modalCloseButton" onClick={props.displayCreateReview}>X</button>
+        <form>
+          <label>
+            Summary:
+            <textarea className="createReviewSummary" name='summary'/>
+          </label>
+          <label>
+            Body:
+            <textarea className="createReviewBody" name='body'/>
+          </label>
+          <label>
+            Name:
+            <input className="createReviewName" name='name'></input>
+          </label>
+          <label>
+            Email:
+            <input className="createReviewEmail" name="email"></input>
+          </label>
+          <button className="createReviewSubmitButton" type='submit'>Submit</button>
+        </form>
+      </div>
+    </div>
   )
 
 }
