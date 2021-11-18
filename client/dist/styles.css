@@ -55,7 +55,6 @@ body {
 
 #RelatedProductsWidget {
   display: flex;
-  /* justify-content: space-between; */
 }
 
 #RelatedProduct {
@@ -72,7 +71,6 @@ body {
 
 #OutfitsWidget {
   display: flex;
-  justify-content: space-between;
 }
 
 #OutfitText{
@@ -85,10 +83,9 @@ body {
 }
 
 #OutfitItem {
+  justify-content: center;
   display: inline-block;
   flex: 0 1 calc(25% - 1em);
-  width: 200px;
-  height: 210px;
   border: 1px solid black;
 }
 
