@@ -13,8 +13,6 @@ function CreateReview2(props) {
     let currentProduct = props.currentProduct;
     helperFunctions.getReviewsMetaById(currentProduct)
     .then((metaData)  => {
-      console.log('metaData: ', metaData);
-      console.log('productCharacteristics: ', productCharacteristics)
       let productCharacteristics = {}
       Object.keys(metaData.characteristics).map((key) => {
         console.log('key: ', key);
@@ -28,7 +26,7 @@ function CreateReview2(props) {
     .catch((err) => {
       console.error('Error setting state of reviewMetaData', err)
     })
-  }, [])
+  }, ['TightShort','Runs slightly short','Perfect','Runs Tighttly long','Runs long'])
 
   let characteristicNames = Object.keys(characteristics);
 
@@ -50,89 +48,32 @@ function CreateReview2(props) {
     e.preventDefault();
     console.log("characteristics: ", characteristics)
 
+    //map over characteristics
+
+    let review = {
+      product_id: props.currentProduct,
+      rating: 'your mother'
+    }
+
     //this needs to become a post request including characteristics and newReview, shoudl also close modal
+
+    //helperFunctions.postReview(review);
+    //props.displayCreateReview()
   }
 
-  console.log(characteristics);
+  //may put these helper functions into a seperate file for readabilities sake
 
-  const trait1 = (trait) => {
-    if (trait === 'Size') {
-      return 'A size too small'
-    } else if (trait === 'Width') {
-      return 'Too narrow'
-    } else if (trait === 'Comfort') {
-      return 'Uncomfortable'
-    } else if (trait === 'Quality') {
-      return 'Poor'
-    } else if (trait === 'Length') {
-      return 'Runs short'
-    } else if (trait === 'Fit') {
-      return 'Runs tight'
-    }
-  }
+  const traits = (trait, index) => {
 
-  const trait2 = (trait) => {
-    if (trait === 'Size') {
-      return '½ a size too small'
-    } else if (trait === 'Width') {
-      return 'Slightly narrow'
-    } else if (trait === 'Comfort') {
-      return 'Slightly uncomfortable'
-    } else if (trait === 'Quality') {
-      return 'Bellow Average'
-    } else if (trait === 'Length') {
-      return 'Runs slightly short'
-    } else if (trait === 'Fit') {
-      return 'Runs slightly tight'
+    let traits = {
+      'Size': ['A size too small', '½ a size too small', 'Perfect', '½ a size too big', 'A size too wide'],
+      'Width': ['Too narrow','Slightly narrow','Perfect','Slightly wide','Too wide'],
+      'Comfort': ['Uncomfortable', 'Slightly uncomfortable', 'Ok','Comfortable','Perfect'],
+      'Quality': ['Poor','Below average','What I expected','Pretty great', 'Perfect'],
+      'Length': ['Runs Short','Runs slightly short','Perfect','Runs slightly long','Runs long'],
+      'Fit': ['Runs Tight','Runs slightly Tight','Perfect','Runs slightly long','Runs long'],
     }
-  }
-
-  const trait3 = (trait) => {
-    if (trait === 'Size') {
-      return 'Perfect'
-    } else if (trait === 'Width') {
-      return 'Perfect'
-    } else if (trait === 'Comfort') {
-      return 'Ok'
-    } else if (trait === 'Quality') {
-      return 'What I Expected'
-    } else if (trait === 'Length') {
-      return 'Perfect'
-    } else if (trait === 'Fit') {
-      return 'Perfect'
-    }
-  }
-
-  const trait4 = (trait) => {
-    if (trait === 'Size') {
-      return '½ a size too big'
-    } else if (trait === 'Width') {
-      return 'Slightly wide'
-    } else if (trait === 'Comfort') {
-      return 'Comfortable'
-    } else if (trait === 'Quality') {
-      return 'Pretty great'
-    } else if (trait === 'Length') {
-      return 'Runs slightly long'
-    } else if (trait === 'Fit') {
-      return 'Runs slightly long'
-    }
-  }
-
-  const trait5 = (trait) => {
-    if (trait === 'Size') {
-      return 'A size too wide'
-    } else if (trait === 'Width') {
-      return 'Too wide'
-    } else if (trait === 'Comfort') {
-      return 'Perfect'
-    } else if (trait === 'Quality') {
-      return 'Perfect'
-    } else if (trait === 'Length') {
-      return 'Runs long'
-    } else if (trait === 'Fit') {
-      return 'Runs long'
-    }
+    return traits[trait][index];
   }
 
   return (
@@ -159,15 +100,15 @@ function CreateReview2(props) {
           {characteristicNames.map((trait) => <div className="charactersitic_select" key = {characteristics[trait].id}>
               {trait}:
               <input type="radio" value="1" onChange={handleChange}name={trait}/>
-              <label>{trait1(trait)}</label>
+              <label>{traits(trait, 0)}</label>
               <input type="radio" value="2" onChange={handleChange}name={trait}/>
-              <label>{trait2(trait)}</label>
+              <label>{traits(trait, 1)}</label>
               <input type="radio" value="3" onChange={handleChange}name={trait}/>
-              <label>{trait3(trait)}</label>
+              <label>{traits(trait, 2)}</label>
               <input type="radio" value="4" onChange={handleChange}name={trait}/>
-              <label>{trait4(trait)}</label>
+              <label>{traits(trait, 3)}</label>
               <input type="radio" value="5" onChange={handleChange}name={trait}/>
-              <label>{trait5(trait)}</label>
+              <label>{traits(trait, 4)}</label>
           </div>
           )}
           <button className="createReviewSubmitButton" type='submit' >Submit</button>
