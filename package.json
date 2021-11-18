@@ -20,6 +20,7 @@
   "homepage": "https://github.com/rpp31-fec-relish/Atelier#readme",
   "dependencies": {
     "@babel/cli": "^7.15.7",
+    "@babel/compat-data": "^7.16.4",
     "@babel/core": "^7.15.8",
     "@babel/preset-react": "^7.14.5",
     "@testing-library/jest-dom": "^5.15.0",
@@ -33,6 +34,8 @@
     "react": "^17.0.2",
     "react-cli": "^0.3.1",
     "react-dom": "^17.0.2",
+    "react-simple-star-rating": "^3.0.0",
+    "react-stars-display": "^0.1.24",
     "ts-jest": "^27.0.7",
     "webpack": "^5.59.1"
   },
