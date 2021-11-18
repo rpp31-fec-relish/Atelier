@@ -1,7 +1,7 @@
 import React from 'react';
 import ReviewList from './ReviewList.jsx';
 import ReviewMeta from './ReviewMeta.jsx';
-import CreateReview from './CreateReview2.jsx';
+import CreateReview from './CreateReview.jsx';
 import helperFunctions from '../../helperFunctions';
 
 class Reviews extends React.Component {

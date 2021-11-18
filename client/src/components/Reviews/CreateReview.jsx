@@ -1,294 +1,148 @@
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import helperFunctions from '../../helperFunctions';
+import { Rating, RatingView } from 'react-simple-star-rating'
 
-// function CreateReview(props) {
+function CreateReview(props) {
 
-//   const[buttonText, changeButtonText] = useState('Recommended?')
-//   const[newReview, ] = useState(....)
+  const[buttonText, changeButtonText] = useState('Recommend?')
+  const[recommend, setRecommend] = useState(false)
+  const[rating, setRating] = useState(0)
+  const[characteristics, setCurrentCharacteristics] = useState({})
 
-
-//   componentDidMount() {
-//     console.log(this.props.currentProduct)
-//     let currentProduct = this.props.currentProduct;
-//     helperFunctions.getReviewsMetaById(currentProduct)
-//     .then((metaData)  => {
-//       console.log('metaData: ', metaData);
-//       let updatedProducts = {
-//           product_id: props.currentProduct ,
-//           rating: 0,
-//           summary: "",
-//           body: "",
-//           recommend: false,
-//           name: "",
-//           email: "",
-//           // "photos": ["", ""],
-//           characteristics: {
-
-//           }
-
-
-//         //have the object be populated with the meta data information to add to state for the charectertics, it will dynamicly fill out the state data and updata without usseing the 'setstate' function but instead an
-//       }
-//     })
-//     .catch((err) => {
-//       console.error('Error setting state of reviewMetaData', err)
-//     })
-//   }
-
-// }
-
-
-//this is a hook version of it
-
-
-
-
-
-class CreateReview extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      buttonText: "Recommend?",
-      newReview: {
-        product_id: props.currentProduct ,
-        rating: 0,
-        summary: "",
-        body: "",
-        recommend: false,
-        name: "",
-        email: "",
-        // "photos": ["", ""],
-        characteristics: {
-          Comfort: {
-            id: 0,
-            value: 0
-          },
-          Fit: {
-            id: 0,
-            value: 0
-          },
-          Length: {
-            id: 0,
-            value: 0
-          },
-          Quality: {
-            id: 0,
-            value: 0
-          },
+  useEffect(() => {
+    //move to main when working on meta data
+    console.log(props.currentProduct)
+    let currentProduct = props.currentProduct;
+    helperFunctions.getReviewsMetaById(currentProduct)
+    .then((metaData)  => {
+      let productCharacteristics = {}
+      Object.keys(metaData.characteristics).map((key) => {
+        console.log('key: ', key);
+        productCharacteristics[key] = {
+          id: metaData.characteristics[key].id,
+          value: 0
         }
-      }
-    }
-    this.recommend = this.recommend.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleChange2 = this.handleChange2.bind(this);
-    this.handleChange3 = this.handleChange3.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  // componentDidMount() {
-  //   console.log(this.props.currentProduct)
-  //   let currentProduct = this.props.currentProduct;
-  //   helperFunctions.getReviewsMetaById(currentProduct)
-  //   .then((metaData)  => {
-  //     console.log('metaData: ', metaData);
-  //     this.setState({
-  //       ...this.state,
-  //       newReview: {
-  //         ...this.state.newReview,
-  //         characteristics: {
-  //           ...this.state.newReview.characteristics,
-  //           Comfort: {
-  //             ...this.state.newReview.characteristics.Comfort,
-  //             id: metaData.characteristics.Comfort.id
-  //           },
-  //           Fit: {
-  //             ...this.state.newReview.characteristics.Fit,
-  //             id: metaData.characteristics.Fit.id
-  //           },
-  //           Length: {
-  //             ...this.state.newReview.characteristics.Length,
-  //             id: metaData.characteristics.Length.id
-  //           },
-  //           Quality: {
-  //             ...this.state.newReview.characteristics.Quality,
-  //             id: metaData.characteristics.Quality.id
-  //           },
-  //         }
-  //       }
-  //     })
-  //   })
-  //   .catch((err) => {
-  //     console.error('Error setting state of reviewMetaData', err)
-  //   })
-  // }
-
-  recommend(e) {
-    e.preventDefault();
-    this.setState({
-      ...this.state,
-      newReview: {
-        ...this.state.newReview,
-        recommend: !this.state.newReview.recommend
-      }
+      })
+      setCurrentCharacteristics(productCharacteristics)
     })
-    //will replace with ternary operator at later date
-    if (this.state.buttonText === "Recommend?") {
-      this.setState({
-        ...this.state,
-        buttonText: "Recommended!"
-      })
-    } else if (this.state.buttonText === "Recommended!") {
-      this.setState({
-        ...this.state,
-        buttonText: "Recommend?"
-      })
-    }
-    console.log(this.state.newReview)
-  }
+    .catch((err) => {
+      console.error('Error setting state of reviewMetaData', err)
+    })
+  }, [])
 
-  handleChange(e) {
+  let characteristicNames = Object.keys(characteristics);
+
+  const handleChange = (e) => {
     const target = e.target;
     const value = target.value;
     const name = target.name;
-    this.setState({
-      ...this.state,
-      newReview: {
-        ...this.state.newReview, [name]:value
-       }
-    });
-  }
-  handleChange2(e) {
-    this.setState({
-      ...this.state,
-      newReview: {
-        ...this.state.newReview,
-        rating: parseInt(e.target.value, 10)
+    setCurrentCharacteristics( prevChar => {
+      return {
+      ...prevChar,
+      [name]: {
+        id: prevChar[name].id,
+        value: parseInt(value, 10)}
       }
     })
   }
 
-  handleChange3(e) {
-    const target = e.target;
-    const value = target.value;
-    const name = target.name;
-    this.setState({
-      ...this.state,
-      newReview: {
-        ...this.state.newReview,
-        characteristics: {
-          ...this.state.newReview.characteristics,
-          [name] : {
-            ...this.state.newReview.characteristics[name], value: parseInt(value, 10)
-          }
-        }
-      }
-    })
+  const handleRating = (rate) => {
+    setRating(rate)
   }
 
-
-  //might need to put this at the main level, leaving commented out till I can test charecteristics
-
-  handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
     let review = {
-      product_id: this.state.newReview.product_id,
-      rating: this.state.newReview.rating,
-      summary: this.state.newReview.summary,
-      body: this.state.newReview.body,
-      recommend: this.state.newReview.recommend,
-      name: this.state.newReview.name,
-      email: this.state.newReview.email,
-      photos: [""],
+      product_id: props.currentProduct,
+      recommend: recommend,
+      summary:e.target[1].value,
+      body: e.target[2].value,
+      name: e.target[3].value,
+      email: e.target[4].value,
+      rating: rating,
       characteristics: {
-        [this.state.newReview.characteristics.Comfort.id] : this.state.newReview.characteristics.Comfort.value,
-        [this.state.newReview.characteristics.Fit.id] : this.state.newReview.characteristics.Fit.value,
-        [this.state.newReview.characteristics.Length.id] : this.state.newReview.characteristics.Length.value,
-        [this.state.newReview.characteristics.Quality.id] : this.state.newReview.characteristics.Quality.value,
+
       }
     }
+
+    characteristicNames.map((trait) => {
+      review.characteristics[characteristics[trait].id] = characteristics[trait].value
+    });
+
+    console.log("review: ", review)
+
     helperFunctions.postReview(review);
+    props.displayCreateReview()
   }
 
-  render() {
-    return (
-      <div className="createReview">
-        <form className="createReviewForm" onSubmit={this.handleSubmit}>
-        <label>
-          Rating:
-          <select className="createReviewRating" value={this.state.value} onChange={this.handleChange2}name='rating'>
-            <option value='1'>1</option>
-            <option value='2'>2</option>
-            <option value='3'>3</option>
-            <option value='4'>4</option>
-            <option value='5'>5</option>
-          </select>
-        </label>
-        <button className="createReviewRecomend" onClick = {this.recommend}>{this.state.buttonText}</button>
-        <tr className="createReviewCharecteristics" /*---this will be a charecteristics table, will need to do a deep dive into how I want to display this, so leaving it minimalistic for now*/>
-          <th>Characteristics:</th>
+  const recommendFunc = (e) => {
+    e.preventDefault();
+    setRecommend(prev => !prev);
+
+    recommend ? changeButtonText('Recommend?') : changeButtonText('Recommended!');
+  }
+
+  //so shiffting the summary to go into the next portion shouldnt be too difficult, we can just have a function that counts the total number of the summary, and if that summary goes over a certain length it will be added into the body at the top, put a new line and then add the body. just make sure to put this functionality in. may have to shift summary and body to be stateful rather then pulled from the form
+
+  const traits = (trait, index) => {
+
+    let traits = {
+      'Size': ['A size too small', '½ a size too small', 'Perfect', '½ a size too big', 'A size too wide'],
+      'Width': ['Too narrow','Slightly narrow','Perfect','Slightly wide','Too wide'],
+      'Comfort': ['Uncomfortable', 'Slightly uncomfortable', 'Ok','Comfortable','Perfect'],
+      'Quality': ['Poor','Below average','What I expected','Pretty great', 'Perfect'],
+      'Length': ['Runs Short','Runs slightly short','Perfect','Runs slightly long','Runs long'],
+      'Fit': ['Runs Tight','Runs slightly Tight','Perfect','Runs slightly long','Runs long'],
+    }
+    return traits[trait][index];
+  }
+
+  return (
+    <div className="modalBackground">
+      <div className="modalContainer">
+      <button className="modalCloseButton" onClick={props.displayCreateReview}>X</button>
+        <form className="createReviewForm" onSubmit={handleSubmit}>
+        <button className="createReviewRecomend" onClick = {recommendFunc}>{buttonText}</button>
           <label>
-            Comfort:
-          <select value={this.state.value} onChange={this.handleChange3}name='Comfort'>
-            <option value='1'>1</option>
-            <option value='2'>2</option>
-            <option value='3'>3</option>
-            <option value='4'>4</option>
-            <option value='5'>5</option>
-          </select>
+            Summary:
+            <textarea className="createReviewSummary" name='summary'/>
           </label>
           <label>
-            Fit:
-          <select value={this.state.value} onChange={this.handleChange3}name='Fit'>
-            <option value='1'>1</option>
-            <option value='2'>2</option>
-            <option value='3'>3</option>
-            <option value='4'>4</option>
-            <option value='5'>5</option>
-          </select>
+            Body:
+            <textarea className="createReviewBody" name='body'/>
           </label>
           <label>
-            Length:
-          <select value={this.state.value} onChange={this.handleChange3}name='Length'>
-            <option value='1'>1</option>
-            <option value='2'>2</option>
-            <option value='3'>3</option>
-            <option value='4'>4</option>
-            <option value='5'>5</option>
-          </select>
+            Name:
+            <input className="createReviewName" name='name'></input>
           </label>
           <label>
-            Quality:
-          <select value={this.state.value} onChange={this.handleChange3}name='Quality'>
-            <option value='1'>1</option>
-            <option value='2'>2</option>
-            <option value='3'>3</option>
-            <option value='4'>4</option>
-            <option value='5'>5</option>
-          </select>
+            Email:
+            <input className="createReviewEmail" name="email"></input>
           </label>
-        </tr>
-        <label>
-          Summary:
-          <textarea className="createReviewSummary" name='summary' onChange={this.handleChange}/>
-        </label>
-        <label>
-          Body:
-          <textarea className="createReviewBody" name='body'onChange={this.handleChange}/>
-        </label>
-        <label>
-          Name:
-          <input className="createReviewName" name='name'onChange={this.handleChange}></input>
-        </label>
-        <label>
-          Email:
-          <input className="createReviewEmail" name="email" onChange={this.handleChange}></input>
-        </label>
-        <button className="createReviewSubmitButton" type='submit'>Submit</button>
+          <label>
+            Rating:<Rating onClick={handleRating} ratingValue={rating}/>
+          </label>
+          {characteristicNames.map((trait) => <div className="charactersitic_select" key = {characteristics[trait].id}>
+              {trait}:
+              <input type="radio" value="1" onChange={handleChange}name={trait}/>
+              <label>{traits(trait, 0)}</label>
+              <input type="radio" value="2" onChange={handleChange}name={trait}/>
+              <label>{traits(trait, 1)}</label>
+              <input type="radio" value="3" onChange={handleChange}name={trait}/>
+              <label>{traits(trait, 2)}</label>
+              <input type="radio" value="4" onChange={handleChange}name={trait}/>
+              <label>{traits(trait, 3)}</label>
+              <input type="radio" value="5" onChange={handleChange}name={trait}/>
+              <label>{traits(trait, 4)}</label>
+          </div>
+          )}
+          <button className="createReviewSubmitButton" type='submit' >Submit</button>
         </form>
       </div>
-    );
-  }
+    </div>
+  )
+
 }
 
 export default CreateReview;
