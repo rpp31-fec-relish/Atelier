@@ -1,13 +1,16 @@
 import React from 'react';
 
 const OutfitItem = (props) => {
-  if (props.outfits) {
+  let {id, name, category, price, image, assignImage, outfits} = props;
+  console.log('testing outfit item: ', id, name, category, price, image)
+
+  if (outfits.length > 0) {
     return (
       <div id="OutfitItem">
-        <input id="Outfit-image" type="image" alt="image" src={props.assignImage()}></input>
-        <div>Category</div>
-        <div>Name</div>
-        <div>Price</div>
+        <input id="Outfit-image" type="image" alt="image" src={assignImage(image)}></input>
+        <div>{category}</div>
+        <div>{name}</div>
+        <div>{price}</div>
         <div id="Outfit-rating">&#9733;&#9733;&#9733;&#9734;&#9734;</div>
       </div>
     )
