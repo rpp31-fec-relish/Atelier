@@ -2,21 +2,15 @@ import React from 'react';
 import QandAElement from './QandAElement.jsx';
 
 
-class QandAElementContainer extends React.Component {
+function QandAElementContainer({questions, currPageCounter, setCurrPageCounter}) {
 
-  constructor(props) {
-    super(props);
+  const elements = questions.map((question) => {
+    return <QandAElement question={question} key={question.question_id} currPageCounter={currPageCounter} setCurrPageCounter={setCurrPageCounter}/>
+  });
+  if (elements.length === 0) {
+    return (<div id='noQuestions'> There are no questions yet! </div>)
   }
-
-  render() {
-    const elements = this.props.questions.map((question) => {
-      return <QandAElement question={question}/>
-    });
-    if (elements.length === 0) {
-      return (<div id='noQuestions'> There are no questions yet! </div>)
-    }
-    return (<div>{elements}</div>);
-  }
+  return (<div>{elements}</div>);
 
 }
 

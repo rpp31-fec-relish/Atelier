@@ -1,70 +1,55 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import AnswerElement from './AnswerElement.jsx';
 
-class QandAElement extends React.Component {
+function QandAElement({question, currPageCounter, setCurrPageCounter}) {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      moreClicked: false,
-      helpfulClicked: false,
-      reportClicked: false,
-      isSeller: null,
-      numberOfAnswers: null,
-    };
-  }
+  const handleMoreToggle = () => {
+    setCurrPageCounter(currPageCounter + 2);
+    console.log(currPageCounter);
+  };
 
-  handleClicks(e) {
+  const handleClicks = (e) => {
     console.log(e);
-  }
+  };
 
-  render() {
-    console.log(this.props.question);
-    const answers = Object.keys(this.props.question.answers).map((answerId) => {
-      return (
-      <div key={answerId}>
-        <div> A: {this.props.question.answers[answerId].body}</div>
-        <div id='AnswerHelpful'>
-          by {this.props.question.answers[answerId].answerer_name}, {this.props.question.answers[answerId].date} |
-          Helpful?
-          <button id='HelpfulButton'> Yes </button> |
-          <button id='ReportButton'> Report </button>
-         </div>
+  const answers = Object.entries(question.answers).sort((a, b) => b[1].helpfulness - a[1].helpfulness).map((answerEntry) => {
+    let dateTime = question.answers[answerEntry[0]].date.split('-');
+    let months = ['Janurary', 'Feburary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    let timeStamp = months[parseInt(dateTime[1])-1] + ' ' + dateTime[2].slice(0,2) + ', ' + dateTime[0];
+    return (<AnswerElement answer={question.answers[answerEntry[0]]} timeStamp={timeStamp} id={answerEntry[0]} key={answerEntry[0]}/>);
+  });
+  if (answers.length > 2) {
+    return (
+      <div key={question.question_id}>
+        <div id='QuestionHeader'>
+      Q : {question.question_body}
+        </div>
+      <div id='QuestionHelpful'>
+      Helpful?
+      <button id='HelpfulButton'> Yes </button> |
+      <button id='AddAnswerButton'> Add Answer </button>
+        </div>
+      <div>{answers.slice(0, currPageCounter)}</div>
+      <div>
+      <button id='MoreAnswers' onClick={handleMoreToggle}> LOAD MORE ANSWERS </button>
       </div>
-      );
-    });
-    if (this.props.question.answers.length > 2) {
-      return (
-        <div key={this.props.question.question_id}>
-          <div>
-        Q : {this.props.question.question_body}
-          </div>
-        <div id='QuestionHelpful'>
-        Helpful?
-        <button id='HelpfulButton'> Yes </button> |
+      </div>
+    );
+  } else {
+    return (
+      <div key={question.question_id}>
+        <div id='QuestionHeader'>
+      Q : {question.question_body}
+        </div>
+      <div id='QuestionHelpful'>
+      Helpful?
+      <button id='HelpfulButton'> Yes </button> |
         <button id='AddAnswerButton'> Add Answer </button>
-         </div>
-        <div>{answers}</div>
-        <div>
-        <button id='MoreAnswers'> LOAD MORE ANSWERS </button>
         </div>
-        </div>
-      );
-    } else {
-      return (
-        <div key={this.props.question.question_id}>
-          <div>
-        Q : {this.props.question.question_body}
-          </div>
-        <div id='QuestionHelpful'>
-        Helpful?
-        <button id='HelpfulButton'> Yes </button> |
-         <button id='AddAnswerButton'> Add Anser </button>
-         </div>
-        <div>{answers}</div>
+      <div>{answers}</div>
 
-        </div>
-      );
-    }
+      </div>
+    );
   }
 
 }

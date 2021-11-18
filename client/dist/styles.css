@@ -30,8 +30,11 @@ body {
 }
 
 #MoreAnswers {
+  font-weight: bold;
   border: none;
   background: transparent;
+  margin-left: 15px;
+  margin-bottom: 15px;
 }
 
 #MoreAnswerdQuestionsButton, #AddQuestionButtton {
@@ -39,7 +42,7 @@ body {
   background: transparent;
   padding: 15px;
   margin-right: 15px;
-  border: 1px solid grey;
+  border: 1px solid rgb(92, 92, 92);
 }
 
 #RelatedProductsAndOutfits h4 {
@@ -102,6 +105,7 @@ body {
   border: none;
   background: transparent;
   text-decoration: underline;
+  color: rgb(92, 92, 92);
 }
 
 .modalBackground {
@@ -141,4 +145,24 @@ table {
 
 .OverviewSelectedStyle {
   border: 2px solid black;
+}
+
+#QuestionHeader {
+  font-size:20px;
+  font-weight:bold;
+  color: rgb(55, 54, 54);
+
+}
+
+#AnswerBody {
+  font-size:15px;
+  font-weight:none;
+  margin-left: 15px;
+  margin-bottom: 15px;
+}
+
+#AnswerHelpful {
+  margin-top: 5px;
+  font-size:15px;
+  color: rgb(92, 92, 92);
 }
