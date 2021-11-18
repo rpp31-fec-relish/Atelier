@@ -2,7 +2,6 @@ import React from 'react';
 
 const OutfitItem = (props) => {
   let {id, name, category, price, image, assignImage, outfits} = props;
-  console.log('testing outfit item: ', id, name, category, price, image)
 
   if (outfits.length > 0) {
     return (

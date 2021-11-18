@@ -41,7 +41,6 @@ class OutfitsWidget extends React.Component {
       return data;
     })
     .then(results =>  {
-      console.log(results);
       helperFunctions.getProductStylesById(results.id)
         .then(styles => {
           results.image = styles[0].photos;
