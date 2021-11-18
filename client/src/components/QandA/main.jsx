@@ -31,7 +31,7 @@ function QandA(props) {
       <div id='QandAContainer'>
         <div id='QandATitle'>Questions & Answers</div>
         <input type='text' id='QandASearchBar'placeholder='HAVE A QUESTION? SEARCH FOR ANSWERS...'></input>
-        <QandAElementContainer questions={currQuestions}/>
+        <QandAElementContainer questions={currQuestions} currPageCounter={currPageCounter} setCurrPageCounter={setCurrPageCounter}/>
         <div id='MoreAnswersContainer'>
         </div>
         <div id='AskMoreQuestionsContainer'>
