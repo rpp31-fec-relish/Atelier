@@ -1,6 +1,7 @@
 import React from 'react';
 import helperFunctions from './../../helperFunctions.js';
 import RelatedProduct from './RelatedProduct.jsx';
+import Carousel from './Carousel.jsx';
 
 class RelatedProductsWidget extends React.Component {
   constructor(props) {
@@ -66,9 +67,10 @@ class RelatedProductsWidget extends React.Component {
 
   render() {
     return (
-      <section id="RelatedProductsWidget">
+      <div id="RelatedProductsWidget">
         {this.state.relatedProductsData.map((item) => <RelatedProduct key={'relatedProduct_' + item.id} id={item.id} name={item.name} category={item.category} price={item.price} image={item.image} assignImage={this.props.assignImage} changeCurrentProduct={this.props.changeCurrentProduct}/>)}
-      </section>
+        <Carousel data={this.state.relatedProductsData} assignImage={this.props.assignImage}/>
+      </div>
     )
   }
 }
