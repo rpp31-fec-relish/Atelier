@@ -1,14 +1,18 @@
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import helperFunctions from '../../helperFunctions';
+import { Rating, RatingView } from 'react-simple-star-rating'
 
 function CreateReview2(props) {
 
-  const[buttonText, changeButtonText] = useState('Recommended?')
+  const[buttonText, changeButtonText] = useState('Recommend?')
+  const[recommend, setRecommend] = useState(false)
+  const[rating, setRating] = useState(0)
   const[newReview] = useState({})
   const[characteristics, setCurrentCharacteristics] = useState({})
 
   useEffect(() => {
+    //move to main when working on meta data
     console.log(props.currentProduct)
     let currentProduct = props.currentProduct;
     helperFunctions.getReviewsMetaById(currentProduct)
@@ -26,7 +30,7 @@ function CreateReview2(props) {
     .catch((err) => {
       console.error('Error setting state of reviewMetaData', err)
     })
-  }, ['TightShort','Runs slightly short','Perfect','Runs Tighttly long','Runs long'])
+  }, [])
 
   let characteristicNames = Object.keys(characteristics);
 
@@ -44,16 +48,35 @@ function CreateReview2(props) {
     })
   }
 
+  const handleRating = (rate) => {
+    setRating(rate)
+  }
+
+  console.log(rating)
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("characteristics: ", characteristics)
 
     //map over characteristics
-
     let review = {
       product_id: props.currentProduct,
-      rating: 'your mother'
+      rating: props.rating,
+      body: '',
+      summary:'',
+      recommend: props.recommend,
+      name: '',
+      email: '',
+      characteristics: {
+
+      }
     }
+
+    characteristicNames.map((trait) => {
+      review.characteristics[characteristics[trait].id] = characteristics[trait].value
+    });
+
+
 
     //this needs to become a post request including characteristics and newReview, shoudl also close modal
 
@@ -61,7 +84,16 @@ function CreateReview2(props) {
     //props.displayCreateReview()
   }
 
-  //may put these helper functions into a seperate file for readabilities sake
+//refactor for hooks!
+
+  const recommendFunc = (e) => {
+    e.preventDefault();
+    setRecommend(prev => !prev);
+
+    recommend ? changeButtonText('Recommend?') : changeButtonText('Recommended!');
+  }
+
+  //so shiffting the summary to go into the next portion shouldnt be too difficult, we can just have a function that counts the total number of the summary, and if that summary goes over a certain length it will be added into the body at the top, put a new line and then add the body. just make sure to put this functionality in.
 
   const traits = (trait, index) => {
 
@@ -81,6 +113,7 @@ function CreateReview2(props) {
       <div className="modalContainer">
       <button className="modalCloseButton" onClick={props.displayCreateReview}>X</button>
         <form className="createReviewForm" onSubmit={handleSubmit}>
+        <button className="createReviewRecomend" onClick = {recommendFunc}>{buttonText}</button>
           <label>
             Summary:
             <textarea className="createReviewSummary" name='summary'/>
@@ -96,6 +129,9 @@ function CreateReview2(props) {
           <label>
             Email:
             <input className="createReviewEmail" name="email"></input>
+          </label>
+          <label>
+            Rating:<Rating onClick={handleRating} ratingValue={rating}/>
           </label>
           {characteristicNames.map((trait) => <div className="charactersitic_select" key = {characteristics[trait].id}>
               {trait}:
