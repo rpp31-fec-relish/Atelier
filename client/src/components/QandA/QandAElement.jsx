@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AnswerElement from './AnswerElement.jsx';
 
-function QandAElement({question, currPageCounter, setCurrPageCounter}) {
+function QandAElement({question, currPageCounter, setCurrPageCounter, modalClick}) {
 
   const handleMoreToggle = () => {
     setCurrPageCounter(currPageCounter + 2);
@@ -27,7 +27,7 @@ function QandAElement({question, currPageCounter, setCurrPageCounter}) {
       <div id='QuestionHelpful'>
       Helpful?
       <button id='HelpfulButton'> Yes </button> |
-      <button id='AddAnswerButton'> Add Answer </button>
+      <button id='AddAnswerButton' onClick={modalClick}> Add Answer </button>
         </div>
       <div>{answers.slice(0, currPageCounter)}</div>
       <div>
@@ -44,7 +44,7 @@ function QandAElement({question, currPageCounter, setCurrPageCounter}) {
       <div id='QuestionHelpful'>
       Helpful?
       <button id='HelpfulButton'> Yes </button> |
-        <button id='AddAnswerButton'> Add Answer </button>
+        <button id='AddAnswerButton' onClick={modalClick}> Add Answer </button>
         </div>
       <div>{answers}</div>
 

@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import QandAElementContainer from './QandAElementContainer.jsx';
-import QandAModal from './QandAModal.jsx';
+import QuestionModal from './QuestionModal.jsx';
+import AnswerModal from './AnswerModal.jsx';
 import helperFunctions from '../../helperFunctions';
 
 function QandA(props) {
 
   const [currQuestions, setCurrQuestions] = useState([]);
   const [currPageCounter, setCurrPageCounter] = useState(1);
-  const [showModal, setShowModal] = useState(false);
+  const [showQuestionModal, setShowQuestionModal] = useState(false);
+  const [showAnswerModal, setShowAnswerModal] = useState(false);
 
-  const openModal = () => {
-    setShowModal(prev => !prev);
+
+  const openQuestionModal = () => {
+    setShowQuestionModal(prev => !prev);
+  }
+
+  const openAnswerModal = () => {
+    setShowAnswerModal(prev => !prev);
   }
 
   useEffect(() => {
@@ -25,19 +32,20 @@ function QandA(props) {
     .catch((err) => {
       console.error('Error setting state of QandA', err)
     });
-  }, []);
+  }, [props.currentProduct]);
 
     return (
       <div id='QandAContainer'>
         <div id='QandATitle'>Questions & Answers</div>
         <input type='text' id='QandASearchBar'placeholder='HAVE A QUESTION? SEARCH FOR ANSWERS...'></input>
-        <QandAElementContainer questions={currQuestions} currPageCounter={currPageCounter} setCurrPageCounter={setCurrPageCounter}/>
+        <QandAElementContainer questions={currQuestions} currPageCounter={currPageCounter} setCurrPageCounter={setCurrPageCounter} modalClick={openAnswerModal}/>
         <div id='MoreAnswersContainer'>
         </div>
         <div id='AskMoreQuestionsContainer'>
           <button id='MoreAnswerdQuestionsButton'> MORE ANSWERED QUESTIONS </button>
-          <button id='AddQuestionButtton' onClick={openModal}> ADD A QUESTION + </button>
-          <QandAModal showModal={showModal} setShowModal={openModal} />
+          <button id='AddQuestionButtton' onClick={openQuestionModal}> ADD A QUESTION + </button>
+          <QuestionModal showModal={showQuestionModal} setShowModal={openQuestionModal} />
+          <AnswerModal showModal={showAnswerModal} setShowModal={openAnswerModal} />
         </div>
       </div>
     );
