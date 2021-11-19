@@ -15,8 +15,8 @@ class OutfitsWidget extends React.Component {
     this.getOutfitData = this.getOutfitData.bind(this);
   }
 
-  handleTextChange() {
-    if (this.props.outfits.includes(this.props.currentProduct)) {
+  handleTextChange(itemId = this.props.currentProduct) {
+    if (this.props.outfits.includes(itemId)) {
       return 'REMOVE FROM OUTFIT';
     } else {
       return 'ADD TO OUTFIT';
@@ -56,6 +56,7 @@ class OutfitsWidget extends React.Component {
 
   handleClick(e) {
     e.preventDefault();
+    // if currentProduct is already in outfits, remove from outfits
     if (this.state.outfitsId.includes(this.props.currentProduct)) {
       let newOutfitsData = [...this.state.outfitsData];
       newOutfitsData.forEach(outfit => {
@@ -64,10 +65,11 @@ class OutfitsWidget extends React.Component {
           ~removeIndex && newOutfitsData.splice(removeIndex, 1);
         }
       })
-      this.setState({outfitsData: newOutfitsData})
+      this.setState({outfitsData: newOutfitsData});
+    // otherwise add to outfits
     } else {
-      this.getOutfitData();
       this.props.addToOutfit(this.props.currentProduct);
+      this.getOutfitData();
     }
   }
 
@@ -81,7 +83,7 @@ class OutfitsWidget extends React.Component {
             }}>+ {this.handleTextChange()}</a>
           </div>
         </div>
-        {this.state.outfitsData.map((outfit) => <OutfitItem key={'outfit_' + outfit.id} id={outfit.id} name={outfit.name} category={outfit.category} price={outfit.price} image={outfit.image} assignImage={this.props.assignImage} outfits={this.props.outfits}/>)}
+        {this.state.outfitsData.map((outfit) => <OutfitItem key={'outfit_' + outfit.id} id={outfit.id} name={outfit.name} category={outfit.category} price={outfit.price} image={outfit.image} assignImage={this.props.assignImage} outfits={this.props.outfits} handleClick={this.handleClick} addToOutfit={this.props.addToOutfit}/>)}
       </section>
     )
   }
