@@ -4,7 +4,7 @@ import QandAElement from './QandAElement.jsx';
 
 function QandAElementContainer({questions, currPageCounter, setCurrPageCounter, modalClick}) {
 
-  const elements = questions.map((question) => {
+  const elements = questions.sort((a, b) => b.question_helpfulness - a.question_helpfulness).map((question) => {
     return <QandAElement question={question} key={question.question_id} currPageCounter={currPageCounter} setCurrPageCounter={setCurrPageCounter} modalClick={modalClick}/>
   });
   if (elements.length === 0) {
