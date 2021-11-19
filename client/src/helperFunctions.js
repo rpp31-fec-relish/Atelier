@@ -113,7 +113,6 @@ const helperFunctions = {
     if (sort != 'newest' && sort != 'helpful' && sort != 'relevant') {
       return new Error('sort parameter must be \'newest\', \'helpful\' or \'relevant\'');
     }
-    console.log('getreviewbyid input check: ',`./api/reviews?product_id=${product_id}&page=${page}&count=${count}&sort=${sort}`)
 
     return axios(`./api/reviews?product_id=${product_id}&page=${page}&count=${count}&sort=${sort}`, {
       method: 'GET'
