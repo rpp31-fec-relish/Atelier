@@ -36,7 +36,7 @@ class Overview extends React.Component {
     this.setState({currentStyle: productStyle});
   }
 
-  componentDidMount() {
+  getProductsAndStyles() {
 
     // todo: clear currentStyle when product changes
     // had to do it nested like this to have access to
@@ -45,21 +45,28 @@ class Overview extends React.Component {
     .then((product) => {
       return helperFunctions.getProductStylesById(this.props.currentProduct)
         .then((productStyles) => {
-          if (!this.state.currentStyle) {
-            this.setState({
-              product: product,
-              productStyles: productStyles,
-              currentStyle: this.getDefaultStyle(productStyles)
-            });
-          } else {
-            this.setState({
-              product: product,
-              productStyles: productStyles
-            });
-          }
+          this.setState({
+            product: product,
+            productStyles: productStyles,
+            currentStyle: this.getDefaultStyle(productStyles)
+          });
         })
     })
     .catch((error) => console.error(error));
+
+  }
+
+  componentDidMount() {
+
+    this.getProductsAndStyles();
+
+  }
+
+  componentDidUpdate(prevProps) {
+
+    if (prevProps.currentProduct != this.props.currentProduct) {
+      this.getProductsAndStyles();
+    }
 
   }
 
