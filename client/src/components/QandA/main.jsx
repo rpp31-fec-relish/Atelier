@@ -10,6 +10,8 @@ function QandA(props) {
   const [currPageCounter, setCurrPageCounter] = useState(1);
   const [showQuestionModal, setShowQuestionModal] = useState(false);
   const [showAnswerModal, setShowAnswerModal] = useState(false);
+  const [searchTerm, setSearchTerm] = useState(" ");
+  const [searchResults, setSearchResults] = useState([]);
 
 
   const openQuestionModal = () => {
@@ -20,6 +22,11 @@ function QandA(props) {
     setShowAnswerModal(prev => !prev);
   }
 
+  const handleChange = event => {
+    setSearchTerm(event.target.value);
+  };
+
+
   useEffect(() => {
     console.log('QandA mounted');
     let currentProduct = props.currentProduct;
@@ -28,17 +35,30 @@ function QandA(props) {
       console.log('questions from fetch', questions);
       setCurrQuestions(questions);
       setCurrPageCounter(currPageCounter + 1);
+      setSearchTerm(" ")
+      setSearchTerm("")
     })
     .catch((err) => {
       console.error('Error setting state of QandA', err)
     });
   }, [props.currentProduct]);
 
+
+  useEffect(() => {
+    if( searchTerm === "" ) {
+        setSearchResults(currQuestions)
+    } else {
+      let results = currQuestions.filter(question => question.question_body.toLowerCase().includes(searchTerm.toLowerCase()));
+      console.log("searchResults", results);
+      setSearchResults(results);
+    }
+  }, [searchTerm]);
+
     return (
       <div id='QandAContainer'>
         <div id='QandATitle'>Questions & Answers</div>
-        <input type='text' id='QandASearchBar'placeholder='HAVE A QUESTION? SEARCH FOR ANSWERS...'></input>
-        <QandAElementContainer questions={currQuestions} currPageCounter={currPageCounter} setCurrPageCounter={setCurrPageCounter} modalClick={openAnswerModal}/>
+        <input type='text' id='QandASearchBar'placeholder='HAVE A QUESTION? SEARCH FOR ANSWERS...' value={searchTerm} onChange={handleChange}></input>
+        <QandAElementContainer questions={searchResults} currPageCounter={currPageCounter} setCurrPageCounter={setCurrPageCounter} modalClick={openAnswerModal}/>
         <div id='MoreAnswersContainer'>
         </div>
         <div id='AskMoreQuestionsContainer'>
