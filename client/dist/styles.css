@@ -45,6 +45,12 @@ body {
   border: 1px solid rgb(92, 92, 92);
 }
 
+#RelatedProductsAndOutfits {
+  max-width: 960px;
+  padding: 0;
+  margin: 0 auto;
+}
+
 #RelatedProductsAndOutfits h4 {
   text-align: left;
   font-family: Arial;
@@ -59,9 +65,17 @@ body {
 
 #RelatedProduct {
   justify-content: center;
+  position: relative;
   display: inline-block;
   flex: 0 1 calc(25% - 1em);
   border: 1px solid black;
+}
+
+#RP-star-modal {
+  position: absolute;
+  top: 8px;
+  right: 5px;
+  color: black;
 }
 
 #RP-image {
@@ -84,6 +98,7 @@ body {
 
 #OutfitItem {
   justify-content: center;
+  position: relative;
   display: inline-block;
   flex: 0 1 calc(25% - 1em);
   border: 1px solid black;
@@ -92,6 +107,14 @@ body {
 #Outfit-image {
   width: 150px;
   height: 150px;
+}
+
+#Outfit-star-modal {
+  position: absolute;
+  top: 8px;
+  right: 5px;
+  color: black;
+  font-size: 25px;
 }
 
 #QuestionHelpful {
