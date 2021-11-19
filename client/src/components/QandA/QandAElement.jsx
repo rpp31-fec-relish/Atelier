@@ -3,6 +3,10 @@ import AnswerElement from './AnswerElement.jsx';
 
 function QandAElement({question, currPageCounter, setCurrPageCounter, modalClick}) {
 
+
+  const [helpfulClicked, toggleHelpful] = useState(false);
+  const [helpfulness, setHelpfulness] = useState(question.question_helpfulness);
+
   const handleMoreToggle = () => {
     setCurrPageCounter(currPageCounter + 2);
     console.log(currPageCounter);
@@ -10,6 +14,20 @@ function QandAElement({question, currPageCounter, setCurrPageCounter, modalClick
 
   const handleClicks = (e) => {
     console.log(e);
+  };
+
+
+  const handleToggleHelpful = () => {
+    toggleHelpful(prev => !prev)
+  };
+
+  const handleHelpfulClicked = () => {
+    handleToggleHelpful();
+    if(helpfulClicked == true) {
+      setHelpfulness(helpfulness - 1);
+    } else {
+      setHelpfulness(helpfulness + 1);
+    }
   };
 
   const answers = Object.entries(question.answers).sort((a, b) => b[1].helpfulness - a[1].helpfulness).map((answerEntry) => {
@@ -26,7 +44,7 @@ function QandAElement({question, currPageCounter, setCurrPageCounter, modalClick
         </div>
       <div id='QuestionHelpful'>
       Helpful?
-      <button id='HelpfulButton'> Yes </button> |
+      <button id='HelpfulButton' onClick={handleHelpfulClicked}> Yes ({helpfulness})</button> |
       <button id='AddAnswerButton' onClick={modalClick}> Add Answer </button>
         </div>
       <div>{answers.slice(0, currPageCounter)}</div>
@@ -43,7 +61,7 @@ function QandAElement({question, currPageCounter, setCurrPageCounter, modalClick
         </div>
       <div id='QuestionHelpful'>
       Helpful?
-      <button id='HelpfulButton'> Yes </button> |
+      <button id='HelpfulButton' onClick={handleHelpfulClicked}> Yes ({helpfulness})</button> |
         <button id='AddAnswerButton' onClick={modalClick}> Add Answer </button>
         </div>
       <div>{answers}</div>
