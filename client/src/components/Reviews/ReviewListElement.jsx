@@ -17,7 +17,7 @@ function ReviewListElement({review}) {
 
   return(
 
-    <div className="reviewListItem" key = {review.review_id}>
+    <div className="reviewListItem">
       <div className="reviewListItemScore" /*---we probably will need an function to convert the rating into star based images here. Maybe we have a top level helper function we invoke here? */>{review.rating}</div>
       <div className="reviewListItemDate">{timeStamp}</div>
       <div className="revviewListItemSummary">{review.summary}</div>

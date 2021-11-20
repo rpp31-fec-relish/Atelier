@@ -16,6 +16,7 @@ class Reviews extends React.Component {
       //need to figure out how the button changes to a submit button, so on submit it works
     }
     this.handleClickOne = this.handleClickOne.bind(this);
+    this.handleClickTwo = this.handleClickTwo.bind(this);
   }
 
 
@@ -39,6 +40,12 @@ class Reviews extends React.Component {
     }))
   }
 
+  handleClickTwo() {
+    this.setState (prevState => ({
+      reviewCount: (prevState.reviewCount + 2)
+    }))
+  }
+
   //---will need multiple helper functions, functions include various ajax requests (though that may be top level), switching
 
   render() {
@@ -49,7 +56,8 @@ class Reviews extends React.Component {
     } else {
       reviews = <div id="reviews">
         <button className="reviewListSortButton" /*---turn into dropdown list that when selected will create get request with sort perameters*/>Sort reviews by relavence</button>
-        <ReviewList reviewsArr={this.state.reviewsArr} currentProduct={this.props.currentProduct}/*---will need to limit rendering to two unless 'More Reviews' button is pressed, in which case it will render two more*//>
+        <button className="reviewListCountbutton" onClick={this.handleClickTwo}>More Reviews</button>
+        <ReviewList reviewsArr={this.state.reviewsArr} currentProduct={this.props.currentProduct} reviewCount={this.state.reviewCount}/*---will need to limit rendering to two unless 'More Reviews' button is pressed, in which case it will render two more*//>
         <ReviewMeta currentProduct={this.props.currentProduct} /*---will place to the side with CSS*//>
         <button className="createReviewLinkButton" onClick={this.handleClickOne}>Create review</button>
         <button className="reviewListMoreReviewsButton" /*---this will toggle two more reviews to be displayed to the review list*/>More Reviews</button>
