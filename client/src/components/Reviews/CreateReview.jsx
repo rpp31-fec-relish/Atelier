@@ -12,13 +12,11 @@ function CreateReview(props) {
 
   useEffect(() => {
     //move to main when working on meta data
-    console.log(props.currentProduct)
     let currentProduct = props.currentProduct;
     helperFunctions.getReviewsMetaById(currentProduct)
     .then((metaData)  => {
       let productCharacteristics = {}
       Object.keys(metaData.characteristics).map((key) => {
-        console.log('key: ', key);
         productCharacteristics[key] = {
           id: metaData.characteristics[key].id,
           value: 0
@@ -69,8 +67,6 @@ function CreateReview(props) {
     characteristicNames.map((trait) => {
       review.characteristics[characteristics[trait].id] = characteristics[trait].value
     });
-
-    console.log("review: ", review)
 
     helperFunctions.postReview(review);
     props.displayCreateReview()
