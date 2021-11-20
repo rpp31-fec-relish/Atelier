@@ -107,12 +107,13 @@ const helperFunctions = {
   // REVIEWS:
   //
 
-  getReviewsById(product_id, page = 1, count = 5, sort = 'newest') {
+  getReviewsById(product_id, page = 1, count = 100, sort = 'relevant') {
     // I: A product id number or string, optionally a ?page number, ?count per page, and ?sort order
     // O: A promise resolving to an array of review objects for the provided product_id.
     if (sort != 'newest' && sort != 'helpful' && sort != 'relevant') {
       return new Error('sort parameter must be \'newest\', \'helpful\' or \'relevant\'');
     }
+
     return axios(`./api/reviews?product_id=${product_id}&page=${page}&count=${count}&sort=${sort}`, {
       method: 'GET'
     })
