@@ -25,7 +25,7 @@ function ReviewListElement({review, index}) {
 
   return(
 
-    <div className="reviewListItem" style={{gridRow: `${index+1}/${index+2}`}} >
+    <div className="reviewListItem" style={{gridRow: `${index+2}/${index+3}`}} >
       <Stars className="reviewListItemScore" stars={review.rating}/>
       <div className="reviewListItemDate">{timeStamp}</div>
       <div className="revviewListItemSummary">{review.summary}</div>

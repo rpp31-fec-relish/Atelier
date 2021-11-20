@@ -61,6 +61,7 @@ class ReviewMeta extends React.Component {
   render() {
     return (
       <div className="reviewMeta">
+        <h2>Product Information</h2>
         <div> {Math.round(this.state.ratingAverage * 10)/10}
         <Stars className="reviewMetaScore" stars={Math.round(this.state.ratingAverage * 10)/10}/>
         </div>

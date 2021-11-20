@@ -51,11 +51,12 @@ class Reviews extends React.Component {
       reviews = <CreateReview currentProduct={this.props.currentProduct} displayCreateReview={this.handleClickOne}/>
     } else {
       reviews = <div className="reviews">
-        <button className="reviewListSortButton" /*---turn into dropdown list that when selected will create get request with sort perameters*/>Sort reviews by relavence</button>
-        <ReviewList reviewsArr={this.state.reviewsArr} currentProduct={this.props.currentProduct} reviewCount={this.state.reviewCount}/*---will need to limit rendering to two unless 'More Reviews' button is pressed, in which case it will render two more*//>
-        <ReviewMeta currentProduct={this.props.currentProduct} /*---will place to the side with CSS*//>
-        <button className="createReviewLinkButton" onClick={this.handleClickOne}>Create review</button>
-        <button className="reviewListMoreReviewsbutton" onClick={this.handleClickTwo}>More Reviews</button>
+        <ReviewList reviewsArr={this.state.reviewsArr} currentProduct={this.props.currentProduct} reviewCount={this.state.reviewCount}/>
+        <ReviewMeta currentProduct={this.props.currentProduct}/>
+        <div className= "reviewButtonsDiv">
+          <button className="createReviewLinkButton" onClick={this.handleClickOne}>Create review</button>
+          <button className="reviewListMoreReviewsbutton" onClick={this.handleClickTwo}>More Reviews</button>
+        </div>
       </div>
     }
 
