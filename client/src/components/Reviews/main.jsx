@@ -32,6 +32,13 @@ class Reviews extends React.Component {
     })
   }
 
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.currentProduct !== this.props.currentProduct) {
+      this.componentDidMount();
+    }
+  }
+
   handleClickOne() {
     this.setState (prevState => ({
       displayCreateReview: (!prevState.displayCreateReview)
