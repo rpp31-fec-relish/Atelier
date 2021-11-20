@@ -9,7 +9,7 @@ function ReviewList(props) {
 
   return (
     <div className="reviewList">
-      {props.reviewsArr.map((review) => {return <ReviewListElement review={review} key={review.review_id}/>}
+      {props.reviewsArr.map((review, index) => {return <ReviewListElement review={review} key={review.review_id} index={index}/>}
       ).slice(0, props.reviewCount)}
     </div>
   )

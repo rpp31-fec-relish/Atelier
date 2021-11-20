@@ -166,3 +166,63 @@ table {
   font-size:15px;
   color: rgb(92, 92, 92);
 }
+
+/* reviews CSS, under construction */
+
+.reviews {
+  display: grid;
+  grid-template-columns: .5fr .5fr 1.5fr .5fr;
+  grid-template-rows: 0.9fr 1.1fr 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  flex-flow: no-wrap;
+  grid-template-areas:
+    ". reviewMeta reviewList ."
+    ". . reviewList ."
+    ". . . .";
+}
+
+.reviewMeta {
+  border-style: transparent;
+  grid-area: reviewMeta;
+}
+
+.reviewList {
+  border-style: transparent;
+  display: grid;
+  grid-template-columns: 0.3fr 2.4fr 0.3fr;
+  grid-template-rows: 0.2fr 0.8fr 2fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    ". . ."
+    ". reviewListItem ."
+    ". . .";
+  grid-area: reviewList;
+}
+
+.reviewListItem {
+  /* position: relative; */
+  border-style: solid;
+  display: grid;
+  /* grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr; */
+  gap: 1px 1px;
+  grid-auto-flow: row;
+  /* grid-template-areas:
+    ". . ."
+    ". . ."
+    ". . ."; */
+  grid-area: reviewListItem;
+  margin: 15px;
+}
+
+.reviewListSortButton{
+  display: grid;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    ". . ."
+    ". . ."
+    ". reviewListSortButton .";
+}

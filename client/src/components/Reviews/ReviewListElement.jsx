@@ -5,7 +5,7 @@ import Stars from '../../../../node_modules/react-stars-display/';
 
 //---so for starters we should think about how we want to structure this. We will map over the div formation in order to show the various componenets of the review.
 
-function ReviewListElement({review}) {
+function ReviewListElement({review, index}) {
 
   const[wasClicked, setWasClicked] = useState(false)
 
@@ -25,7 +25,7 @@ function ReviewListElement({review}) {
 
   return(
 
-    <div className="reviewListItem">
+    <div className="reviewListItem" style={{gridRow: `${index+1}/${index+2}`}} >
       <Stars className="reviewListItemScore" stars={review.rating}/>
       <div className="reviewListItemDate">{timeStamp}</div>
       <div className="revviewListItemSummary">{review.summary}</div>
