@@ -5,12 +5,12 @@ import ReviewListElement from './ReviewListElement.jsx';
 
 function ReviewList(props) {
 
-
+  console.log(props.reviewsArr)
 
   return (
     <div className="reviewList">
       {props.reviewsArr.map((review) => {return <ReviewListElement review={review} key={review.review_id}/>}
-      ).slice(0,props.reviewCount)}
+      ).slice(0, props.reviewCount)}
     </div>
   )
 }

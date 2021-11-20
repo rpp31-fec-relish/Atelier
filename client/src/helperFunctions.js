@@ -107,7 +107,7 @@ const helperFunctions = {
   // REVIEWS:
   //
 
-  getReviewsById(product_id, page = 1, count = 50, sort = 'newest') {
+  getReviewsById(product_id, page = 1, count = 100, sort = 'relevant') {
     // I: A product id number or string, optionally a ?page number, ?count per page, and ?sort order
     // O: A promise resolving to an array of review objects for the provided product_id.
     if (sort != 'newest' && sort != 'helpful' && sort != 'relevant') {
