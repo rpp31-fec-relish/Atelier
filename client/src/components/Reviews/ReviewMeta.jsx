@@ -35,7 +35,7 @@ class ReviewMeta extends React.Component {
         <div /*will use an agregate of the ratings, will discuss with pair, may potnetially put in helper functions for global access*//>
         <div>Characteristics:</div>
         {Object.keys(this.state.characteristics).map((trait) => <div key={this.state.characteristics[trait].id}>{trait}: {this.state.characteristics[trait].value}</div>)}
-        <div>Recomended: </div>
+        <div>Recommended: </div>
         <div>True: {this.state.recommended.true}</div>
         <div>False: {this.state.recommended.false}</div>
         <div> Poduct Ratings: </div>
