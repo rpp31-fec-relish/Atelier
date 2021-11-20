@@ -203,6 +203,7 @@ table {
 .reviewListItem {
   /* position: relative; */
   border-style: solid;
+  border: 1px solid rgb(92, 92, 92);
   display: grid;
   /* grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr; */

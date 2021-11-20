@@ -19,7 +19,8 @@ function ReviewListElement({review, index}) {
     setWasClicked(true);
   }
   const handleNoClick = (e) => {
-    console.log('i also exist!');
+    //need to complete
+    console.log('i was clicked');
   }
 
 
@@ -33,7 +34,7 @@ function ReviewListElement({review, index}) {
       <div className="reviewListItemRecommend">{review.recommend}</div>
       <div className="reviewListItemUser">{review.reviewer_name}</div>
       <div className="reviewListItemResponse">{review.response}</div>
-      <div className="reviewListItemHelpfulness" /*---we will have to make this interactable, if a user clicks on this it needs to update the review itself with a put reqeust. it also needs to limit how many times the user can click the button (once), though they do not need to be logged in to do so*/>Was this review helpful?
+      <div className="reviewListItemHelpfulness" >Was this review helpful?
       <span className="reviewListItemHelpfulnesYes" onClick={handleYesClick}> Yes {review.helpfulness}</span>
       <span onClick={handleNoClick}> No </span>
       </div>

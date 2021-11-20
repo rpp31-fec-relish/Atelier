@@ -12,7 +12,6 @@ class ReviewMeta extends React.Component {
       recommended: {},
       ratingAverage: 0
     }
-    this.logingFunction = this.logingFunction.bind(this)
     this.weightedAverage = this.weightedAverage.bind(this)
   }
 
@@ -21,7 +20,6 @@ class ReviewMeta extends React.Component {
     let currentProduct = this.props.currentProduct;
     helperFunctions.getReviewsMetaById(currentProduct)
     .then((metaData)  => {
-      console.log('metaData: ', metaData);
 
       let ratings = metaData.ratings
       let avg = this.weightedAverage(ratings);
@@ -32,26 +30,14 @@ class ReviewMeta extends React.Component {
         recommended: metaData.recommended,
         ratingAverage: avg
       })
-      console.log(ratings);
-
     })
     .catch((err) => {
       console.error('Error setting state of reviewMetaData', err)
     })
   }
 
-  logingFunction() {
-    console.log('ratings in functions: ', this.state.ratingAverage)
-
-    console.log('ratings: ', this.state.ratings)
-  }
-
-
-
   weightedAverage(ratings) {
     let result = (ratings[5] * 5 + ratings[4] * 4 + ratings[3] * 3 + ratings[2] * 2 + ratings[1] * 1) / ((ratings[5] * 1 + ratings[4] * 1 + ratings[3] * 1 + ratings[2] * 1 + ratings[1] * 1))
-
-    console.log('this should be result: ', result)
 
     return result;
   }

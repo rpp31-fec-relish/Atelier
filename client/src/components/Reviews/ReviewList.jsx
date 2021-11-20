@@ -5,8 +5,6 @@ import ReviewListElement from './ReviewListElement.jsx';
 
 function ReviewList(props) {
 
-  console.log(props.reviewsArr)
-
   return (
     <div className="reviewList">
       <div className="reviewListHeader">
