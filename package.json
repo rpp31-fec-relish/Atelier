@@ -6,7 +6,12 @@
   "scripts": {
     "test": "jest --coverage --env=jsdom",
     "start": "nodemon start server.js",
-    "webpack": "webpack -w"
+    "webpack": "webpack -w",
+    "startPM": "pm2 start server.js",
+    "ShowPM": "pm2 [list|ls|status]",
+    "reloadPM": "pm2 reload server",
+    "stopPM": "pm2 stop server",
+    "deletePM": "pm2 delete server"
   },
   "repository": {
     "type": "git",
