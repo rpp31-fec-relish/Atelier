@@ -36,7 +36,7 @@ function QandAElement({question, currPageCounter, setCurrPageCounter, modalClick
     let timeStamp = months[parseInt(dateTime[1])-1] + ' ' + dateTime[2].slice(0,2) + ', ' + dateTime[0];
     return (<AnswerElement answer={question.answers[answerEntry[0]]} timeStamp={timeStamp} id={answerEntry[0]} key={answerEntry[0]}/>);
   });
-  if (answers.length > 2) {
+  if (answers.length > 2 && currPageCounter <= answers.length) {
     return (
       <div key={question.question_id}>
         <div id='QuestionHeader'>

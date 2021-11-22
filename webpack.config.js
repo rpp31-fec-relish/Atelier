@@ -1,5 +1,8 @@
 var path = require("path");
 const CompressionPlugin = require("compression-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+
 var SRC_DIR = path.join(__dirname, "/client/src");
 var DIST_DIR = path.join(__dirname, "/client/dist");
 
@@ -20,10 +23,15 @@ module.exports = {
         }
       },
       {
-        test: /\.css$/i,
-        use: ['style-loader', 'css-loader']
-      }
+        test: /.s?css$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+      },
     ]
+  },
+  optimization: {
+    minimizer: [
+      new CssMinimizerPlugin(),
+    ],
   },
   output: {
     filename: 'app.js',
