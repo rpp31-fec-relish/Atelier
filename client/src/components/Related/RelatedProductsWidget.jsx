@@ -68,7 +68,7 @@ class RelatedProductsWidget extends React.Component {
   render() {
     return (
       <div id="RelatedProductsWidget">
-        {this.state.relatedProductsData.map((item) => <RelatedProduct key={'relatedProduct_' + item.id} id={item.id} name={item.name} category={item.category} price={item.price} image={item.image} assignImage={this.props.assignImage} changeCurrentProduct={this.props.changeCurrentProduct}/>)}
+        {/* {this.state.relatedProductsData.map((item) => <RelatedProduct key={'relatedProduct_' + item.id} id={item.id} name={item.name} category={item.category} price={item.price} image={item.image} assignImage={this.props.assignImage} changeCurrentProduct={this.props.changeCurrentProduct}/>)} */}
         <Carousel data={this.state.relatedProductsData} assignImage={this.props.assignImage}/>
       </div>
     )

@@ -1,6 +1,7 @@
 import React from 'react';
 import ImageSlider from './ImageSlider.jsx';
 import Arrow from './Arrow.jsx';
+import RelatedProduct from './RelatedProduct.jsx';
 
 class Carousel extends React.Component {
   constructor(props) {
@@ -54,7 +55,8 @@ class Carousel extends React.Component {
           direction='left'
           handleClick={ this.previousSlide }
           glyph='&#9664;' />
-        <ImageSlider url={ this.state.imageData[this.state.currentImageIndex] } />
+        {/* <ImageSlider url={ this.state.imageData[this.state.currentImageIndex] } /> */}
+        {this.props.data.map((item) => <RelatedProduct key={'relatedProduct_' + item.id} id={item.id} name={item.name} category={item.category} price={item.price} image={item.image} assignImage={this.props.assignImage} changeCurrentProduct={this.props.changeCurrentProduct}/>)}
         <Arrow
           direction='right'
           handleClick={ this.nextSlide }
