@@ -16,13 +16,12 @@ function ReviewListElement({review, index}) {
 
   const[wasClicked, setWasClicked] = useState(false)
   const[wasRecommended] = useState(review.recommend)
+  const[hasResponse] = useState(review.response)
 
   let dateTime = review.date.split('-')
 
   let months = ['January', 'Febuary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   let timeStamp = months[parseInt(dateTime[1])-1] + ' ' + dateTime[2].slice(0,2) + ', ' + dateTime[0];
-
-  //so we can create a function that looks up the review.recommend
 
   const handleYesClick = (e) => {
     wasClicked ? null: helperFunctions.markReviewHelpfulById(review.review_id);
@@ -41,15 +40,17 @@ function ReviewListElement({review, index}) {
 
     <div className="reviewListItem" style={{gridRow: `${index+2}/${index+3}`}} >
       <Stars className="reviewListItemScore" stars={review.rating}/>
-      <div className="reviewListItemDate">{timeStamp}</div>
+      <div className= "reviewListInfo">
+        <span className="reviewListItemUser">{review.reviewer_name}, </span>
+        <span className="reviewListItemDate">{timeStamp}</span>
+      </div>
       <div className="reviewListItemSummary">{review.summary}</div>
       <div className="reviewListItemBody">{review.body}</div>
-      {wasRecommended ? <div className="reviewListItemRecommend">I recommend this product <img src={CheckMark} alt="CheckMark"/> </div>: ''}
-      <div className="reviewListItemUser">{review.reviewer_name}</div>
-      <div className="reviewListItemResponse">Response from seller: {review.response}</div>
-      <div className="reviewListItemHelpfulness" >Was this review helpful?
-      <span className="reviewListItemHelpfulnesYes" onClick={handleYesClick}> Yes {review.helpfulness}</span>
-      <span onClick={handleNoClick}> No </span>
+      {wasRecommended ? <div className="reviewListItemRecommend"><img src={CheckMark} alt="CheckMark"/> I recommend this product</div>: ''}
+      {hasResponse ? <div className="reviewListItemResponse">Response from seller: {review.response}</div> : ''}
+      <div className="reviewListItemHelpfulness">Was this review helpful?
+        <span className="reviewListItemHelpfulnesYes" onClick={handleYesClick}> Yes {review.helpfulness} |</span>
+        <span onClick={handleNoClick}> Report </span>
       </div>
     </div>
   );

@@ -229,12 +229,31 @@ table {
   grid-template-rows: 1fr 1fr 1fr; */
   gap: 1px 1px;
   grid-auto-flow: row;
-  /* grid-template-areas:
-    ". . ."
-    ". . ."
-    ". . ."; */
+  grid-template-areas:
+    "reviewListItemScore . reviewListInfo"
+    ". reviewListItemSummary ."
+    ". reviewListItemBody ."
+    ". reviewListItemRecommend ."
+    ". reviewListHelpfulness .";
   grid-area: reviewListItem;
   margin: 15px;
+}
+
+.reviewListItemSummary {
+  font-weight: bold;
+  grid-area: reviewListItemSummary
+}
+
+.reviewListItemBody {
+  grid-area: reviewListItemBody
+}
+
+.reviewListItemScore {
+  grid-area: reviewListItemScore
+}
+
+.reviewListItemRecommend {
+  grid-area: reviewListItemRecommend
 }
 
 .reviewListHeader {
@@ -277,4 +296,18 @@ table {
   margin-right: 15px;
   border: 1px solid rgb(92, 92, 92);
   grid-area: reviewListMoreReviewsButton
+}
+
+.reviewListItemHelpfulness, .reviewListItemHelpfulnesYes {
+  margin-top: 5px;
+  font-size:15px;
+  color: rgb(92, 92, 92);
+  grid-area: reviewListHelpfulness
+}
+
+.reviewListInfo {
+  margin-top: 5px;
+  font-size:15px;
+  color: rgb(92, 92, 92);
+  grid-area: reviewListInfo
 }
