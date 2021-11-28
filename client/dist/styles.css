@@ -311,3 +311,9 @@ table {
   color: rgb(92, 92, 92);
   grid-area: reviewListInfo
 }
+
+.showButton {
+  border-radius: 0px;
+  background: transparent;
+  border: 1px solid rgb(92, 92, 92);
+}
