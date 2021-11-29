@@ -14,6 +14,7 @@ class Related extends React.Component {
 
     this.assignImage = this.assignImage.bind(this);
     this.showModal = this.showModal.bind(this);
+    this.setComparisonFeatures = this.setComparisonFeatures.bind(this);
   }
 
   assignImage(imageArray) {
@@ -27,6 +28,27 @@ class Related extends React.Component {
     return PlaceholderPhoto;
   }
 
+  setComparisonFeatures(clickedId) {
+    helperFunctions.getProductById(clickedId)
+      .then(result => {
+        return result.features;
+      })
+      .then(features => {
+        let allFeatures = [];
+        features.forEach(feature => {
+          let featureData = [clickedId, feature.feature, feature.value];
+          allFeatures.push(featureData);
+        })
+        console.log('all Features: ', allFeatures);
+        this.setState({comparisonFeatures: allFeatures});
+      })
+      // .then(() => {
+      //   helperFunctions.getProductById(this.props.currentProduct)
+      //     .then(())
+      // })
+      .catch(err => console.error(err));
+  }
+
   showModal(e) {
     this.setComparisonFeatures(e.target.id);
     this.setState({ show: !this.state.show });
@@ -38,7 +60,7 @@ class Related extends React.Component {
         <Modal onClose={this.showModal} show={this.state.show}></Modal>
         <div id="RelatedProductsAndOutfits">
           <h4>RELATED PRODUCTS</h4>
-          <RelatedProductsWidget currentProduct={this.props.currentProduct} assignImage={this.assignImage} changeCurrentProduct={this.props.changeCurrentProduct}/>
+          <RelatedProductsWidget currentProduct={this.props.currentProduct} assignImage={this.assignImage} changeCurrentProduct={this.props.changeCurrentProduct} showModal={this.props.showModal}/>
           <h4>YOUR OUTFITS</h4>
           <OutfitsWidget currentProduct={this.props.currentProduct} outfits={this.props.outfits} assignImage={this.assignImage} addToOutfit={this.props.addToOutfit}/>
         </div>

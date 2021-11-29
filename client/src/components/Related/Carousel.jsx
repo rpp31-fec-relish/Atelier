@@ -53,7 +53,7 @@ class Carousel extends React.Component {
           handleClick={ this.previousSlide }
           glyph='&#9664;'
           currentImageIndex={this.state.currentImageIndex} />
-        {this.props.data.slice(this.state.currentImageIndex, this.indexSet()).map((item) => <RelatedProduct key={'relatedProduct_' + item.id} id={item.id} name={item.name} category={item.category} price={item.price} image={item.image} assignImage={this.props.assignImage} changeCurrentProduct={this.props.changeCurrentProduct}/>)}
+        {this.props.data.slice(this.state.currentImageIndex, this.indexSet()).map((item) => <RelatedProduct key={'relatedProduct_' + item.id} id={item.id} name={item.name} category={item.category} price={item.price} image={item.image} assignImage={this.props.assignImage} changeCurrentProduct={this.props.changeCurrentProduct} showModal={this.props.showModal}/>)}
         <Arrow
           direction='right'
           handleClick={ this.nextSlide }
