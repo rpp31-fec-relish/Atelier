@@ -51,6 +51,11 @@ function CreateReview(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    let emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    let incomplete = false
+    let missingPortion = {};
+
     let review = {
       product_id: props.currentProduct,
       recommend: recommend,
@@ -64,12 +69,55 @@ function CreateReview(props) {
       }
     }
 
+    if (review.summary.length > 60) {
+      incomplete = true
+      missingPortion.summary = 'Your Summary can not be more then 60 characters'
+    }
+    if (review.body.length < 50) {
+      incomplete = true
+      missingPortion.body = 'Your Review can not be less then 50 characters'
+    } else if (review.body.length > 1000) {
+      incomplete = true
+      missingPortion.body = 'Your Review can not be more then 1000 characters'
+    }
+    if (review.name.length === 0) {
+      incomplete = true
+      missingPortion.name = 'Your name can not be blank'
+    } else if (review.name.length > 60) {
+      incomplete = true
+      missingPortion.name = 'Your name can not be more then 60 characters'
+    }
+    if (!review.email.match(emailFormat)) {
+      incomplete = true
+      missingPortion.email = 'You must provide a valid email'
+    } else if (review.email.value.length === 0) {
+      incomplete = true
+      missingPortion.email = 'Your email can not be blank'
+    } else if (review.email.value.length > 60) {
+      incomplete = true
+      missingPortion.email = 'Your email can not be more then 60 characters'
+    }
+    if (review.rating.value === 0) {
+      incomplete = true
+      missingPortion.rating = 'You must provide a star rating'
+    }
+
     characteristicNames.map((trait) => {
-      review.characteristics[characteristics[trait].id] = characteristics[trait].value
+      review.characteristics[characteristics[trait].id] = characteristics[trait].value;
+
+      //need to redo this to reflect ID as name
+      if (characteristics[trait].value === 0) {
+        incomplete = true;
+        missingPortion[trait] = characteristics[trait] + ' is empty! Please fill out all elements of the review.';
+      }
     });
 
+    if (incomplete) {
+      //set up divs to pop up in modal between modal container and form at bottom
+    } else {
     helperFunctions.postReview(review);
     props.displayCreateReview()
+    }
   }
 
   const recommendFunc = (e) => {
@@ -78,8 +126,6 @@ function CreateReview(props) {
 
     recommend ? changeButtonText('Recommend?') : changeButtonText('Recommended!');
   }
-
-  //so shiffting the summary to go into the next portion shouldnt be too difficult, we can just have a function that counts the total number of the summary, and if that summary goes over a certain length it will be added into the body at the top, put a new line and then add the body. just make sure to put this functionality in. may have to shift summary and body to be stateful rather then pulled from the form
 
   const traits = (trait, index) => {
 
@@ -102,11 +148,11 @@ function CreateReview(props) {
         <button className="createReviewRecomend" onClick = {recommendFunc}>{buttonText}</button>
           <label>
             Summary:
-            <textarea className="createReviewSummary" name='summary'/>
+            <textarea className="createReviewSummary" name='summary' placeholder="Example: Best purchase ever!"/>
           </label>
           <label>
             Body:
-            <textarea className="createReviewBody" name='body'/>
+            <textarea className="createReviewBody" name='body' placeholder="Why did you like the product or not?"/>
           </label>
           <label>
             Name:
@@ -138,7 +184,7 @@ function CreateReview(props) {
       </div>
     </div>
   )
-
+//if information is inside of of a varible, render this information and prevent submision. i guess i should have this set up between the bottom of the form and the bottom
 }
 
 export default CreateReview;
