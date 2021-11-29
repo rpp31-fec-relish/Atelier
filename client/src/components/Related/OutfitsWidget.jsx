@@ -6,7 +6,6 @@ class OutfitsWidget extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      outfitsId: [],
       outfitsData: []
     };
 
@@ -34,7 +33,6 @@ class OutfitsWidget extends React.Component {
         features: productData.features,
         image: null
       }
-      this.setState({ outfitsId: [...this.state.outfitsId, productData.id] })
       return data;
     })
     .then(results =>  {
@@ -54,7 +52,7 @@ class OutfitsWidget extends React.Component {
   handleClick(e) {
     e.preventDefault();
     // if currentProduct is already in outfits, remove from outfits
-    if (this.state.outfitsId.includes(this.props.currentProduct)) {
+    if (this.props.outfits.includes(this.props.currentProduct)) {
       let newOutfitsData = [...this.state.outfitsData];
       newOutfitsData.forEach(outfit => {
         if (outfit.id === this.props.currentProduct) {
@@ -63,6 +61,7 @@ class OutfitsWidget extends React.Component {
         }
       })
       this.setState({outfitsData: newOutfitsData});
+      this.props.addToOutfit(this.props.currentProduct);
 
       // const index = this.props.outfits.indexOf(itemId);
       // if (index > -1) {
