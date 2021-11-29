@@ -9,14 +9,12 @@ class Related extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      show: false,
-      currentFeatures: [],
-      comparisonFeatures: []
+      show: false
     }
 
     this.assignImage = this.assignImage.bind(this);
     this.showModal = this.showModal.bind(this);
-    this.setComparisonFeatures = this.setComparisonFeatures.bind(this);
+    // this.setComparisonFeatures = this.setComparisonFeatures.bind(this);
   }
 
   assignImage(imageArray) {
@@ -30,45 +28,45 @@ class Related extends React.Component {
     return PlaceholderPhoto;
   }
 
-  setComparisonFeatures(clickedId) {
-    helperFunctions.getProductById(this.props.currentProduct)
-      .then(result => {
-        return result.features;
-      })
-      .then(features => {
-        let allFeatures = [];
-        features.forEach(style => {
-          let featureData = {id: clickedId, feature: style.feature, value: style.value};
-          allFeatures.push(featureData);
-        })
-        this.setState({currentFeatures: allFeatures});
-      })
-      .catch(err => console.error(err));
+  // setComparisonFeatures(clickedId) {
+  //   helperFunctions.getProductById(this.props.currentProduct)
+  //     .then(result => {
+  //       return result.features;
+  //     })
+  //     .then(features => {
+  //       let allFeatures = [];
+  //       features.forEach(style => {
+  //         let featureData = {id: clickedId, feature: style.feature, value: style.value};
+  //         allFeatures.push(featureData);
+  //       })
+  //       this.setState({currentFeatures: allFeatures});
+  //     })
+  //     .catch(err => console.error(err));
 
-    helperFunctions.getProductById(clickedId)
-      .then(result => {
-        return result.features;
-      })
-      .then(features => {
-        let allFeatures = [];
-        features.forEach(style => {
-          let featureData = {id: clickedId, feature: style.feature, value: style.value};
-          allFeatures.push(featureData);
-        })
-        this.setState({comparisonFeatures: allFeatures});
-      })
-      .catch(err => console.error(err));
-  }
+  //   helperFunctions.getProductById(clickedId)
+  //     .then(result => {
+  //       return result.features;
+  //     })
+  //     .then(features => {
+  //       let allFeatures = [];
+  //       features.forEach(style => {
+  //         let featureData = {id: clickedId, feature: style.feature, value: style.value};
+  //         allFeatures.push(featureData);
+  //       })
+  //       this.setState({comparisonFeatures: allFeatures});
+  //     })
+  //     .catch(err => console.error(err));
+  // }
 
   showModal(e) {
-    this.setComparisonFeatures(e.target.id);
+    //this.setComparisonFeatures(e.target.id);
     this.setState({ show: !this.state.show });
   };
 
   render() {
     return (
       <div>
-        <Modal onClose={this.showModal} show={this.state.show} currentFeatures={this.state.currentFeatures} comparisonFeatures={this.state.comparisonFeatures} allStyles={this.state.allStyles}></Modal>
+        <Modal onClose={this.showModal} show={this.state.show} currentFeatures={this.state.currentFeatures}></Modal>
         <div id="RelatedProductsAndOutfits">
           <h4>RELATED PRODUCTS</h4>
           <RelatedProductsWidget currentProduct={this.props.currentProduct} assignImage={this.assignImage} changeCurrentProduct={this.props.changeCurrentProduct} showModal={this.showModal}/>

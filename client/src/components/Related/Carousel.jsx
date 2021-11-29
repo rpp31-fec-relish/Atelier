@@ -33,16 +33,9 @@ class Carousel extends React.Component {
     }
   }
 
-  indexSet() {
-    if (this.props.data[3] !== undefined) {
-      return 4;
-    } else if (this.props.data[2] !== undefined) {
-      return 3;
-    } else if (this.props.data[1] !== undefined) {
-      return 2;
-    } else {
-      return 1;
-    }
+  indexSet(index) {
+    let maxIndex = this.state.currentImageIndex + index;
+    return maxIndex;
   }
 
   render() {
@@ -52,12 +45,15 @@ class Carousel extends React.Component {
           direction='left'
           handleClick={ this.previousSlide }
           glyph='&#9664;'
-          currentImageIndex={this.state.currentImageIndex} />
-        {this.props.data.slice(this.state.currentImageIndex, this.indexSet()).map((item) => <RelatedProduct key={'relatedProduct_' + item.id} id={item.id} name={item.name} category={item.category} price={item.price} image={item.image} assignImage={this.props.assignImage} changeCurrentProduct={this.props.changeCurrentProduct} showModal={this.props.showModal}/>)}
+          currentImageIndex={this.state.currentImageIndex}
+          max={this.props.data.length}/>
+        {this.props.data.slice(this.state.currentImageIndex, this.indexSet(4)).map((item) => <RelatedProduct key={'relatedProduct_' + item.id} id={item.id} name={item.name} category={item.category} price={item.price} image={item.image} assignImage={this.props.assignImage} changeCurrentProduct={this.props.changeCurrentProduct} showModal={this.props.showModal}/>)}
         <Arrow
           direction='right'
           handleClick={ this.nextSlide }
-          glyph='&#9654;' />
+          glyph='&#9654;'
+          currentImageIndex={this.state.currentImageIndex}
+          max={this.props.data.length}/>
       </div>
     )
   }

@@ -8,15 +8,10 @@ export default class Modal extends React.Component {
     }
 
     this.onClose = this.onClose.bind(this);
-    this.checkComparisons = this.checkComparisons.bind(this);
   }
 
   onClose(e) {
     this.props.onClose && this.props.onClose(e);
-  }
-
-  checkComparisons() {
-    // see overview section for comparisons
   }
 
   render() {
@@ -40,7 +35,7 @@ export default class Modal extends React.Component {
           <li>Some other product comparison metric</li>
         </ul>
         <div>
-          <div id="toggle-modal" onClose={(e) => {this.onClose(e);}}></div>
+          <div id="toggle-modal" onClick={(e) => {this.onClose(e);}}>&#9746;</div>
         </div>
       </div>
     )

@@ -53,7 +53,6 @@ body {
 
 #RelatedProductsAndOutfits {
   max-width: 960px;
-  padding: 0;
   margin: 0 auto;
 }
 
@@ -70,18 +69,15 @@ body {
 }
 
 #RelatedProduct {
-  justify-content: center;
-  position: relative;
-  display: inline-block;
-  flex: 0 1 calc(25% - 1em);
   border: 1px solid black;
+  justify-content: space-around;
 }
 
 .RP-star-modal {
   position: absolute;
-  top: 8px;
-  right: 5px;
   color: black;
+  font-size: 15px;
+  text-shadow: lightgray 1px 1px 1px;
 }
 
 #RP-image {
@@ -95,10 +91,10 @@ body {
   left: 0;
   right: 0;
   text-align: center;
-  max-height: 30%;
+  height: 300px;
+  width: 500px;
   overflow: auto;
   position: absolute;
-  width: 50%;
   justify-content: center;
   border: 1px solid black;
   background: white;
@@ -106,9 +102,7 @@ body {
 }
 
 #toggle-modal {
-  border-top: 1px solid #ccc;
-  background: #eee;
-  padding: 0.5rem 1rem;
+  font-size: 30px;
 }
 
 #RP-comparison-1 {
@@ -172,6 +166,7 @@ body {
   right: 5px;
   color: black;
   font-size: 25px;
+  text-shadow: white 1px 1px 1px;
 }
 
 #QuestionHelpful {
