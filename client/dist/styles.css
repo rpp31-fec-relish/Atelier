@@ -89,6 +89,12 @@ body {
   height: 150px;
 }
 
+.carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 #OutfitsWidget {
   display: flex;
 }
