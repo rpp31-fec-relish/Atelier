@@ -5,7 +5,7 @@ const RelatedProduct = (props) => {
 
   return (
     <div id="RelatedProduct">
-      <div id="RP-star-modal" onClick={(e) => showModal(e)}>&#9734;</div>
+      <div className="RP-star-modal" id={id} onClick={(e) => showModal(e)}>&#9734;</div>
       <input id="RP-image" type="image" src={assignImage(image)} onClick={() => changeCurrentProduct(id)} alt="image"></input>
       <div>{category}</div>
       <div>{name}</div>
