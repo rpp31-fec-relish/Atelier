@@ -83,7 +83,7 @@ class Overview extends React.Component {
               <td>
                 <OverviewInformation product={this.state.product} currentStyle={this.state.currentStyle}/>
                 <OverviewStyles productStyles={this.state.productStyles} currentStyle={this.state.currentStyle} setStyle={this.setCurrentStyle.bind(this)}/>
-                <OverviewCart currentStyle={this.state.currentStyle}/>
+                <OverviewCart currentProduct={this.props.currentProduct} currentStyle={this.state.currentStyle}/>
               </td>
             </tr>
             <tr>
