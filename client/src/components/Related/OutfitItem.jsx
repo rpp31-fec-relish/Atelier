@@ -4,7 +4,7 @@ const OutfitItem = (props) => {
   let {id, name, category, price, image, assignImage, outfits, handleClick, addToOutfit, changeCurrentProduct} = props;
 
   return (
-    <div className="OutfitItem">
+    <div id="OutfitItem">
       <div className="Outfit-star-modal" onClick={(e) => {handleClick(e); addToOutfit(id)}}>&#9746;</div>
       <input id="Outfit-image" type="image" alt="image" src={assignImage(image)} onClick={() => changeCurrentProduct(id)}></input>
       <div>{category}</div>

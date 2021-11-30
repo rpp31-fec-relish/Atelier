@@ -103,10 +103,8 @@ class Carousel extends React.Component {
             outfitIndex={this.state.outfitIndex}
             max={this.props.outfitData.length}
             widget={this.props.widget}/>
-          <div className="AddToOutfit">
-            <a href='#add-outfit' className="OutfitItem" onClick={(e) => {
-              this.props.handleClick(e);
-            }}>{this.props.handleTextChange()}</a>
+          <div className="Outfit-add-remove">
+            <div onClick={(e) => {this.props.handleClick(e)}}>{this.props.handleTextChange()}</div>
           </div>
           {this.props.outfitData.slice(this.state.outfitIndex, this.indexSet(3, this.props.widget)).map((outfit) => <OutfitItem
             key={'outfit_' + outfit.id}

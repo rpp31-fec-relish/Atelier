@@ -64,37 +64,49 @@ body {
   font-size: 12px;
 }
 
-#RelatedProductsWidget {
+.carousel {
   display: flex;
+  margin: auto auto 0 auto;
+  justify-content: space-evenly;
+}
+
+#RelatedProductsWidget {
+  justify-content: flex-start;
+  flex-direction: row;
 }
 
 #OutfitsWidget {
-  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
 }
 
 #RelatedProduct {
   border: 1px solid black;
-  justify-content: space-around;
 }
 
-.OutfitItem {
-  min-height: 150px;
-  min-width: 150px;
+#OutfitItem {
   border: 1px solid black;
-  justify-content: space-around;
+  margin: auto auto 0 auto;
 }
 
-.AddToOutfit {
-  width: 160px;
-  height: 228px;
+.Outfit-add-remove {
+  margin: auto auto 0 auto;
+  min-height: 196px;
+  width: 127px;
+  margin: 0 auto;
   border: 1px solid black;
-  justify-content: space-around;
+  text-align: center;
+  padding: 1em;
+  font-family: Arial;
+  font-weight: lighter;
+  color: rgb(110, 110, 110);
+  font-size: 12px;
 }
 
 .RP-star-modal {
   position: absolute;
   color: black;
-  font-size: 15px;
+  font-size: 17px;
   text-shadow: lightgray 1px 1px 1px;
 }
 
@@ -114,6 +126,10 @@ body {
 #Outfit-image {
   width: 150px;
   height: 150px;
+}
+
+.Outfit-text-change {
+  text-align: center;
 }
 
 #RP-modal {
@@ -156,12 +172,6 @@ body {
 
 #modal-contents li:after {
   content: '✓';
-}
-
-.carousel {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 #QuestionHelpful {

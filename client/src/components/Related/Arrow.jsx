@@ -5,7 +5,7 @@ const Arrow = ({ direction, handleClick, glyph, relatedIndex, outfitIndex, max, 
     glyph = ''
   }
 
-  if ((outfitIndex === 0) || (direction === 'right' && outfitIndex < 4)) {
+  if (max < 4 && direction === 'right' || outfitIndex === 0 && direction === 'left' || direction === 'right' && outfitIndex + 3 === max) {
     glyph = ''
   }
 
