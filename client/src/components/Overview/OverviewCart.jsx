@@ -38,8 +38,10 @@ class OverviewCart extends React.Component {
   addToCartListener(event) {
 
     if (this.state.sku != null) {
-      console.log(`Added ${this.props.currentStyle.style_id} to cart`);
+      console.log(`Added ${this.state.quantity} of ${this.state.sku} (${this.props.currentStyle.style_id}) to cart`);
           //helperFunctions.addToCart()
+    } else {
+      console.log('Should not happen - added to cart with a null sku');
     }
   }
 
@@ -58,10 +60,19 @@ class OverviewCart extends React.Component {
       return;
     }
     this.setState({quantity: event.target.value});
+    console.log('quantity: ', event.target.value);
 
   }
 
   componentDidUpdate() {
+    // disable addToCart button and the Select Quantity dropdown if no sku selected,
+    // enable them when sku selected
+    if (this.state.sku === null && window.document.getElementById('addToCartButton') != null) {
+      window.document.getElementById('addToCartButton').setAttribute('disabled', 'true');
+    }
+    if (this.state.sku === null && window.document.getElementById('QuantityDropdown') != null) {
+      window.document.getElementById('QuantityDropdown').setAttribute('disabled', 'true');
+    }
     if (this.state.sku != null) {
       document.getElementById('addToCartButton').removeAttribute('disabled');
       document.getElementById('QuantityDropdown').removeAttribute('disabled');
@@ -76,10 +87,11 @@ class OverviewCart extends React.Component {
             <option value='default' disabled>Select Size</option>
             {this.createSizes()}
           </select>
-          <select name='quantity' value='1' id='QuantityDropdown' disabled>
+          <select name='quantity' value={this.state.quantity} id='QuantityDropdown' onChange={this.selectQuantityListener.bind(this)}>
+            <option value='Select Quantity' disabled>Select Quantity</option>
             {this.createQuantities()}
           </select>
-          <button id='addToCartButton' onClick={this.addToCartListener.bind(this)} disabled>Add To Cart</button>
+          <button id='addToCartButton' onClick={this.addToCartListener.bind(this)}>Add To Cart</button>
           <button>Favorite</button>
         </div>
       );
