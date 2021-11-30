@@ -1,21 +1,32 @@
 import React, { useState, useEffect } from 'react'
+import helperFunctions from '../../helperFunctions.js';
 
 function AnswerElement({answer, timeStamp, id}) {
 
+  const [masterHelpful, setHelpfulMaster] = useState(false);
+  const [masterReported, setReportedMaster] = useState(false);
   const [helpfulClicked, toggleHelpful] = useState(false);
   const [reportClicked, toggleReport] = useState('Report');
   const [helpfulness, setHelpfulness] = useState(answer.helpfulness)
 
-  const handleReportToggle = () => {
+  const handleReportToggle = (e) => {
+    if(masterReported === false) {
+      helperFunctions.reportAnswerById(parseInt(e.target.getAttribute('answerid')));
+      setReportedMaster(true);
+    }
     toggleReport('Reported!');
   };
 
-  const handleToggleHelpful = () => {
+  const handleToggleHelpful = (answerId) => {
     toggleHelpful(prev => !prev)
+    if(masterHelpful === false) {
+      setHelpfulMaster(true);
+      helperFunctions.markAnswerHelpfulById(answerId);
+    }
   };
 
-  const handleHelpfulClicked = () => {
-    handleToggleHelpful();
+  const handleHelpfulClicked = (e) => {
+    handleToggleHelpful(parseInt(e.target.getAttribute('answerid')));
     if(helpfulClicked == true) {
       setHelpfulness(helpfulness - 1);
     } else {
@@ -29,8 +40,8 @@ function AnswerElement({answer, timeStamp, id}) {
     <div id='AnswerHelpful'>
       by {answer.answerer_name}, {timeStamp} |
       Helpful?
-      <button id='HelpfulButton' onClick={handleHelpfulClicked}> Yes ({helpfulness})</button> |
-      <button id='ReportButton' onClick={handleReportToggle}> {reportClicked} </button>
+      <button id='HelpfulButton' answerid={id} onClick={handleHelpfulClicked}> Yes ({helpfulness})</button> |
+      <button id='ReportButton' answerid={id} onClick={handleReportToggle}> {reportClicked} </button>
       </div>
     </div>
   );

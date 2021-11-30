@@ -11,12 +11,17 @@ body {
   font-weight: lighter;
   font-size: 12px;
   text-align: left;
+  margin: 0 auto;
+  max-width: 960px;
+  margin-top: 30px;
+  margin-bottom: 15px;
 }
 
 #QandATitle {
   font-family: Arial;
   font-size:25px;
   font-weight: lighter;
+  margin-bottom: 15px;
 }
 
 #QandASearchBar {
@@ -27,6 +32,7 @@ body {
   resize: both;
   overflow: auto;
   padding: 5px;
+  margin-bottom: 15px;
 }
 
 #MoreAnswers {
