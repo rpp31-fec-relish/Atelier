@@ -10,7 +10,8 @@ function App(props) {
   const [outfits, setOutfits] = useState([]);
 
   const changeCurrentProduct = (productId) =>  {
-    setCurrentProduct(productId)
+    console.log(productId);
+    setCurrentProduct(productId);
   }
 
   const addToOutfit = (productId) => {
