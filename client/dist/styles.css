@@ -218,6 +218,10 @@ table {
   grid-template-columns: 0.3fr 2.4fr 0.3fr;
   grid-template-rows: 0.2fr 0.8fr 2fr;
   gap: 0px 0px;
+  overflow: scroll;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 750px;
   grid-auto-flow: row;
   grid-template-areas:
     ". reviewListHeader  ."
@@ -235,12 +239,40 @@ table {
   grid-template-rows: 1fr 1fr 1fr; */
   gap: 1px 1px;
   grid-auto-flow: row;
-  /* grid-template-areas:
-    ". . ."
-    ". . ."
-    ". . ."; */
+  grid-template-areas:
+    "reviewListItemScore . reviewListInfo"
+    ". reviewListItemSummary . "
+    "reviewListItemBody reviewListItemBody reviewListItemBody"
+    ". reviewListItemRecommend ."
+    ". reviewListItemResponse ."
+    ". reviewListHelpfulness .";
   grid-area: reviewListItem;
   margin: 15px;
+}
+
+.reviewListItemSummary {
+  font-weight: bold;
+  grid-area: reviewListItemSummary
+}
+
+.reviewListItemBody {
+  grid-area: reviewListItemBody
+}
+
+.reviewListItemResponse {
+  font-weight: bold;
+  font-style: italic;
+  /*color: blue;
+  background-color: rgb(189, 187, 187);*/
+  grid-area: reviewListItemResponse
+}
+
+.reviewListItemScore {
+  grid-area: reviewListItemScore
+}
+
+.reviewListItemRecommend {
+  grid-area: reviewListItemRecommend
 }
 
 .reviewListHeader {
@@ -283,4 +315,24 @@ table {
   margin-right: 15px;
   border: 1px solid rgb(92, 92, 92);
   grid-area: reviewListMoreReviewsButton
+}
+
+.reviewListItemHelpfulness, .reviewListItemHelpfulnesYes {
+  margin-top: 5px;
+  font-size:15px;
+  color: rgb(92, 92, 92);
+  grid-area: reviewListHelpfulness
+}
+
+.reviewListInfo {
+  margin-top: 5px;
+  font-size:15px;
+  color: rgb(92, 92, 92);
+  grid-area: reviewListInfo
+}
+
+.showButton {
+  border-radius: 0px;
+  background: transparent;
+  border: 1px solid rgb(92, 92, 92);
 }
