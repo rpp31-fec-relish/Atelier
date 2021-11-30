@@ -10,6 +10,10 @@ class OverviewCart extends React.Component {
     return skus.map((sku) => (<option key={sku} value={sku}>{this.props.currentStyle.skus[sku].size}</option>));
   }
 
+  addToCartListener(event) {
+    console.log(`Added ${this.props.currentStyle.style_id}`);
+  }
+
   render() {
     if (this.props.currentStyle) {
       return (
@@ -21,7 +25,7 @@ class OverviewCart extends React.Component {
           <select name='quantity' value='Select Quantity' id='QuantityDropdown'>
             <option disabled>Select Quantity</option>
           </select>
-          <button>Add To Cart</button>
+          <button onClick={this.addToCartListener.bind(this)}>Add To Cart</button>
           <button>Favorite</button>
         </div>
       );

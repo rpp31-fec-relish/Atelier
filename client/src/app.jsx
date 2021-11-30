@@ -11,6 +11,7 @@ function App(props) {
 
   const changeCurrentProduct = (productId) =>  {
     console.log(productId);
+    window.history.replaceState(null, `${productId}`, `/${productId}`);
     setCurrentProduct(productId);
   }
 
@@ -25,6 +26,19 @@ function App(props) {
       setOutfits([...outfits, productId]);
     }
   }
+
+  useEffect(() => {
+    if (window.location.pathname != '/'
+      && !isNaN(Number(window.location.pathname.substring(1, 6)))
+      && Number(window.location.pathname.substring(1, 6)) != currentProduct) {
+        // if current URL has a productId, update currentProduct
+        console.log(`${window.location.pathname.substring(1, 6)} != ${currentProduct}`);
+        setCurrentProduct(Number(window.location.pathname.substring(1, 6)));
+    } else if (window.location.pathname === '/') {
+      // if the URL path is /, set the URL to the currentProduct
+      window.history.replaceState(null, `${currentProduct}`, `/${currentProduct}`);
+    }
+  });
 
   return (
     <div>
