@@ -10,6 +10,7 @@ function App(props) {
   const [outfits, setOutfits] = useState([]);
 
   const changeCurrentProduct = (productId) =>  {
+    console.log(productId);
     window.history.replaceState(null, `${productId}`, `/${productId}`);
     setCurrentProduct(productId);
   }

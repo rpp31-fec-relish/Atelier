@@ -12,11 +12,6 @@ function QandAElement({question, currPageCounter, setCurrPageCounter, modalClick
     console.log(currPageCounter);
   };
 
-  const handleClicks = (e) => {
-    console.log(e);
-  };
-
-
   const handleToggleHelpful = () => {
     toggleHelpful(prev => !prev)
   };
