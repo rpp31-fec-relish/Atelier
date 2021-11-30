@@ -20,24 +20,57 @@ export default class Modal extends React.Component {
     }
 
     return (
-      <div id="RP-modal">
-        <h4>COMPARING</h4>
-        <div id="RP-comparison-1">Current Product Name</div>
-        <div id="RP-comparison-2">Compared Product Name</div>
-        <ul id="modal-contents">
-          <li>GMO and Pesticide-free</li>
-          <li>Made with 100% Genetic Modification</li>
-          <li>This is made up</li>
-          <li>It doesn't matter</li>
-          <li>Feature description</li>
-          <li>Uses React Hooks and Redux</li>
-          <li>Angular</li>
-          <li>Some other product comparison metric</li>
-        </ul>
+      <table id="RP-modal">
+        <div className="modal-title">COMPARING</div>
+        <tr>
+          <th>Current Product Name</th>
+          <th> </th>
+          <th>Compared Product Name</th>
+        </tr>
+        <tr>
+          <td>&#10003;</td>
+          <td>GMO and Pesticide-free</td>
+          <td>&#10003;</td>
+        </tr>
+        <tr>
+          <td>&#10003;</td>
+          <td>Made with 100% Genetic Modification</td>
+          <td>&#10003;</td>
+        </tr>
+        <tr>
+          <td>&#10003;</td>
+          <td>This is made up</td>
+          <td>&#10003;</td>
+        </tr>
+        <tr>
+          <td>&#10003;</td>
+          <td>It doesn't matter</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>&#10003;</td>
+          <td>Feature description</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Uses React Hooks and Redux</td>
+          <td>&#10003;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Angular</td>
+          <td>&#10003;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Some other product comparison metric</td>
+          <td>&#10003;</td>
+        </tr>
         <div>
           <div id="toggle-modal" onClick={(e) => {this.onClose(e);}}>&#9746;</div>
         </div>
-      </div>
+      </table>
     )
   }
 }

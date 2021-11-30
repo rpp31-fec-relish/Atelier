@@ -137,6 +137,10 @@ body {
   right: 0;
   text-align: center;
   height: 300px;
+  font-family: Arial;
+  font-weight: lighter;
+  color: rgb(110, 110, 110);
+  font-size: 12px;
   width: 500px;
   overflow: auto;
   position: absolute;
@@ -148,6 +152,7 @@ body {
 
 #toggle-modal {
   font-size: 30px;
+  align-items: center;
 }
 
 #RP-comparison-1 {
