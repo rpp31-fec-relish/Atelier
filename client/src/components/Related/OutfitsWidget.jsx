@@ -53,19 +53,31 @@ class OutfitsWidget extends React.Component {
   handleClick(e) {
     e.preventDefault();
     // if currentProduct is already in outfits, remove from outfits
-    if (this.props.outfits.includes(this.props.currentProduct)) {
-      let newOutfitsData = [...this.state.outfitsData];
-      newOutfitsData.forEach(outfit => {
-        if (outfit.id === this.props.currentProduct) {
-          var removeIndex = newOutfitsData.map(item => item.id).indexOf(this.props.currentProduct);
-          ~removeIndex && newOutfitsData.splice(removeIndex, 1);
-        }
-      })
-      this.setState({outfitsData: newOutfitsData});
+    if (!e.target.id) {
+      if (this.props.outfits.includes(this.props.currentProduct)) {
+        let newOutfitsData = [...this.state.outfitsData];
+        newOutfitsData.forEach(outfit => {
+          if (outfit.id === this.props.currentProduct) {
+            var removeIndex = newOutfitsData.map(item => item.id).indexOf(this.props.currentProduct);
+            ~removeIndex && newOutfitsData.splice(removeIndex, 1);
+          }
+        })
+        this.setState({outfitsData: newOutfitsData});
+        this.props.addToOutfit(this.props.currentProduct);
+      } else {
+        this.getOutfitData();
+        this.props.addToOutfit(this.props.currentProduct);
+      }
     } else {
-      this.getOutfitData();
+      let idToNum = parseInt(e.target.id);
+      if (this.props.outfits.includes(idToNum)) {
+        let newOutfitsData = [...this.state.outfitsData];
+        const removeIndex = newOutfitsData.findIndex(item => item.id === idToNum);
+        newOutfitsData.splice(removeIndex, 1);
+        this.setState({outfitsData: newOutfitsData});
+      }
+      this.props.addToOutfit(e.target.id);
     }
-    this.props.addToOutfit(this.props.currentProduct);
   }
 
   render() {
