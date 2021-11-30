@@ -235,9 +235,10 @@ table {
   grid-auto-flow: row;
   grid-template-areas:
     "reviewListItemScore . reviewListInfo"
-    ". reviewListItemSummary ."
-    ". reviewListItemBody ."
+    ". reviewListItemSummary . "
+    "reviewListItemBody reviewListItemBody reviewListItemBody"
     ". reviewListItemRecommend ."
+    ". reviewListItemResponse ."
     ". reviewListHelpfulness .";
   grid-area: reviewListItem;
   margin: 15px;
@@ -250,6 +251,14 @@ table {
 
 .reviewListItemBody {
   grid-area: reviewListItemBody
+}
+
+.reviewListItemResponse {
+  font-weight: bold;
+  font-style: italic;
+  /*color: blue;
+  background-color: rgb(189, 187, 187);*/
+  grid-area: reviewListItemResponse
 }
 
 .reviewListItemScore {
@@ -320,8 +329,4 @@ table {
   border-radius: 0px;
   background: transparent;
   border: 1px solid rgb(92, 92, 92);
-}
-
-.reviewListItemResponse {
-  background-color: rgb(92, 92, 92);
 }

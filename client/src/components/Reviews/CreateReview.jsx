@@ -10,6 +10,8 @@ function CreateReview(props) {
   const[rating, setRating] = useState(0)
   const[characteristics, setCurrentCharacteristics] = useState({})
 
+  //state varible that will state whats incomplete
+
   useEffect(() => {
     //move to main when working on meta data
     let currentProduct = props.currentProduct;
@@ -113,7 +115,7 @@ function CreateReview(props) {
     });
 
     if (incomplete) {
-      //set up divs to pop up in modal between modal container and form at bottom
+      //set up divs to pop up in modal between modal container and form at bottom. also this needs testing soon, haven't tested any of this
     } else {
     helperFunctions.postReview(review);
     props.displayCreateReview()
@@ -181,6 +183,7 @@ function CreateReview(props) {
           )}
           <button className="createReviewSubmitButton" type='submit' >Submit</button>
         </form>
+        {/*check to see if there is anything incompelete (do that with state varible). if there is then create divs to display the text when its incompelte in the modal */}
       </div>
     </div>
   )

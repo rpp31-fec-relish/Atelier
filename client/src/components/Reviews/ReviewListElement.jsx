@@ -12,7 +12,8 @@ import CheckMark from './ReviewImages/clipart2121718_smaller.png';
 
 function ReviewListElement({review, index}) {
 
-  const[wasClicked, setWasClicked] = useState(false)
+  const[yesWasClicked, setYesWasClicked] = useState(false)
+  const[reportWasClicked, setReportWasClicked] = useState(false)
   const[wasRecommended] = useState(review.recommend)
   const[hasResponse] = useState(review.response)
 
@@ -41,18 +42,16 @@ function ReviewListElement({review, index}) {
 
   let dateTime = review.date.split('-')
 
-  let months = ['January', 'Febuary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   let timeStamp = months[parseInt(dateTime[1])-1] + ' ' + dateTime[2].slice(0,2) + ', ' + dateTime[0];
 
   const handleYesClick = (e) => {
-    wasClicked ? null: helperFunctions.markReviewHelpfulById(review.review_id);
-    setWasClicked(true);
+    yesWasClicked ? null: helperFunctions.markReviewHelpfulById(review.review_id);
+    setYesWasClicked(true);
   }
   const handleReportClick = (e) => {
-    //need to complete
-    console.log('i was clicked');
-    console.log("review:", review)
-    console.log("was recommended:", wasRecommended)
+    reportWasClicked ? null: helperFunctions.reportReviewById(review.review_id);
+    setReportWasClicked(true);
   }
 
 
@@ -68,7 +67,7 @@ function ReviewListElement({review, index}) {
       <div className="reviewListItemSummary">{review.summary}</div>
       <BodyLimit content={review.body} limit={250}/>
       {wasRecommended ? <div className="reviewListItemRecommend"><img src={CheckMark} alt="CheckMark"/> I recommend this product</div>: ''}
-      {hasResponse ? <div className="reviewListItemResponse">Response: <br/> {review.response}</div> : ''}
+      {hasResponse ? <div className="reviewListItemResponse">Seller Response: <br/> {review.response}</div> : ''}
       <div className="reviewListItemHelpfulness">Was this review helpful? <br/>
         <span className="reviewListItemHelpfulnesYes" onClick={handleYesClick}> Yes {review.helpfulness} |</span>
         <span onClick={handleReportClick}> Report </span>
