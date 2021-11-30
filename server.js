@@ -4,6 +4,12 @@ const express = require("express");
 const app = express();
 const token = require('./githubtoken.js');
 
+// if the URL is of the form /[number]*/, serve the page at /, but maintain URL
+app.use('/[0-9]*/', (req, res, next) => {
+  console.log(`redirecting ${req.path}`);
+  req.originalUrl = '/';
+  app._router.handle(req, res, next)
+})
 // serves the static client page
 app.use(express.static(path.join(__dirname, "client/dist")));
 app.use(express.urlencoded({extended: true}));
@@ -38,7 +44,6 @@ app.all('/api/*', (req, res) => {
       body.push(chunk);
     }).on('end', () => {
       body = Buffer.concat(body).toString();
-      console.log('response body: ', body);
       res.status(response.statusCode).send(body);
     }).on('error', (err) => {
       console.error(err);
@@ -46,7 +51,7 @@ app.all('/api/*', (req, res) => {
   });
   if (req.method === 'POST') {
     if (Object.keys(req.body).length != 0) {  //non empty object
-      console.log(JSON.stringify(req.body));
+      console.log('POST: ', JSON.stringify(req.body));
       apiReq.write(JSON.stringify(req.body));
     }
   }
