@@ -38,8 +38,14 @@ class OverviewCart extends React.Component {
   addToCartListener(event) {
 
     if (this.state.sku != null) {
-      console.log(`Added ${this.state.quantity} of ${this.state.sku} (${this.props.currentStyle.style_id}) to cart`);
-          //helperFunctions.addToCart()
+      let results = [];
+      for (let i = 0; i < this.state.quantity; i++) {
+        // API does not accept quantity for POST items to cart.  ex: Have to make 10 POST requests to add 10 items to cart
+        results.push(helperFunctions.addToCart(this.state.sku));
+      }
+      Promise.all(results).then((result) => {
+        console.log(result, `: Added ${this.state.quantity} of ${this.state.sku} (${this.props.currentStyle.style_id}) to cart`);
+      });
     } else {
       console.log('Should not happen - added to cart with a null sku');
     }
