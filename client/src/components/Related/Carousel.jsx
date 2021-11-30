@@ -1,13 +1,15 @@
 import React from 'react';
 import Arrow from './Arrow.jsx';
 import RelatedProduct from './RelatedProduct.jsx';
+import OutfitItem from './OutfitItem.jsx';
 
 class Carousel extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      currentImageIndex: 0
+      relatedIndex: 0,
+      outfitIndex: 0
     };
 
     this.previousSlide = this.previousSlide.bind(this);
@@ -15,47 +17,119 @@ class Carousel extends React.Component {
     this.indexSet = this.indexSet.bind(this);
   }
 
-  previousSlide() {
-    if (this.state.currentImageIndex !== 0) {
-      const index = this.state.currentImageIndex - 1;
-      this.setState({
-        currentImageIndex: index
-      })
+  previousSlide(widget) {
+    if (widget === 'related') {
+      if (this.state.relatedIndex !== 0) {
+        const index = this.state.relatedIndex - 1;
+        this.setState({
+          relatedIndex: index
+        })
+      }
+    } else if (widget === 'outfits') {
+      if (this.state.outfitIndex !== 0) {
+        const index = this.state.outfitIndex - 1;
+        this.setState({
+          outfitIndex: index
+        })
+      }
     }
   }
 
-  nextSlide() {
-    if (this.state.currentImageIndex !== 4) {
-      const index = this.state.currentImageIndex + 1;
-      this.setState({
-        currentImageIndex: index
-      })
+  nextSlide(widget) {
+    if (widget === 'related') {
+      if (this.state.relatedIndex !== 4) {
+        const index = this.state.relatedIndex + 1;
+        this.setState({
+          relatedIndex: index
+        });
+      }
+    } else if (widget === 'outfits') {
+      if (this.state.outfitIndex !== 3) {
+        const index = this.state.outfitIndex + 1;
+        this.setState({
+          outfitIndex: index
+        });
+      }
     }
   }
 
-  indexSet(index) {
-    let maxIndex = this.state.currentImageIndex + index;
-    return maxIndex;
+  indexSet(index, widget) {
+    if (widget === 'related') {
+      let maxIndex = this.state.relatedIndex + index;
+      return maxIndex;
+    } else if (widget === 'outfits') {
+      let maxIndex = this.state.outfitIndex + index;
+      return maxIndex;
+    }
   }
 
   render() {
-    return (
-      <div className='carousel'>
-        <Arrow
-          direction='left'
-          handleClick={ this.previousSlide }
-          glyph='&#9664;'
-          currentImageIndex={this.state.currentImageIndex}
-          max={this.props.data.length}/>
-        {this.props.data.slice(this.state.currentImageIndex, this.indexSet(4)).map((item) => <RelatedProduct key={'relatedProduct_' + item.id} id={item.id} name={item.name} category={item.category} price={item.price} image={item.image} assignImage={this.props.assignImage} changeCurrentProduct={this.props.changeCurrentProduct} showModal={this.props.showModal}/>)}
-        <Arrow
-          direction='right'
-          handleClick={ this.nextSlide }
-          glyph='&#9654;'
-          currentImageIndex={this.state.currentImageIndex}
-          max={this.props.data.length}/>
-      </div>
-    )
+    if (this.props.widget === 'related') {
+      return (
+        <div className='carousel'>
+          <Arrow
+            direction='left'
+            handleClick={ this.previousSlide }
+            glyph='&#9664;'
+            relatedIndex={this.state.relatedIndex}
+            max={this.props.data.length}
+            widget={this.props.widget}/>
+          {this.props.data.slice(this.state.relatedIndex, this.indexSet(4, this.props.widget)).map((item) => <RelatedProduct
+            key={'relatedProduct_' + item.id}
+            id={item.id}
+            name={item.name}
+            category={item.category}
+            price={item.price}
+            image={item.image}
+            assignImage={this.props.assignImage}
+            changeCurrentProduct={this.props.changeCurrentProduct}
+            showModal={this.props.showModal}/>)}
+          <Arrow
+            direction='right'
+            handleClick={ this.nextSlide }
+            glyph='&#9654;'
+            relatedIndex={this.state.relatedIndex}
+            max={this.props.data.length}
+            widget={this.props.widget}/>
+        </div>
+      )
+    } else if (this.props.widget === 'outfits') {
+      return (
+        <div className='carousel'>
+          <Arrow
+            direction='left'
+            handleClick={ this.previousSlide }
+            glyph='&#9664;'
+            outfitIndex={this.state.outfitIndex}
+            max={this.props.outfitData.length}
+            widget={this.props.widget}/>
+          <div className="AddToOutfit">
+            <a href='#add-outfit' className="OutfitItem" onClick={(e) => {
+              this.props.handleClick(e);
+            }}>{this.props.handleTextChange()}</a>
+          </div>
+          {this.props.outfitData.slice(this.state.outfitIndex, this.indexSet(3, this.props.widget)).map((outfit) => <OutfitItem
+            key={'outfit_' + outfit.id}
+            id={outfit.id}
+            name={outfit.name}
+            category={outfit.category}
+            price={outfit.price}
+            image={outfit.image}
+            assignImage={this.props.assignImage}
+            outfits={this.props.outfits}
+            handleClick={this.props.handleClick}
+            addToOutfit={this.props.addToOutfit}
+            changeCurrentProduct={this.props.changeCurrentProduct}/>)}
+          <Arrow
+            direction='right'
+            handleClick={ this.nextSlide }
+            glyph='&#9654;'
+            outfitIndex={this.state.outfitIndex}
+            max={this.props.outfitData.length}
+            widget={this.props.widget}/>
+        </div>
+      )
+    }
   }
 }
 

@@ -23,6 +23,8 @@ class Related extends React.Component {
     if (imageArray) {
       if (imageArray[0].thumbnail_url) {
         return imageArray[0].thumbnail_url;
+      } else {
+        return PlaceholderPhoto;
       }
     }
     return PlaceholderPhoto;
@@ -71,7 +73,7 @@ class Related extends React.Component {
           <h4>RELATED PRODUCTS</h4>
           <RelatedProductsWidget currentProduct={this.props.currentProduct} assignImage={this.assignImage} changeCurrentProduct={this.props.changeCurrentProduct} showModal={this.showModal}/>
           <h4>YOUR OUTFITS</h4>
-          <OutfitsWidget currentProduct={this.props.currentProduct} outfits={this.props.outfits} assignImage={this.assignImage} addToOutfit={this.props.addToOutfit}/>
+          <OutfitsWidget currentProduct={this.props.currentProduct} outfits={this.props.outfits} assignImage={this.assignImage} addToOutfit={this.props.addToOutfit} changeCurrentProduct={this.props.changeCurrentProduct} showModal={this.showModal}/>
         </div>
       </div>
     );

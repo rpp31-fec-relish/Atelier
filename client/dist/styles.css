@@ -68,7 +68,25 @@ body {
   display: flex;
 }
 
+#OutfitsWidget {
+  display: flex;
+}
+
 #RelatedProduct {
+  border: 1px solid black;
+  justify-content: space-around;
+}
+
+.OutfitItem {
+  min-height: 150px;
+  min-width: 150px;
+  border: 1px solid black;
+  justify-content: space-around;
+}
+
+.AddToOutfit {
+  width: 160px;
+  height: 228px;
   border: 1px solid black;
   justify-content: space-around;
 }
@@ -80,7 +98,20 @@ body {
   text-shadow: lightgray 1px 1px 1px;
 }
 
+.Outfit-star-modal {
+  position: absolute;
+  color: black;
+  font-size: 25px;
+  text-shadow: white 1px 1px 1px;
+  z-index: 1;
+}
+
 #RP-image {
+  width: 150px;
+  height: 150px;
+}
+
+#Outfit-image {
   width: 150px;
   height: 150px;
 }
@@ -98,7 +129,6 @@ body {
   justify-content: center;
   border: 1px solid black;
   background: white;
-  z-index: 1;
 }
 
 #toggle-modal {
@@ -115,12 +145,6 @@ body {
   right: 5px;
 }
 
-.carousel {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 #modal-contents {
   display: inline-table;
   list-style: none;
@@ -134,44 +158,10 @@ body {
   content: '✓';
 }
 
-#OutfitsWidget {
+.carousel {
   display: flex;
-}
-
-#OutfitText{
-  display: inline-block;
-  font-size: 14px;
-  font-family: Arial;
-  font-weight: lighter;
-  color: rgb(110, 110, 110);
-  padding: 70px 0;
-}
-
-#OutfitItem {
-  /* justify-content: center;
-  position: relative;
-  display: inline-block;
-  border: 1px solid black; */
-
-
-  border: 1px solid black;
-  justify-content: space-around;
-  min-width: 150px;
-  max-width: 150px;
-}
-
-#Outfit-image {
-  width: 150px;
-  height: 150px;
-}
-
-#Outfit-star-modal {
-  position: absolute;
-  top: 8px;
-  right: 5px;
-  color: black;
-  font-size: 25px;
-  text-shadow: white 1px 1px 1px;
+  align-items: center;
+  justify-content: center;
 }
 
 #QuestionHelpful {

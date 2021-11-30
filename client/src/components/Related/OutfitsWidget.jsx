@@ -1,6 +1,7 @@
 import React from 'react';
 import OutfitItem from './OutfitItem.jsx';
 import helperFunctions from './../../helperFunctions.js';
+import Carousel from './Carousel.jsx';
 
 class OutfitsWidget extends React.Component {
   constructor(props) {
@@ -61,32 +62,27 @@ class OutfitsWidget extends React.Component {
         }
       })
       this.setState({outfitsData: newOutfitsData});
-      this.props.addToOutfit(this.props.currentProduct);
-
-      // const index = this.props.outfits.indexOf(itemId);
-      // if (index > -1) {
-      //   this.props.outfits.splice(index, 1);
-      // }
     } else {
-      this.props.addToOutfit(this.props.currentProduct);
       this.getOutfitData();
     }
+    this.props.addToOutfit(this.props.currentProduct);
   }
 
   render() {
     return (
-      <section id="OutfitsWidget">
-        <div id="OutfitItem">
-          <div id="addToOutfit">
-            <a href='#add-outfit' id="OutfitText" onClick={(e) => {
-              this.handleClick(e);
-            }}>{this.handleTextChange()}</a>
-          </div>
-        </div>
-        {this.state.outfitsData.map((outfit) => <OutfitItem key={'outfit_' + outfit.id} id={outfit.id} name={outfit.name} category={outfit.category} price={outfit.price} image={outfit.image} assignImage={this.props.assignImage} outfits={this.props.outfits} handleClick={this.handleClick} addToOutfit={this.props.addToOutfit}/>)}
-      </section>
-    )
-  }
+      <div id="OutfitsWidget">
+        <Carousel
+          outfitData={this.state.outfitsData}
+          assignImage={this.props.assignImage}
+          outfits={this.props.outfits}
+          changeCurrentProduct={this.props.changeCurrentProduct}
+          showModal={this.props.showModal}
+          handleClick={this.handleClick}
+          addToOutfit={this.props.addToOutfit}
+          handleTextChange={this.handleTextChange}
+          widget={'outfits'}/>
+    </div>
+  )}
 }
 
 export default OutfitsWidget;

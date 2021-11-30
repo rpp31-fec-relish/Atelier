@@ -68,7 +68,7 @@ class RelatedProductsWidget extends React.Component {
   render() {
     return (
       <div id="RelatedProductsWidget">
-        <Carousel data={this.state.relatedProductsData} assignImage={this.props.assignImage} changeCurrentProduct={this.props.changeCurrentProduct} showModal={this.props.showModal}/>
+        <Carousel data={this.state.relatedProductsData} assignImage={this.props.assignImage} changeCurrentProduct={this.props.changeCurrentProduct} showModal={this.props.showModal} widget={'related'}/>
       </div>
     )
   }
