@@ -1,4 +1,9 @@
 const axios = require('axios');
+if(typeof process != 'undefined'){
+  axios.defaults.adapter = require('axios/lib/adapters/http');
+  axios.defaults.baseURL = 'http://127.0.0.1:3000';
+}
+
 
 const helperFunctions = {
 
@@ -22,7 +27,7 @@ const helperFunctions = {
   getProductById(product_id) {
     // I: A product id number or string
     // O: A promise resolving to a product object
-    return axios(`./api/products/${product_id}`, {
+    return axios(`/api/products/${product_id}`, {
       method: 'GET'
     })    .then((response) => {
       return response.data;
@@ -38,7 +43,7 @@ const helperFunctions = {
     //    5 results per page
     // O: A promise resolving to an array of (<= resultsPerPage) product objects, starting
     //    at (pageNumber*resultsPerPage+1)
-    return axios(`./api/products?page=${pageNumber}&count=${resultsPerPage}`, {
+    return axios(`/api/products?page=${pageNumber}&count=${resultsPerPage}`, {
       method: 'GET'
     })
     .then((response) => {
@@ -53,7 +58,7 @@ const helperFunctions = {
   getProductStylesById(product_id) {
     // I: A product id number or string
     // O: A promise resolving to an array of product styles
-    return axios(`./api/products/${product_id}/styles`, {
+    return axios(`/api/products/${product_id}/styles`, {
       method: 'GET'
     })
     .then((response) => {
@@ -77,7 +82,7 @@ const helperFunctions = {
   getRelatedProductIdsById(product_id) {
     // I: A product id number or string
     // O: A promise resolving to an array of product ids corresponding to related products
-    return axios(`./api/products/${product_id}/related`, {
+    return axios(`/api/products/${product_id}/related`, {
       method: 'GET'
     })
     .then((response) => {
@@ -114,7 +119,7 @@ const helperFunctions = {
       return new Error('sort parameter must be \'newest\', \'helpful\' or \'relevant\'');
     }
 
-    return axios(`./api/reviews?product_id=${product_id}&page=${page}&count=${count}&sort=${sort}`, {
+    return axios(`/api/reviews?product_id=${product_id}&page=${page}&count=${count}&sort=${sort}`, {
       method: 'GET'
     })
     .then((response) => {
@@ -139,7 +144,7 @@ const helperFunctions = {
     // I: A product id number or string
     // O: A promise resolving to an array containing the metadata of reviews of the provided product
 
-    return axios(`./api/reviews/meta?product_id=${product_id}`, {
+    return axios(`/api/reviews/meta?product_id=${product_id}`, {
       method: 'GET'
     })
     .then((response) => {
@@ -168,7 +173,7 @@ const helperFunctions = {
     if (!review.product_id || !review.rating || !review.body || !review.recommend || !review.name || !review.email || !review.characteristics) {
       return new Error('review object missing required parameter');
     }
-    return axios('./api/reviews', {
+    return axios('/api/reviews', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -187,7 +192,7 @@ const helperFunctions = {
   markReviewHelpfulById(review_id) {
     // I: A review id number or string
     // O: A promise that resolves when the request has completed
-    return axios(`./api/reviews/${review_id}/helpful`, {
+    return axios(`/api/reviews/${review_id}/helpful`, {
       method: 'PUT'
     })
     .catch((err) => {
@@ -199,7 +204,7 @@ const helperFunctions = {
   reportReviewById(review_id) {
     // I: A review id number or string
     // O: A promise that resolves when the request has completed
-    return axios(`./api/reviews/${review_id}/report`, {
+    return axios(`/api/reviews/${review_id}/report`, {
       method: 'PUT'
     })
     .catch((err) => {
@@ -216,7 +221,7 @@ const helperFunctions = {
     // I: A product id number or string, optionally a page number and count per page
     // O: A promise that resolves to an array of question objects
 
-    return axios(`./api/qa/questions?product_id=${product_id}&page=${page}&count=${count}`, {
+    return axios(`/api/qa/questions?product_id=${product_id}&page=${page}&count=${count}`, {
       method: 'GET'
     })
     .then((response) => {
@@ -241,7 +246,7 @@ const helperFunctions = {
     // I: A question id, optionally a page number and count per page
     // O: An array of answer objects associated with that question
 
-    return axios(`./api/qa/questions/${question_id}/answers?page=${page}&count=${count}`, {
+    return axios(`/api/qa/questions/${question_id}/answers?page=${page}&count=${count}`, {
       method: 'GET'
     })
     .then((response) => {
@@ -272,7 +277,7 @@ const helperFunctions = {
     if (!question.product_id || !question.body || !question.name || !question.email){
       return new Error('question object missing required parameter');
     }
-    return axios('./api/qa/questions', {
+    return axios('/api/qa/questions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -299,7 +304,7 @@ const helperFunctions = {
     if (!answer.question_id || !answer.body || !answer.name || question.email){
       return new Error('question object missing required parameter');
     }
-    return axios(`./api/qa/questions/${answer.question_id}/answers`, {
+    return axios(`/api/qa/questions/${answer.question_id}/answers`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -318,7 +323,7 @@ const helperFunctions = {
   markQuestionHelpfulById(question_id) {
     // I: A question id number or string
     // O: A promise that resolves when the request has completed
-    return axios(`./api/qa/questions/${question_id}/helpful`, {
+    return axios(`/api/qa/questions/${question_id}/helpful`, {
       method: 'PUT'
     })
     .catch((err) => {
@@ -330,7 +335,7 @@ const helperFunctions = {
   reportQuestionById(question_id) {
     // I: A question id number or string
     // O: A promise that resolves when the request has completed
-    return axios(`./api/qa/questions/${question_id}/report`, {
+    return axios(`/api/qa/questions/${question_id}/report`, {
       method: 'PUT'
     })
     .catch((err) => {
@@ -342,7 +347,7 @@ const helperFunctions = {
   markAnswerHelpfulById(answer_id) {
     // I: An answer id number or string
     // O: A promise that resolves when the request has completed
-    return axios(`./api/qa/answers/${answer_id}/helpful`, {
+    return axios(`/api/qa/answers/${answer_id}/helpful`, {
       method: 'PUT'
     })
     .catch((err) => {
@@ -354,7 +359,7 @@ const helperFunctions = {
   reportAnswerById(answer_id) {
     // I: An answer id number or string
     // O: A promise that resolves when the request has completed
-    return axios(`./api/qa/answers/${answer_id}/report`, {
+    return axios(`/api/qa/answers/${answer_id}/report`, {
       method: 'PUT'
     })
     .catch((err) => {
@@ -371,7 +376,7 @@ const helperFunctions = {
   getCart() {
     // I: none
     // O: A promise that resolves to an array of sku objects (skus and quantities) in the cart
-    return axios('./api/cart', {
+    return axios('/api/cart', {
       method: 'GET'
     })
     .then((response) => {
@@ -385,7 +390,7 @@ const helperFunctions = {
   addToCart(sku_id) {
     // I: an sku_id integer or string
     // O: a promise that resolves to 201 when successfully posted
-    return axios('./api/cart', {
+    return axios('/api/cart', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
