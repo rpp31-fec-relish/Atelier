@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import helperFunctions from '../../helperFunctions.js';
 import AnswerElement from './AnswerElement.jsx';
 
 function QandAElement({question, currPageCounter, setCurrPageCounter, modalClick}) {
 
-
+  const [masterHelpful, setMaster] = useState(false);
   const [helpfulClicked, toggleHelpful] = useState(false);
   const [helpfulness, setHelpfulness] = useState(question.question_helpfulness);
 
@@ -12,12 +13,20 @@ function QandAElement({question, currPageCounter, setCurrPageCounter, modalClick
     console.log(currPageCounter);
   };
 
-  const handleToggleHelpful = () => {
-    toggleHelpful(prev => !prev)
+  const handleClicks = (e) => {
+    console.log(e);
   };
 
-  const handleHelpfulClicked = () => {
-    handleToggleHelpful();
+  const handleToggleHelpful = (questionid) => {
+    toggleHelpful(prev => !prev)
+    if(masterHelpful === false) {
+      setMaster(true);
+      helperFunctions.markQuestionHelpfulById(questionid);
+    }
+  };
+
+  const handleHelpfulClicked = (e) => {
+    handleToggleHelpful(parseInt(e.target.getAttribute('questionid')));
     if(helpfulClicked == true) {
       setHelpfulness(helpfulness - 1);
     } else {
@@ -39,7 +48,7 @@ function QandAElement({question, currPageCounter, setCurrPageCounter, modalClick
         </div>
       <div id='QuestionHelpful'>
       Helpful?
-      <button id='HelpfulButton' onClick={handleHelpfulClicked}> Yes ({helpfulness})</button> |
+      <button id='HelpfulButton' questionid={question.question_id} onClick={handleHelpfulClicked}> Yes ({helpfulness})</button> |
       <button id='AddAnswerButton' onClick={modalClick}> Add Answer </button>
         </div>
       <div>{answers.slice(0, currPageCounter)}</div>
@@ -56,7 +65,7 @@ function QandAElement({question, currPageCounter, setCurrPageCounter, modalClick
         </div>
       <div id='QuestionHelpful'>
       Helpful?
-      <button id='HelpfulButton' onClick={handleHelpfulClicked}> Yes ({helpfulness})</button> |
+      <button id='HelpfulButton' questionid={question.question_id} onClick={handleHelpfulClicked}> Yes ({helpfulness})</button> |
         <button id='AddAnswerButton' onClick={modalClick}> Add Answer </button>
         </div>
       <div>{answers}</div>
