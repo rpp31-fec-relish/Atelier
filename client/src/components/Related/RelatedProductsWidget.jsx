@@ -6,47 +6,68 @@ class RelatedProductsWidget extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      relatedProducts: []
+      relatedProductsId: [],
+      relatedProductsData: []
     }
   }
 
   componentDidMount() {
     let currentProduct = this.props.currentProduct;
+    let newData = [];
 
     helperFunctions.getRelatedProductsById(currentProduct)
       .then(products => {
-        let newData = [];
         for (var i = 0; i < products.length; i++) {
-          newData.push([products[i].id, products[i].name, products[i].category, products[i].default_price, products[i].features]);
+          let data = {
+            id: products[i].id,
+            name: products[i].name,
+            category: products[i].category,
+            price: products[i].default_price,
+            features: products[i].features,
+            image: null
+          }
+          if (!this.state.relatedProductsId.includes(products[i].id)) {
+            this.setState({ relatedProductsId: [...this.state.relatedProductsId, products[i].id] })
+            newData.push(data);
+          }
         }
-        if (newData.length === products.length) {
-          return newData;
-        }
+        return newData;
       })
-      .then(results => {
-        results.forEach(product => {
-          helperFunctions.getProductStylesById(product[0])
-            .then(productStyle => {
-              if (productStyle.length > 0) {
-                product.push(productStyle[0].photos);
-              } else {
-                console.error('No product styles');
+    .then(results => {
+      results.forEach(product => {
+        helperFunctions.getProductStylesById(product.id)
+          .then(productStyle => {
+            if (productStyle.length > 0) {
+              for (var i = 0; i < results.length; i++) {
+                if (results[i].id === product.id) {
+                  results[i].image = productStyle[0].photos;
+                }
               }
-              return results;
-            })
-            .then(relevantData => {
-              this.setState({relatedProducts: relevantData})
-            })
-            .catch(err => console.error(err));
-        })
+            } else {
+              console.error('No product styles');
+            }
+            return results;
+          })
+          .then(relevantData => {
+            this.setState({relatedProductsData: relevantData});
+          })
+          .catch(err => console.error(err));
       })
-      .catch(err => console.error(err));
+    })
+    .catch(err => console.error(err));
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.currentProduct !== this.props.currentProduct) {
+      this.setState({ relatedProductsId: [] })
+      this.componentDidMount();
+    }
   }
 
   render() {
     return (
       <section id="RelatedProductsWidget">
-        {this.state.relatedProducts.map((item) => <RelatedProduct key={'relatedProduct_' + item[0]} id={item[0]} name={item[1]} category={item[2]} price={item[3]} image={item[5]} assignImage={this.props.assignImage}/>)}
+        {this.state.relatedProductsData.map((item) => <RelatedProduct key={'relatedProduct_' + item.id} id={item.id} name={item.name} category={item.category} price={item.price} image={item.image} assignImage={this.props.assignImage} changeCurrentProduct={this.props.changeCurrentProduct}/>)}
       </section>
     )
   }

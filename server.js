@@ -3,8 +3,10 @@ const https = require('https');
 const express = require("express");
 const app = express();
 const token = require('./githubtoken.js');
+const compression = require('compression')
 
 // serves the static client page
+app.use(compression())
 app.use(express.static(path.join(__dirname, "client/dist")));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());

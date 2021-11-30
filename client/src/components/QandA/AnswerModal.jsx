@@ -1,6 +1,6 @@
 import React from 'react';
 
-function QandAModal(props) {
+function AnswerModal(props) {
   return (
     <>{props.showModal ?
     <div className="modalBackground">
@@ -26,4 +26,4 @@ function QandAModal(props) {
   );
 }
 
-export default QandAModal;
+export default AnswerModal;

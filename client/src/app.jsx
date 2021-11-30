@@ -1,44 +1,40 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import Overview from './components/Overview/main.jsx';
 import QandA from './components/QandA/main.jsx';
 import Related from './components/Related/main.jsx';
 import Reviews from './components/Reviews/main.jsx';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentProduct: 59553,
-      outfits: []
-    };
+function App(props) {
+  const [currentProduct, setCurrentProduct] = useState(59553);
+  const [outfits, setOutfits] = useState([]);
 
-    this.addToOutfit = this.addToOutfit.bind(this);
+  const changeCurrentProduct = (productId) =>  {
+    setCurrentProduct(productId)
   }
 
-  addToOutfit(productId) {
-    let index = this.state.outfits.indexOf(productId);
+  const addToOutfit = (productId) => {
+    let index = outfits.indexOf(productId);
     if (index > -1) {
       // Removes productId in outfits if it exists
-      let newOutfitsData = [...this.state.outfits];
+      let newOutfitsData = [...outfits];
       newOutfitsData.splice(index, 1);
-      this.setState({outfits: newOutfitsData});
+      setOutfits(newOutfitsData);
     } else {
-      this.setState({outfits: [...this.state.outfits, productId]});
+      setOutfits([...outfits, productId]);
     }
   }
 
-  render() {
-    return (
-      <div>
-        <h1>ATELIER</h1>
-        <Overview currentProduct={this.state.currentProduct} addToOutfit={this.addToOutfit}/>
-        <Related currentProduct={this.state.currentProduct} outfits={this.state.outfits} addToOutfit={this.addToOutfit}/>
-        <QandA currentProduct={this.state.currentProduct}/>
-        <Reviews currentProduct={this.state.currentProduct}/>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <h1>ATELIER</h1>
+      <Overview currentProduct={currentProduct} addToOutfit={addToOutfit}/>
+      <Related currentProduct={currentProduct} outfits={outfits} addToOutfit={addToOutfit} changeCurrentProduct={changeCurrentProduct}/>
+      <QandA currentProduct={currentProduct}/>
+      <Reviews currentProduct={currentProduct}/>
+    </div>
+  );
+
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));

@@ -11,6 +11,8 @@ body {
   font-weight: lighter;
   font-size: 12px;
   text-align: left;
+  margin: 0 auto;
+  max-width: 960px;
 }
 
 #QandATitle {
@@ -30,8 +32,11 @@ body {
 }
 
 #MoreAnswers {
+  font-weight: bold;
   border: none;
   background: transparent;
+  margin-left: 15px;
+  margin-bottom: 15px;
 }
 
 #MoreAnswerdQuestionsButton, #AddQuestionButtton {
@@ -39,7 +44,13 @@ body {
   background: transparent;
   padding: 15px;
   margin-right: 15px;
-  border: 1px solid grey;
+  border: 1px solid rgb(92, 92, 92);
+}
+
+#RelatedProductsAndOutfits {
+  max-width: 960px;
+  padding: 0;
+  margin: 0 auto;
 }
 
 #RelatedProductsAndOutfits h4 {
@@ -52,14 +63,21 @@ body {
 
 #RelatedProductsWidget {
   display: flex;
-  /* justify-content: space-between; */
 }
 
 #RelatedProduct {
   justify-content: center;
+  position: relative;
   display: inline-block;
   flex: 0 1 calc(25% - 1em);
   border: 1px solid black;
+}
+
+#RP-star-modal {
+  position: absolute;
+  top: 8px;
+  right: 5px;
+  color: black;
 }
 
 #RP-image {
@@ -69,7 +87,6 @@ body {
 
 #OutfitsWidget {
   display: flex;
-  justify-content: space-between;
 }
 
 #OutfitText{
@@ -82,16 +99,24 @@ body {
 }
 
 #OutfitItem {
+  justify-content: center;
+  position: relative;
   display: inline-block;
   flex: 0 1 calc(25% - 1em);
-  width: 200px;
-  height: 210px;
   border: 1px solid black;
 }
 
 #Outfit-image {
   width: 150px;
   height: 150px;
+}
+
+#Outfit-star-modal {
+  position: absolute;
+  top: 8px;
+  right: 5px;
+  color: black;
+  font-size: 25px;
 }
 
 #QuestionHelpful {
@@ -102,6 +127,7 @@ body {
   border: none;
   background: transparent;
   text-decoration: underline;
+  color: rgb(92, 92, 92);
 }
 
 .modalBackground {
@@ -141,4 +167,116 @@ table {
 
 .OverviewSelectedStyle {
   border: 2px solid black;
+}
+
+#QuestionHeader {
+  font-size:20px;
+  font-weight:bold;
+  color: rgb(55, 54, 54);
+
+}
+
+#AnswerBody {
+  font-size:15px;
+  font-weight:none;
+  margin-left: 15px;
+  margin-bottom: 15px;
+}
+
+#AnswerHelpful {
+  margin-top: 5px;
+  font-size:15px;
+  color: rgb(92, 92, 92);
+}
+
+/* reviews CSS, under construction */
+
+.reviews {
+  display: grid;
+  grid-template-columns: .5fr 1.5fr;
+  grid-template-rows: 1.1fr 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "reviewMeta reviewList "
+    ". reviewList"
+    ". reviewButtonsDiv";
+}
+
+.reviewMeta {
+  border-style: transparent;
+  grid-area: reviewMeta;
+}
+
+.reviewList {
+  border-style: transparent;
+  display: grid;
+  grid-template-columns: 0.3fr 2.4fr 0.3fr;
+  grid-template-rows: 0.2fr 0.8fr 2fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    ". reviewListHeader  ."
+    ". . ."
+    ". reviewListItem .";
+  grid-area: reviewList;
+}
+
+.reviewListItem {
+  /* position: relative; */
+  border-style: solid;
+  border: 1px solid rgb(92, 92, 92);
+  display: grid;
+  /* grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr; */
+  gap: 1px 1px;
+  grid-auto-flow: row;
+  /* grid-template-areas:
+    ". . ."
+    ". . ."
+    ". . ."; */
+  grid-area: reviewListItem;
+  margin: 15px;
+}
+
+.reviewListHeader {
+  grid-area: reviewListHeader
+}
+
+.reviewListSortButton{
+  display: grid;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    ". . ."
+    ". . ."
+    ". reviewListSortButton .";
+  grid-area: reviewListSortButton
+}
+
+.reviewButtonsDiv{
+  display: grid;
+  gap: 0px 0px;
+  grid-auto-flow: column;
+  grid-template-areas:
+    " reviewListMoreReviewsButton createReviewLinkButton";
+  grid-area: reviewButtonsDiv
+}
+
+.createReviewLinkButton{
+  border-radius: 0px;
+  background: transparent;
+  padding: 15px;
+  margin-right: 15px;
+  border: 1px solid rgb(92, 92, 92);
+  grid-area: createReviewLinkButton
+}
+
+.reviewListMoreReviewsbutton{
+  border-radius: 0px;
+  background: transparent;
+  padding: 15px;
+  margin-right: 15px;
+  border: 1px solid rgb(92, 92, 92);
+  grid-area: reviewListMoreReviewsButton
 }
