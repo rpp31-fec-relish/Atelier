@@ -66,7 +66,7 @@ class Carousel extends React.Component {
   render() {
     if (this.props.widget === 'related') {
       return (
-        <div className='carousel'>
+        <div className='carousel-related'>
           <Arrow
             direction='left'
             handleClick={ this.previousSlide }
@@ -95,7 +95,7 @@ class Carousel extends React.Component {
       )
     } else if (this.props.widget === 'outfits') {
       return (
-        <div className='carousel'>
+        <div className='carousel-outfits'>
           <Arrow
             direction='left'
             handleClick={ this.previousSlide }

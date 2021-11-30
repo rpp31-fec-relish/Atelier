@@ -14,7 +14,6 @@ class Related extends React.Component {
 
     this.assignImage = this.assignImage.bind(this);
     this.showModal = this.showModal.bind(this);
-    // this.setComparisonFeatures = this.setComparisonFeatures.bind(this);
   }
 
   assignImage(imageArray) {
@@ -30,38 +29,7 @@ class Related extends React.Component {
     return PlaceholderPhoto;
   }
 
-  // setComparisonFeatures(clickedId) {
-  //   helperFunctions.getProductById(this.props.currentProduct)
-  //     .then(result => {
-  //       return result.features;
-  //     })
-  //     .then(features => {
-  //       let allFeatures = [];
-  //       features.forEach(style => {
-  //         let featureData = {id: clickedId, feature: style.feature, value: style.value};
-  //         allFeatures.push(featureData);
-  //       })
-  //       this.setState({currentFeatures: allFeatures});
-  //     })
-  //     .catch(err => console.error(err));
-
-  //   helperFunctions.getProductById(clickedId)
-  //     .then(result => {
-  //       return result.features;
-  //     })
-  //     .then(features => {
-  //       let allFeatures = [];
-  //       features.forEach(style => {
-  //         let featureData = {id: clickedId, feature: style.feature, value: style.value};
-  //         allFeatures.push(featureData);
-  //       })
-  //       this.setState({comparisonFeatures: allFeatures});
-  //     })
-  //     .catch(err => console.error(err));
-  // }
-
   showModal(e) {
-    //this.setComparisonFeatures(e.target.id);
     this.setState({ show: !this.state.show });
   };
 

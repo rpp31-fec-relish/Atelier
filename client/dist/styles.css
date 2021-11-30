@@ -53,6 +53,7 @@ body {
 
 #RelatedProductsAndOutfits {
   max-width: 960px;
+  min-height: 515px;
   margin: 0 auto;
 }
 
@@ -64,20 +65,32 @@ body {
   font-size: 12px;
 }
 
-.carousel {
+.carousel-related {
+  position: relative;
+  align-items: center;
   display: flex;
-  margin: auto auto 0 auto;
-  justify-content: space-evenly;
+  margin-left: 0;
+  justify-content: space-between;
 }
 
-#RelatedProductsWidget {
-  justify-content: flex-start;
-  flex-direction: row;
+.carousel-outfits {
+  position: relative;
+  align-items: center;
+  display: flex;
+  margin-left: 0;
 }
 
-#OutfitsWidget {
-  justify-content: flex-start;
-  flex-direction: row;
+.Outfit-add-remove {
+  margin-left: 70;
+  min-height: 196px;
+  width: 127px;
+  border: 1px solid black;
+  text-align: center;
+  padding: 1em;
+  font-family: Arial;
+  font-weight: lighter;
+  color: rgb(110, 110, 110);
+  font-size: 12px;
 }
 
 #RelatedProduct {
@@ -86,21 +99,7 @@ body {
 
 #OutfitItem {
   border: 1px solid black;
-  margin: auto auto 0 auto;
-}
-
-.Outfit-add-remove {
-  margin: auto auto 0 auto;
-  min-height: 196px;
-  width: 127px;
-  margin: 0 auto;
-  border: 1px solid black;
-  text-align: center;
-  padding: 1em;
-  font-family: Arial;
-  font-weight: lighter;
-  color: rgb(110, 110, 110);
-  font-size: 12px;
+  margin-left: 7.1%;
 }
 
 .RP-star-modal {
@@ -115,7 +114,6 @@ body {
   color: black;
   font-size: 25px;
   text-shadow: white 1px 1px 1px;
-  z-index: 1;
 }
 
 #RP-image {
@@ -145,6 +143,7 @@ body {
   justify-content: center;
   border: 1px solid black;
   background: white;
+  z-index: 1;
 }
 
 #toggle-modal {
