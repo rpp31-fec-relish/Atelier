@@ -1,12 +1,12 @@
 import React from 'react';
 import OutfitItem from './OutfitItem.jsx';
 import helperFunctions from './../../helperFunctions.js';
+import Carousel from './Carousel.jsx';
 
 class OutfitsWidget extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      outfitsId: [],
       outfitsData: []
     };
 
@@ -17,15 +17,13 @@ class OutfitsWidget extends React.Component {
 
   handleTextChange(itemId = this.props.currentProduct) {
     if (this.props.outfits.includes(itemId)) {
-      return 'REMOVE FROM OUTFIT';
+      return '- REMOVE FROM OUTFIT';
     } else {
-      return 'ADD TO OUTFIT';
+      return '+ ADD TO OUTFIT';
     }
   }
 
   getOutfitData() {
-    let newData = [];
-
     helperFunctions.getProductById(this.props.currentProduct)
     .then(productData => {
       let data = {
@@ -36,8 +34,6 @@ class OutfitsWidget extends React.Component {
         features: productData.features,
         image: null
       }
-      this.setState({ outfitsId: [...this.state.outfitsId, productData.id] })
-      newData.push(data);
       return data;
     })
     .then(results =>  {
@@ -57,36 +53,48 @@ class OutfitsWidget extends React.Component {
   handleClick(e) {
     e.preventDefault();
     // if currentProduct is already in outfits, remove from outfits
-    if (this.state.outfitsId.includes(this.props.currentProduct)) {
-      let newOutfitsData = [...this.state.outfitsData];
-      newOutfitsData.forEach(outfit => {
-        if (outfit.id === this.props.currentProduct) {
-          var removeIndex = newOutfitsData.map(item => item.id).indexOf(this.props.currentProduct);
-          ~removeIndex && newOutfitsData.splice(removeIndex, 1);
-        }
-      })
-      this.setState({outfitsData: newOutfitsData});
-    // otherwise add to outfits
+    if (!e.target.id) {
+      if (this.props.outfits.includes(this.props.currentProduct)) {
+        let newOutfitsData = [...this.state.outfitsData];
+        newOutfitsData.forEach(outfit => {
+          if (outfit.id === this.props.currentProduct) {
+            var removeIndex = newOutfitsData.map(item => item.id).indexOf(this.props.currentProduct);
+            ~removeIndex && newOutfitsData.splice(removeIndex, 1);
+          }
+        })
+        this.setState({outfitsData: newOutfitsData});
+        this.props.addToOutfit(this.props.currentProduct);
+      } else {
+        this.getOutfitData();
+        this.props.addToOutfit(this.props.currentProduct);
+      }
     } else {
-      this.props.addToOutfit(this.props.currentProduct);
-      this.getOutfitData();
+      let idToNum = parseInt(e.target.id);
+      if (this.props.outfits.includes(idToNum)) {
+        let newOutfitsData = [...this.state.outfitsData];
+        const removeIndex = newOutfitsData.findIndex(item => item.id === idToNum);
+        newOutfitsData.splice(removeIndex, 1);
+        this.setState({outfitsData: newOutfitsData});
+      }
+      this.props.addToOutfit(e.target.id);
     }
   }
 
   render() {
     return (
-      <section id="OutfitsWidget">
-        <div id="OutfitItem">
-          <div id="addToOutfit">
-            <a href='#add-outfit' id="OutfitText" onClick={(e) => {
-              this.handleClick(e);
-            }}>+ {this.handleTextChange()}</a>
-          </div>
-        </div>
-        {this.state.outfitsData.map((outfit) => <OutfitItem key={'outfit_' + outfit.id} id={outfit.id} name={outfit.name} category={outfit.category} price={outfit.price} image={outfit.image} assignImage={this.props.assignImage} outfits={this.props.outfits} handleClick={this.handleClick} addToOutfit={this.props.addToOutfit}/>)}
-      </section>
-    )
-  }
+      <div id="OutfitsWidget">
+        <Carousel
+          outfitData={this.state.outfitsData}
+          assignImage={this.props.assignImage}
+          outfits={this.props.outfits}
+          changeCurrentProduct={this.props.changeCurrentProduct}
+          showModal={this.props.showModal}
+          handleClick={this.handleClick}
+          addToOutfit={this.props.addToOutfit}
+          handleTextChange={this.handleTextChange}
+          widget={'outfits'}/>
+    </div>
+  )}
 }
 
 export default OutfitsWidget;
