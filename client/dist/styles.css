@@ -53,7 +53,7 @@ body {
 
 #RelatedProductsAndOutfits {
   max-width: 960px;
-  padding: 0;
+  min-height: 515px;
   margin: 0 auto;
 }
 
@@ -65,23 +65,55 @@ body {
   font-size: 12px;
 }
 
-#RelatedProductsWidget {
+.carousel-related {
+  position: relative;
+  align-items: center;
   display: flex;
+  margin-left: 0;
+  justify-content: space-between;
+}
+
+.carousel-outfits {
+  position: relative;
+  align-items: center;
+  display: flex;
+  margin-left: 0;
+}
+
+.Outfit-add-remove {
+  margin-left: 70;
+  min-height: 196px;
+  width: 127px;
+  border: 1px solid black;
+  text-align: center;
+  padding: 1em;
+  font-family: Arial;
+  font-weight: lighter;
+  color: rgb(110, 110, 110);
+  font-size: 12px;
 }
 
 #RelatedProduct {
-  justify-content: center;
-  position: relative;
-  display: inline-block;
-  flex: 0 1 calc(25% - 1em);
   border: 1px solid black;
 }
 
-#RP-star-modal {
+#OutfitItem {
+  border: 1px solid black;
+  margin-left: 7.1%;
+}
+
+.RP-star-modal {
   position: absolute;
-  top: 8px;
-  right: 5px;
   color: black;
+  font-size: 17px;
+  text-shadow: lightgray 1px 1px 1px;
+}
+
+.Outfit-star-modal {
+  position: absolute;
+  color: black;
+  font-size: 25px;
+  text-shadow: white 1px 1px 1px;
 }
 
 #RP-image {
@@ -89,38 +121,61 @@ body {
   height: 150px;
 }
 
-#OutfitsWidget {
-  display: flex;
-}
-
-#OutfitText{
-  display: inline-block;
-  font-size: 14px;
-  font-family: Arial;
-  font-weight: lighter;
-  color: rgb(110, 110, 110);
-  padding: 70px 0;
-}
-
-#OutfitItem {
-  justify-content: center;
-  position: relative;
-  display: inline-block;
-  flex: 0 1 calc(25% - 1em);
-  border: 1px solid black;
-}
-
 #Outfit-image {
   width: 150px;
   height: 150px;
 }
 
-#Outfit-star-modal {
+.Outfit-text-change {
+  text-align: center;
+}
+
+#RP-modal {
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+  height: 300px;
+  font-family: Arial;
+  font-weight: lighter;
+  color: rgb(110, 110, 110);
+  font-size: 12px;
+  width: 500px;
+  overflow: auto;
   position: absolute;
-  top: 8px;
+  justify-content: center;
+  border: 1px solid black;
+  background: white;
+  z-index: 1;
+}
+
+#toggle-modal {
+  font-size: 30px;
+  align-items: center;
+}
+
+#RP-comparison-1 {
+  position: absolute;
+  left: 5px;
+}
+
+#RP-comparison-2 {
+  position: absolute;
   right: 5px;
-  color: black;
-  font-size: 25px;
+}
+
+#modal-contents {
+  display: inline-table;
+  list-style: none;
+}
+
+#modal-contents li:before {
+  content: '✓';
+}
+
+#modal-contents li:after {
+  content: '✓';
 }
 
 #QuestionHelpful {
@@ -218,6 +273,10 @@ table {
   grid-template-columns: 0.3fr 2.4fr 0.3fr;
   grid-template-rows: 0.2fr 0.8fr 2fr;
   gap: 0px 0px;
+  overflow: scroll;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 750px;
   grid-auto-flow: row;
   grid-template-areas:
     ". reviewListHeader  ."
@@ -235,12 +294,40 @@ table {
   grid-template-rows: 1fr 1fr 1fr; */
   gap: 1px 1px;
   grid-auto-flow: row;
-  /* grid-template-areas:
-    ". . ."
-    ". . ."
-    ". . ."; */
+  grid-template-areas:
+    "reviewListItemScore . reviewListInfo"
+    ". reviewListItemSummary . "
+    "reviewListItemBody reviewListItemBody reviewListItemBody"
+    ". reviewListItemRecommend ."
+    ". reviewListItemResponse ."
+    ". reviewListHelpfulness .";
   grid-area: reviewListItem;
   margin: 15px;
+}
+
+.reviewListItemSummary {
+  font-weight: bold;
+  grid-area: reviewListItemSummary
+}
+
+.reviewListItemBody {
+  grid-area: reviewListItemBody
+}
+
+.reviewListItemResponse {
+  font-weight: bold;
+  font-style: italic;
+  /*color: blue;
+  background-color: rgb(189, 187, 187);*/
+  grid-area: reviewListItemResponse
+}
+
+.reviewListItemScore {
+  grid-area: reviewListItemScore
+}
+
+.reviewListItemRecommend {
+  grid-area: reviewListItemRecommend
 }
 
 .reviewListHeader {
@@ -283,4 +370,24 @@ table {
   margin-right: 15px;
   border: 1px solid rgb(92, 92, 92);
   grid-area: reviewListMoreReviewsButton
+}
+
+.reviewListItemHelpfulness, .reviewListItemHelpfulnesYes {
+  margin-top: 5px;
+  font-size:15px;
+  color: rgb(92, 92, 92);
+  grid-area: reviewListHelpfulness
+}
+
+.reviewListInfo {
+  margin-top: 5px;
+  font-size:15px;
+  color: rgb(92, 92, 92);
+  grid-area: reviewListInfo
+}
+
+.showButton {
+  border-radius: 0px;
+  background: transparent;
+  border: 1px solid rgb(92, 92, 92);
 }
