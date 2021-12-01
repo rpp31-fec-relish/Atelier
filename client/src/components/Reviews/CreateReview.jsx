@@ -12,10 +12,9 @@ function CreateReview(props) {
   const[missingVariables, setMissingVariables] = useState({})
   const[missingVariablesArr, setMissingVariablesArr] = useState([])
 
-  //state varible that will state whats incomplete
-
   useEffect(() => {
     //move to main when working on meta data
+    //this will be gottent rid of for optimization
     let currentProduct = props.currentProduct;
     helperFunctions.getReviewsMetaById(currentProduct)
     .then((metaData)  => {
@@ -147,31 +146,36 @@ function CreateReview(props) {
   }
 
   return (
-    <div className="modalBackground">
-      <div className="modalContainer">
+    <div className="createReviewBackground">
+      <div className="createReviewContainer">
       <button className="modalCloseButton" onClick={props.displayCreateReview}>X</button>
         <form className="createReviewForm" onSubmit={handleSubmit}>
-        <button className="createReviewRecomend" onClick = {recommendFunc}>{buttonText}</button>
+          <label className="createReviewRating">
+            Rating:<Rating onClick={handleRating} ratingValue={rating}/>
+          </label>
+          <br/>
+          <button className="createReviewRecommend" onClick = {recommendFunc}>{buttonText}</button>
+          <br/>
           <label>
             Summary:
-            <textarea className="createReviewSummary" name='summary' placeholder="Example: Best purchase ever!"/>
+            <input type="text" className="createReviewSummary" name='summary' placeholder="Example: Best purchase ever!"/>
           </label>
+          <br/>
           <label>
             Body:
-            <textarea className="createReviewBody" name='body' placeholder="Why did you like the product or not?"/>
+            <input type="text" className="createReviewBody" name='body' placeholder="Why did you like the product or not?"/>
           </label>
+          <br/>
           <label>
             Name:
             <input className="createReviewName" name='name'></input>
           </label>
+          <br/>
           <label>
             Email:
             <input className="createReviewEmail" name="email"></input>
           </label>
-          <label>
-            Rating:<Rating onClick={handleRating} ratingValue={rating}/>
-          </label>
-          {characteristicNames.map((trait) => <div className="charactersitic_select" key = {characteristics[trait].id}>
+          {characteristicNames.map((trait) => <div className="charactersiticSelect" key = {characteristics[trait].id}>
               {trait}:
               <input type="radio" value="1" onChange={handleChange}name={trait}/>
               <label>{traits(trait, 0)}</label>
@@ -191,7 +195,6 @@ function CreateReview(props) {
       </div>
     </div>
   )
-//if information is inside of of a varible, render this information and prevent submision. i guess i should have this set up between the bottom of the form and the bottom
 }
 
 export default CreateReview;

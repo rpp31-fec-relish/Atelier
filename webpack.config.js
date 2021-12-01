@@ -8,7 +8,7 @@ var DIST_DIR = path.join(__dirname, "/client/dist");
 
 module.exports = {
   mode: 'development',
-  plugins: [new CompressionPlugin()],
+  plugins: [new CompressionPlugin(), new MiniCssExtractPlugin()],
   entry: `${SRC_DIR}/app.jsx`,
   module: {
     rules: [

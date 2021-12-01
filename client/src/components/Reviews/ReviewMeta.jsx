@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import helperFunctions from '../../helperFunctions';
+import Slider, {Range} from 'rc-slider';
 import Stars from '../../../../node_modules/react-stars-display/';
 
 class ReviewMeta extends React.Component {
@@ -23,6 +24,7 @@ class ReviewMeta extends React.Component {
 
       let ratings = metaData.ratings
       let avg = this.weightedAverage(ratings);
+      console.log(metaData)
 
       this.setState({
         ratings: ratings,
@@ -41,7 +43,6 @@ class ReviewMeta extends React.Component {
 
     return result;
   }
-
 
 
   render() {

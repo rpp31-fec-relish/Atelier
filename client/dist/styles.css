@@ -336,3 +336,55 @@ table {
   background: transparent;
   border: 1px solid rgb(92, 92, 92);
 }
+
+.createReviewBackground {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(200,200,200, .50);
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+}
+
+.createReviewContainer {
+  width: auto;
+  height: auto;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, .35) 0px, 5px, 15px;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+}
+
+.createReviewRecommend, .createReviewRating, .createReviewSummary, .createReviewBody, .createReviewName, .createReviewEmail {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.createReviewRecommend {
+  border-radius: 0px;
+  background: transparent;
+  padding: 15px;
+  margin-right: 15px;
+  border: 1px solid rgb(92, 92, 92);
+}
+
+.charactersiticSelect {
+  padding: 5px;
+}
+.createReviewsummary {
+  width:300px;
+  height: auto;
+  padding: 15px;
+}
+.createReviewBody {
+  width: 600px;
+  height: auto;
+  padding: 15px;
+}
