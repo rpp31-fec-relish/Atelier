@@ -72,6 +72,11 @@ class Overview extends React.Component {
 
   // table for now, will do layout properly in CSS
   render() {
+    if (this.state.product === null
+      || this.state.currentStyle === null
+      || this.state.productStyles == null) {
+      return null;
+    }
     return (
       <div id='overview'>
         <table>
