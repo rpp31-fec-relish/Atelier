@@ -9,11 +9,12 @@ function CreateReview(props) {
   const[recommend, setRecommend] = useState(false)
   const[rating, setRating] = useState(0)
   const[characteristics, setCurrentCharacteristics] = useState({})
-
-  //state varible that will state whats incomplete
+  const[missingVariables, setMissingVariables] = useState({})
+  const[missingVariablesArr, setMissingVariablesArr] = useState([])
 
   useEffect(() => {
     //move to main when working on meta data
+    //this will be gottent rid of for optimization
     let currentProduct = props.currentProduct;
     helperFunctions.getReviewsMetaById(currentProduct)
     .then((metaData)  => {
@@ -92,14 +93,14 @@ function CreateReview(props) {
     if (!review.email.match(emailFormat)) {
       incomplete = true
       missingPortion.email = 'You must provide a valid email'
-    } else if (review.email.value.length === 0) {
+    } else if (review.email.length === 0) {
       incomplete = true
       missingPortion.email = 'Your email can not be blank'
-    } else if (review.email.value.length > 60) {
+    } else if (review.email.length > 60) {
       incomplete = true
       missingPortion.email = 'Your email can not be more then 60 characters'
     }
-    if (review.rating.value === 0) {
+    if (review.rating === 0) {
       incomplete = true
       missingPortion.rating = 'You must provide a star rating'
     }
@@ -107,15 +108,17 @@ function CreateReview(props) {
     characteristicNames.map((trait) => {
       review.characteristics[characteristics[trait].id] = characteristics[trait].value;
 
-      //need to redo this to reflect ID as name
       if (characteristics[trait].value === 0) {
         incomplete = true;
-        missingPortion[trait] = characteristics[trait] + ' is empty! Please fill out all elements of the review.';
+        missingPortion[trait] = trait + ' is empty! Please fill out all elements of the review.';
       }
     });
 
     if (incomplete) {
-      //set up divs to pop up in modal between modal container and form at bottom. also this needs testing soon, haven't tested any of this
+      let variablesArr = Object.keys(missingPortion)
+      setMissingVariablesArr(variablesArr)
+      setMissingVariables(missingPortion)
+      incomplete = false
     } else {
     helperFunctions.postReview(review);
     props.displayCreateReview()
@@ -143,31 +146,36 @@ function CreateReview(props) {
   }
 
   return (
-    <div className="modalBackground">
-      <div className="modalContainer">
+    <div className="createReviewBackground">
+      <div className="createReviewContainer">
       <button className="modalCloseButton" onClick={props.displayCreateReview}>X</button>
         <form className="createReviewForm" onSubmit={handleSubmit}>
-        <button className="createReviewRecomend" onClick = {recommendFunc}>{buttonText}</button>
+          <label className="createReviewRating">
+            Rating:<Rating onClick={handleRating} ratingValue={rating}/>
+          </label>
+          <br/>
+          <button className="createReviewRecommend" onClick = {recommendFunc}>{buttonText}</button>
+          <br/>
           <label>
             Summary:
-            <textarea className="createReviewSummary" name='summary' placeholder="Example: Best purchase ever!"/>
+            <input type="text" className="createReviewSummary" name='summary' placeholder="Example: Best purchase ever!"/>
           </label>
+          <br/>
           <label>
             Body:
-            <textarea className="createReviewBody" name='body' placeholder="Why did you like the product or not?"/>
+            <input type="text" className="createReviewBody" name='body' placeholder="Why did you like the product or not?"/>
           </label>
+          <br/>
           <label>
             Name:
             <input className="createReviewName" name='name'></input>
           </label>
+          <br/>
           <label>
             Email:
             <input className="createReviewEmail" name="email"></input>
           </label>
-          <label>
-            Rating:<Rating onClick={handleRating} ratingValue={rating}/>
-          </label>
-          {characteristicNames.map((trait) => <div className="charactersitic_select" key = {characteristics[trait].id}>
+          {characteristicNames.map((trait) => <div className="charactersiticSelect" key = {characteristics[trait].id}>
               {trait}:
               <input type="radio" value="1" onChange={handleChange}name={trait}/>
               <label>{traits(trait, 0)}</label>
@@ -183,11 +191,10 @@ function CreateReview(props) {
           )}
           <button className="createReviewSubmitButton" type='submit' >Submit</button>
         </form>
-        {/*check to see if there is anything incompelete (do that with state varible). if there is then create divs to display the text when its incompelte in the modal */}
+        {missingVariablesArr.map((variable) => <div className='missingVaribale' key={variable}>{missingVariables[variable]}</div>)}
       </div>
     </div>
   )
-//if information is inside of of a varible, render this information and prevent submision. i guess i should have this set up between the bottom of the form and the bottom
 }
 
 export default CreateReview;
