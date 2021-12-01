@@ -73,13 +73,7 @@ class OverviewCart extends React.Component {
 
   }
 
-  componentDidUpdate(prevProps) {
-
-    // if the style changed, reset the size & quantity info
-    if (this.props.currentProduct.id != prevProps.currentProduct.id
-      || this.props.currentStyle.style_id != prevProps.currentStyle.style_id) {
-        this.setState({sku: null, quantity: 1});
-    }
+  toggleSelectors() {
     // disable addToCart button and the Select Quantity dropdown if no sku selected,
     // enable them when sku selected
     let addToCartButton = window.document.getElementById('addToCartButton');
@@ -94,6 +88,20 @@ class OverviewCart extends React.Component {
       addToCartButton.removeAttribute('disabled');
       quantityDropdown.removeAttribute('disabled');
     }
+  }
+
+  componentDidMount() {
+    this.toggleSelectors();
+  }
+
+  componentDidUpdate(prevProps) {
+
+    // if the style changed, reset the size & quantity info
+    if (this.props.currentProduct.id != prevProps.currentProduct.id
+      || this.props.currentStyle.style_id != prevProps.currentStyle.style_id) {
+        this.setState({sku: null, quantity: 1});
+    }
+    this.toggleSelectors();
   }
 
   render() {
