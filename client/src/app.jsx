@@ -60,8 +60,8 @@ function App(props) {
       <h1>ATELIER</h1>
       <Overview currentProduct={currentProduct} addToOutfit={addToOutfit} />
       <Related currentProduct={currentProduct} outfits={outfits} addToOutfit={addToOutfit} changeCurrentProduct={changeCurrentProduct}/>
-      <QandA currentProduct={currentProduct}/>
-      <Reviews currentProduct={currentProduct}/>
+      <QandA currentProduct={currentProduct} currentProductData={currentProductData} currentProductStyles={currentProductStyles}/>
+      <Reviews currentProduct={currentProduct} currentProductData={currentProductData} currentProductStyles={currentProductStyles}/>
     </div>
   );
 
