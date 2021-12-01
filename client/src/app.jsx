@@ -41,7 +41,9 @@ function App(props) {
       // if the URL path is /, set the URL to the currentProduct
       window.history.replaceState(null, `${currentProduct}`, `/${currentProduct}`);
     }
+  });
 
+  useEffect(() => {
     helperFunctions.getProductById(currentProduct)
       .then((product) => {
         return helperFunctions.getProductStylesById(currentProduct)
@@ -51,13 +53,13 @@ function App(props) {
           })
       })
       .catch((error) => console.error(error));
-  });
+  }, [currentProduct]);
 
   return (
     <div>
       <h1>ATELIER</h1>
-      <Overview currentProduct={currentProduct} addToOutfit={addToOutfit} currentProductData={currentProductData} currentProductStyles={currentProductStyles}/>
-      <Related currentProduct={currentProduct} outfits={outfits} addToOutfit={addToOutfit} changeCurrentProduct={changeCurrentProduct} currentProductData={currentProductData} currentProductStyles={currentProductStyles}/>
+      <Overview currentProduct={currentProduct} addToOutfit={addToOutfit} />
+      <Related currentProduct={currentProduct} outfits={outfits} addToOutfit={addToOutfit} changeCurrentProduct={changeCurrentProduct}/>
       <QandA currentProduct={currentProduct}/>
       <Reviews currentProduct={currentProduct}/>
     </div>
