@@ -4,10 +4,13 @@ import Overview from './components/Overview/main.jsx';
 import QandA from './components/QandA/main.jsx';
 import Related from './components/Related/main.jsx';
 import Reviews from './components/Reviews/main.jsx';
+import helperFunctions from './helperFunctions.js';
 
 function App(props) {
   const [currentProduct, setCurrentProduct] = useState(59553);
   const [outfits, setOutfits] = useState([]);
+  const [currentProductData, setCurrentProductData] = useState([]);
+  const [currentProductStyles, setCurrentProductStyles] = useState([]);
 
   const changeCurrentProduct = (productId) =>  {
     console.log(productId);
@@ -38,13 +41,23 @@ function App(props) {
       // if the URL path is /, set the URL to the currentProduct
       window.history.replaceState(null, `${currentProduct}`, `/${currentProduct}`);
     }
+
+    helperFunctions.getProductById(currentProduct)
+      .then((product) => {
+        return helperFunctions.getProductStylesById(currentProduct)
+          .then((productStyles) => {
+            setCurrentProductData(product);
+            setCurrentProductStyles(productStyles);
+          })
+      })
+      .catch((error) => console.error(error));
   });
 
   return (
     <div>
       <h1>ATELIER</h1>
-      <Overview currentProduct={currentProduct} addToOutfit={addToOutfit}/>
-      <Related currentProduct={currentProduct} outfits={outfits} addToOutfit={addToOutfit} changeCurrentProduct={changeCurrentProduct}/>
+      <Overview currentProduct={currentProduct} addToOutfit={addToOutfit} currentProductData={currentProductData} currentProductStyles={currentProductStyles}/>
+      <Related currentProduct={currentProduct} outfits={outfits} addToOutfit={addToOutfit} changeCurrentProduct={changeCurrentProduct} currentProductData={currentProductData} currentProductStyles={currentProductStyles}/>
       <QandA currentProduct={currentProduct}/>
       <Reviews currentProduct={currentProduct}/>
     </div>
