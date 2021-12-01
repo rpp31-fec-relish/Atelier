@@ -55,6 +55,13 @@ class OverviewCart extends React.Component {
     }
   }
 
+  favoriteListener(event) {
+
+    this.props.addToOutfit(this.props.currentProduct);
+    console.log(`Added ${this.props.currentProduct} to outfit`);
+
+  }
+
   selectSizeListener(event) {
 
     if (event.target.value === 'default' || event.target.value === null) {
@@ -117,7 +124,7 @@ class OverviewCart extends React.Component {
             {this.createQuantities()}
           </select>
           <button id='addToCartButton' onClick={this.addToCartListener.bind(this)}>Add To Cart</button>
-          <button>Favorite</button>
+          <button id='favoriteButton' onClick={this.favoriteListener.bind(this)}>Favorite</button>
         </div>
       );
     } else {
