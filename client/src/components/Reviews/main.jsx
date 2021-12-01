@@ -52,24 +52,15 @@ class Reviews extends React.Component {
   }
 
   render() {
-    //---will use CSS styling for specific placement
-    let reviews;
-    if (this.state.displayCreateReview) {
-      reviews = <CreateReview currentProduct={this.props.currentProduct} displayCreateReview={this.handleClickOne}/>
-    } else {
-      reviews = <div className="reviews">
+    return (
+      <div className="reviews">
         <ReviewList reviewsArr={this.state.reviewsArr} currentProduct={this.props.currentProduct} reviewCount={this.state.reviewCount}/>
         <ReviewMeta currentProduct={this.props.currentProduct}/>
         <div className= "reviewButtonsDiv">
           <button className="createReviewLinkButton" onClick={this.handleClickOne}>Create review</button>
           <button className="reviewListMoreReviewsbutton" onClick={this.handleClickTwo}>More Reviews</button>
         </div>
-      </div>
-    }
-
-    return (
-      <div>
-        {reviews}
+        {this.state.displayCreateReview ? <CreateReview currentProduct={this.props.currentProduct} displayCreateReview={this.handleClickOne}/> : null}
       </div>
     )
   }
