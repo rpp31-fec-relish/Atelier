@@ -41,7 +41,9 @@ function App(props) {
       // if the URL path is /, set the URL to the currentProduct
       window.history.replaceState(null, `${currentProduct}`, `/${currentProduct}`);
     }
+  });
 
+  useEffect(() => {
     helperFunctions.getProductById(currentProduct)
       .then((product) => {
         return helperFunctions.getProductStylesById(currentProduct)
@@ -51,7 +53,7 @@ function App(props) {
           })
       })
       .catch((error) => console.error(error));
-  });
+  }, [currentProduct]);
 
   return (
     <div>

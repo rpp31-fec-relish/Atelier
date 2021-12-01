@@ -12,9 +12,14 @@ class Reviews extends React.Component {
       reviewsArr: [],
       reviewCount: 2,
       displayCreateReview: false,
+      ratings: {},
+      characteristics: {},
+      recommended: {},
+      ratingAverage: 0
     }
     this.handleClickOne = this.handleClickOne.bind(this);
     this.handleClickTwo = this.handleClickTwo.bind(this);
+    this.weightedAverage = this.weightedAverage.bind(this)
   }
 
 
@@ -30,6 +35,23 @@ class Reviews extends React.Component {
     .catch((err) => {
       console.error('Error setting state of reviews', err)
     })
+
+    helperFunctions.getReviewsMetaById(currentProduct)
+    .then((metaData)  => {
+      let ratings = metaData.ratings
+      let avg = this.weightedAverage(ratings);
+      console.log('metadata: ', metaData)
+
+      this.setState({
+        ratings: ratings,
+        characteristics: metaData.characteristics,
+        recommended: metaData.recommended,
+        ratingAverage: avg
+      })
+    })
+    .catch((err) => {
+      console.error('Error setting state of reviewMetaData', err)
+    })
   }
 
 
@@ -37,6 +59,12 @@ class Reviews extends React.Component {
     if (prevProps.currentProduct !== this.props.currentProduct) {
       this.componentDidMount();
     }
+  }
+
+  weightedAverage(ratings) {
+    let result = (ratings[5] * 5 + ratings[4] * 4 + ratings[3] * 3 + ratings[2] * 2 + ratings[1] * 1) / ((ratings[5] * 1 + ratings[4] * 1 + ratings[3] * 1 + ratings[2] * 1 + ratings[1] * 1))
+
+    return result;
   }
 
   handleClickOne() {
@@ -55,7 +83,7 @@ class Reviews extends React.Component {
     return (
       <div className="reviews">
         <ReviewList reviewsArr={this.state.reviewsArr} currentProduct={this.props.currentProduct} reviewCount={this.state.reviewCount}/>
-        <ReviewMeta currentProduct={this.props.currentProduct}/>
+        <ReviewMeta currentProduct={this.props.currentProduct} ratings={this.state.ratings} characteristics={this.state.characteristics} recommended={this.state.recommended} ratingAverage={this.state.ratingAverage}/>
         <div className= "reviewButtonsDiv">
           <button className="createReviewLinkButton" onClick={this.handleClickOne}>Create review</button>
           <button className="reviewListMoreReviewsbutton" onClick={this.handleClickTwo}>More Reviews</button>
