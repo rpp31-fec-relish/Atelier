@@ -20,9 +20,13 @@ class OverviewCart extends React.Component {
   }
 
   createQuantities() {
-    if (this.state.sku === null) {
+    if (this.state.sku === null
+      || this.props.currentStyle === null
+      || !Object.keys(this.props.currentStyle.skus).includes(this.state.sku)) {
       return (<option value='1'>{1}</option>)
     } else {
+      console.log('sku: ', this.state.sku);
+      console.log('current style: ', this.props.currentStyle.skus);
       let available = this.props.currentStyle.skus[this.state.sku].quantity;
       if (available === 0) {
         return (<option value='0' disabled> No Inventory Available </option>)
@@ -66,22 +70,29 @@ class OverviewCart extends React.Component {
       return;
     }
     this.setState({quantity: event.target.value});
-    console.log('quantity: ', event.target.value);
 
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
+
+    // if the style changed, reset the size & quantity info
+    if (this.props.currentProduct.id != prevProps.currentProduct.id
+      || this.props.currentStyle.style_id != prevProps.currentStyle.style_id) {
+        this.setState({sku: null, quantity: 1});
+    }
     // disable addToCart button and the Select Quantity dropdown if no sku selected,
     // enable them when sku selected
-    if (this.state.sku === null && window.document.getElementById('addToCartButton') != null) {
-      window.document.getElementById('addToCartButton').setAttribute('disabled', 'true');
+    let addToCartButton = window.document.getElementById('addToCartButton');
+    let quantityDropdown = window.document.getElementById('QuantityDropdown');
+    if (this.state.sku === null && addToCartButton != null) {
+      addToCartButton.setAttribute('disabled', 'true');
     }
-    if (this.state.sku === null && window.document.getElementById('QuantityDropdown') != null) {
-      window.document.getElementById('QuantityDropdown').setAttribute('disabled', 'true');
+    if (this.state.sku === null && quantityDropdown != null) {
+      quantityDropdown.setAttribute('disabled', 'true');
     }
-    if (this.state.sku != null) {
-      document.getElementById('addToCartButton').removeAttribute('disabled');
-      document.getElementById('QuantityDropdown').removeAttribute('disabled');
+    if (this.state.sku != null && addToCartButton != null) {
+      addToCartButton.removeAttribute('disabled');
+      quantityDropdown.removeAttribute('disabled');
     }
   }
 
