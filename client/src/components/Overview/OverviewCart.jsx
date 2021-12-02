@@ -104,7 +104,7 @@ class OverviewCart extends React.Component {
   componentDidUpdate(prevProps) {
 
     // if the style changed, reset the size & quantity info
-    if (this.props.currentProduct.id != prevProps.currentProduct.id
+    if (this.props.currentProduct != prevProps.currentProduct
       || this.props.currentStyle.style_id != prevProps.currentStyle.style_id) {
         this.setState({sku: null, quantity: 1});
     }
