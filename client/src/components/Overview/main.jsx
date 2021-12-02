@@ -78,26 +78,16 @@ class Overview extends React.Component {
       return null;
     }
     return (
-      <div id='overview'>
-        <table>
-          <tbody>
-            <tr>
-              <td>
-                <OverviewImages product={this.state.product} currentStyle={this.state.currentStyle}/>
-              </td>
-              <td>
-                <OverviewInformation product={this.state.product} currentStyle={this.state.currentStyle}/>
-                <OverviewStyles productStyles={this.state.productStyles} currentStyle={this.state.currentStyle} setStyle={this.setCurrentStyle.bind(this)}/>
-                <OverviewCart currentProduct={this.props.currentProduct} currentStyle={this.state.currentStyle} addToOutfit={this.props.addToOutfit}/>
-              </td>
-            </tr>
-            <tr>
-              <td colSpan='2'>
-                <OverviewDescription product={this.state.product}/>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div id='Overview'>
+        <div id='OverviewMain'>
+          <OverviewImages product={this.state.product} currentStyle={this.state.currentStyle}/>
+          <div id='OverviewInteract'>
+            <OverviewInformation product={this.state.product} currentStyle={this.state.currentStyle}/>
+            <OverviewStyles productStyles={this.state.productStyles} currentStyle={this.state.currentStyle} setStyle={this.setCurrentStyle.bind(this)}/>
+            <OverviewCart currentProduct={this.props.currentProduct} currentStyle={this.state.currentStyle} addToOutfit={this.props.addToOutfit}/>
+          </div>
+        </div>
+        <OverviewDescription product={this.state.product}/>
       </div>
     );
   }

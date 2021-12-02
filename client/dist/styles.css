@@ -6,6 +6,60 @@ body {
   text-align: center;
 }
 
+#title {
+  font-family: "adobe-clean", sans-serif;
+  text-align: left;
+  background-color: lightskyblue;
+  padding: 20px;
+}
+
+#h1 {
+  margin-left: 10%;
+}
+
+#Overview {
+  font-family: "adobe-clean", sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: space-between;
+}
+
+#OverviewMain {
+  display: flex;
+  background-color: lightgray;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-start;
+  gap: 20px;
+  padding-left: 2%;
+  padding-right: 2%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+#OverviewImage {
+  flex-grow: 2;
+  width: 70%;
+  border: 1px solid black;
+}
+
+#OverviewInteract {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 20px;
+  text-align: left;
+
+}
+
+#OverviewDescription {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: medium;
+}
+
 #QandAContainer {
   font-family: Arial;
   font-weight: lighter;

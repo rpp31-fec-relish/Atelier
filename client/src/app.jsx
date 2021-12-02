@@ -57,7 +57,7 @@ function App(props) {
 
   return (
     <div>
-      <h1>ATELIER</h1>
+      <h1 id='title'>ATELIER</h1>
       <Overview currentProduct={currentProduct} addToOutfit={addToOutfit.bind(this)} />
       <Related currentProduct={currentProduct} outfits={outfits} addToOutfit={addToOutfit} changeCurrentProduct={changeCurrentProduct}/>
       <QandA currentProduct={currentProduct} currentProductData={currentProductData} currentProductStyles={currentProductStyles}/>

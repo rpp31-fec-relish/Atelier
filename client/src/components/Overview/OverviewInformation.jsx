@@ -11,7 +11,7 @@ class OverviewInformation extends React.Component {
         price = (<div><del>{price}</del> {this.props.currentStyle.sale_price}</div>);
       }
       return (
-        <div id='overviewInformation'>
+        <div id='OverviewInformation'>
           <div id='rating'>
             &#9733;&#9733;&#9733;&#9734;&#9734;
             <a href='#reviews'>Read all Reviews</a>

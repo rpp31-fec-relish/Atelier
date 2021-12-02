@@ -29,8 +29,8 @@ class OverviewImages extends React.Component {
     // todo: add alt text for accessibility
     if (this.props.currentStyle) {
       return (
-        <div>
-          <img src={imageURL} width='300'></img>
+        <div id='OverviewImage'>
+          <img src={imageURL} height='400px'></img>
         </div>
       );
     } else {
