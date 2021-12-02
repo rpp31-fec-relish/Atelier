@@ -174,9 +174,22 @@ class Related extends React.Component {
           allStyles={this.state.allStyles}></Modal>
         <div id="RelatedProductsAndOutfits">
           <h4>RELATED PRODUCTS</h4>
-          <RelatedProductsWidget currentProduct={this.props.currentProduct} assignImage={this.assignImage} changeCurrentProduct={this.props.changeCurrentProduct} showModal={this.showModal} setRelatedProductFeatures={this.setRelatedProductFeatures} relatedProductsData={this.state.relatedProductsData}/>
+          <RelatedProductsWidget
+            currentProduct={this.props.currentProduct}
+            assignImage={this.assignImage}
+            changeCurrentProduct={this.props.changeCurrentProduct}
+            showModal={this.showModal}
+            setRelatedProductFeatures={this.setRelatedProductFeatures}
+            relatedProductsData={this.state.relatedProductsData}/>
           <h4>YOUR OUTFITS</h4>
-          <OutfitsWidget currentProduct={this.props.currentProduct} outfits={this.props.outfits} assignImage={this.assignImage} addToOutfit={this.props.addToOutfit} changeCurrentProduct={this.props.changeCurrentProduct} showModal={this.showModal} currentProductData={this.props.currentProductData}/>
+          <OutfitsWidget
+            currentProduct={this.props.currentProduct}
+            outfits={this.props.outfits}
+            assignImage={this.assignImage}
+            addToOutfit={this.props.addToOutfit}
+            changeCurrentProduct={this.props.changeCurrentProduct}
+            showModal={this.showModal}
+            currentProductData={this.props.currentProductData}/>
         </div>
       </div>
     );
