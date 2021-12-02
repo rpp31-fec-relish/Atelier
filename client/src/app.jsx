@@ -59,7 +59,7 @@ function App(props) {
     <div>
       <h1>ATELIER</h1>
       <Overview currentProduct={currentProduct} addToOutfit={addToOutfit.bind(this)} />
-      <Related currentProduct={currentProduct} outfits={outfits} addToOutfit={addToOutfit} changeCurrentProduct={changeCurrentProduct}/>
+      <Related currentProduct={currentProduct} outfits={outfits} addToOutfit={addToOutfit} changeCurrentProduct={changeCurrentProduct} currentProductData={currentProductData}/>
       <QandA currentProduct={currentProduct} currentProductData={currentProductData} currentProductStyles={currentProductStyles}/>
       <Reviews currentProduct={currentProduct} currentProductData={currentProductData} currentProductStyles={currentProductStyles}/>
     </div>
