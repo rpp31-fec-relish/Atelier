@@ -12,8 +12,6 @@ class Overview extends React.Component {
     super(props);
 
     this.state = {
-      product: null,
-      productStyles: null,
       currentStyle: null
     }
 
@@ -36,57 +34,37 @@ class Overview extends React.Component {
     this.setState({currentStyle: productStyle});
   }
 
-  getProductsAndStyles() {
-
-    // todo: clear currentStyle when product changes
-    // had to do it nested like this to have access to
-    // all the results for one setState
-    helperFunctions.getProductById(this.props.currentProduct)
-    .then((product) => {
-      return helperFunctions.getProductStylesById(this.props.currentProduct)
-        .then((productStyles) => {
-          this.setState({
-            product: product,
-            productStyles: productStyles,
-            currentStyle: this.getDefaultStyle(productStyles)
-          });
-        })
-    })
-    .catch((error) => console.error(error));
-
-  }
-
   componentDidMount() {
 
-    this.getProductsAndStyles();
+    this.setState({currentStyle: this.getDefaultStyle(this.props.currentProductStyles)});
 
   }
 
   componentDidUpdate(prevProps) {
 
-    if (prevProps.currentProduct != this.props.currentProduct) {
-      this.getProductsAndStyles();
+    if (prevProps.currentProductData.id != this.props.currentProductData.id) {
+      this.setState({currentStyle: this.getDefaultStyle(this.props.currentProductStyles)});
     }
 
   }
 
   render() {
-    if (this.state.product === null
+    if (this.props.currentProductData === null
       || this.state.currentStyle === null
-      || this.state.productStyles == null) {
+      || this.props.currentProductStyles == null) {
       return null;
     }
     return (
       <div id='Overview'>
         <div id='OverviewMain'>
-          <OverviewImages product={this.state.product} currentStyle={this.state.currentStyle}/>
+          <OverviewImages product={this.props.currentProductData} currentStyle={this.state.currentStyle}/>
           <div id='OverviewInteract'>
-            <OverviewInformation product={this.state.product} currentStyle={this.state.currentStyle}/>
-            <OverviewStyles productStyles={this.state.productStyles} currentStyle={this.state.currentStyle} setStyle={this.setCurrentStyle.bind(this)}/>
+            <OverviewInformation product={this.props.currentProductData} currentStyle={this.state.currentStyle}/>
+            <OverviewStyles productStyles={this.props.currentProductStyles} currentStyle={this.state.currentStyle} setStyle={this.setCurrentStyle.bind(this)}/>
             <OverviewCart currentProduct={this.props.currentProduct} currentStyle={this.state.currentStyle} addToOutfit={this.props.addToOutfit}/>
           </div>
         </div>
-        <OverviewDescription product={this.state.product}/>
+        <OverviewDescription product={this.props.currentProductData}/>
       </div>
     );
   }
