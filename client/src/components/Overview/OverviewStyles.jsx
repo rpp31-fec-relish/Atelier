@@ -36,7 +36,7 @@ class OverviewStyles extends React.Component {
       return (
         <div>
           <div id='CurrentStyle'>
-            STYLE > {this.props.currentStyle.name}
+            <b>STYLE > </b> {this.props.currentStyle.name}
           </div>
           <div id='StylePicker'>
             {this.constructStylePicker()}

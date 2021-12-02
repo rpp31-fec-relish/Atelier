@@ -123,6 +123,7 @@ class OverviewCart extends React.Component {
             <option value='Select Quantity' disabled>Select Quantity</option>
             {this.createQuantities()}
           </select>
+          <br />
           <button id='addToCartButton' onClick={this.addToCartListener.bind(this)}>Add To Cart</button>
           <button id='favoriteButton' onClick={this.favoriteListener.bind(this)}>Favorite</button>
         </div>

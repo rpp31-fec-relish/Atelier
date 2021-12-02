@@ -6,6 +6,9 @@ class OverviewDescription extends React.Component {
     if (this.props.product) {
       return (
         <div id='OverviewDescription'>
+          <div id='OverviewSlogan'>
+            {this.props.product.slogan}
+          </div>
           {this.props.product.description}
         </div>
       );
