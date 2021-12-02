@@ -27,7 +27,6 @@ body {
 
 #OverviewMain {
   display: flex;
-  background-color: lightgray;
   flex-direction: row;
   justify-content: space-around;
   align-items: flex-start;
@@ -39,9 +38,16 @@ body {
 }
 
 #OverviewImage {
+  background-color: lightgray;
   flex-grow: 2;
-  width: 70%;
-  border: 1px solid black;
+  min-width: fit-content;
+  width: 50%;
+  padding: 10px;
+}
+
+#OverviewImage img {
+  height: 500px;
+  max-width: 100%;
 }
 
 #OverviewInteract {
@@ -49,9 +55,31 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  min-width: 20%;
   gap: 20px;
   text-align: left;
+}
 
+#OverviewRating {
+  font-weight: lighter;
+  color: rgb(110, 110, 110);
+  font-size: 14px;
+}
+
+#OverviewCategory {
+  font-weight: lighter;
+  color: rgb(110, 110, 110);
+  font-size: 18px;
+}
+
+#OverviewProductName {
+  font-weight: bold;
+  font-size: 42px;
+}
+
+#OverviewPrice {
+  margin-top: 15px;
+  font-size: 18px;
 }
 
 #OverviewDescription {

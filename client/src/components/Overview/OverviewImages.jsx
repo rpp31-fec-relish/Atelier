@@ -10,11 +10,13 @@ class OverviewImages extends React.Component {
     super(props);
   }
 
-  getDefaultThumbnail() {
+  getDefaultPhoto() {
     let defaultStyle = this.props.currentStyle;
     if (defaultStyle && defaultStyle.photos && defaultStyle.photos.length > 0) {
       for (let i = 0; i < defaultStyle.photos.length; i++) {
-        if (defaultStyle.photos[i].thumbnail_url) {
+        if (defaultStyle.photos[i].url) {
+          return defaultStyle.photos[i].url;
+        } else if (defaultStyle.photos[i].thumbnail_url) {
           return defaultStyle.photos[i].thumbnail_url;
         }
       }
@@ -23,14 +25,14 @@ class OverviewImages extends React.Component {
 
 
   render() {
-    let imageURL = this.getDefaultThumbnail();
+    let imageURL = this.getDefaultPhoto();
     imageURL = imageURL ? imageURL : PlaceholderPhoto;
 
     // todo: add alt text for accessibility
     if (this.props.currentStyle) {
       return (
         <div id='OverviewImage'>
-          <img src={imageURL} height='400px'></img>
+          <img src={imageURL}></img>
         </div>
       );
     } else {
