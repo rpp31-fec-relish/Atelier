@@ -5,24 +5,25 @@ class OverviewInformation extends React.Component {
   // todo: render rating
 
   render() {
-    if (this.props.product) {
-      let price = this.props.currentStyle.original_price;
+    if (this.props.currentStyle) {
+      let price = '$' + this.props.currentStyle.original_price;
       if (this.props.currentStyle.sale_price) {
-        price = (<div><del>{price}</del> {this.props.currentStyle.sale_price}</div>);
+        price = (<div><del>{price}</del> {'$' + this.props.currentStyle.sale_price}</div>);
       }
       return (
-        <div id='overviewInformation'>
-          <div id='rating'>
-            &#9733;&#9733;&#9733;&#9734;&#9734;
+        <div id='OverviewInformation'>
+          <div id='OverviewRating'>
+            &#9733;&#9733;&#9733;&#9734;&#9734;&nbsp;&nbsp;
             <a href='#reviews'>Read all Reviews</a>
           </div>
-          <div id='category'>
+          <br />
+          <div id='OverviewCategory'>
             {this.props.product.category}
           </div>
-          <div id='productname'>
+          <div id='OverviewProductname'>
             {this.props.product.name}
           </div>
-          <div id='price'>
+          <div id='OverviewPrice'>
             {price}
           </div>
         </div>
