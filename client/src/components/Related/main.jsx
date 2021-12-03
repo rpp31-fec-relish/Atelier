@@ -82,13 +82,6 @@ class Related extends React.Component {
       })
       .catch(err => console.error(err));
 
-    document.addEventListener('mousedown', (event) => {
-      helperFunctions.postInteraction({
-        element: event.target.outerHTML.toString(),
-        widget: 'Related',
-        time: Date.now().toString()
-      });
-    });
   }
 
   componentDidUpdate(prevProps) {

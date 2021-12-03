@@ -37,16 +37,6 @@ function QandA(props) {
   }
 
   useEffect(() => {
-    document.addEventListener('mousedown', (event) => {
-      helperFunctions.postInteraction({
-        element: event.target.outerHTML.toString(),
-        widget: 'QandA',
-        time: Date.now().toString()
-      });
-    });
-  }, []);
-
-  useEffect(() => {
     console.log('QandA mounted');
     let currentProduct = props.currentProduct;
     // console.log("getting questions for", currentProduct);
