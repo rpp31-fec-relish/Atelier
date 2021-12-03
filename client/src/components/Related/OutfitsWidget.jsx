@@ -24,49 +24,44 @@ class OutfitsWidget extends React.Component {
   }
 
   getOutfitData() {
-    helperFunctions.getProductById(this.props.currentProduct)
-    .then(productData => {
-      let data = {
-        id: productData.id,
-        name: productData.name,
-        category: productData.category,
-        price: productData.default_price,
-        features: productData.features,
-        image: null
-      }
-      return data;
-    })
-    .then(results =>  {
-      helperFunctions.getProductStylesById(results.id)
-        .then(styles => {
-          results.image = styles[0].photos;
-          return results;
-        })
-        .then(relevantData => {
-          this.setState({outfitsData: [...this.state.outfitsData, relevantData]});
-        })
-        .catch(err => console.error(err));
-    })
-    .catch(err => console.error(err));
+    let CPD = this.props.currentProductData;
+    let data = {
+      id: CPD.id,
+      name: CPD.name,
+      category: CPD.category,
+      price: CPD.default_price,
+      image: null
+    };
+
+    helperFunctions.getProductStylesById(CPD.id)
+      .then(styles => {
+        data.image = styles[0].photos;
+        return data;
+      })
+      .then(relevantData => {
+        this.setState({outfitsData: [...this.state.outfitsData, relevantData]});
+      })
+      .catch(err => console.error(err));
   }
 
   handleClick(e) {
     e.preventDefault();
     // if currentProduct is already in outfits, remove from outfits
     if (!e.target.id) {
-      if (this.props.outfits.includes(this.props.currentProduct)) {
+      let currentId = this.props.currentProduct;
+      if (this.props.outfits.includes(currentId)) {
         let newOutfitsData = [...this.state.outfitsData];
         newOutfitsData.forEach(outfit => {
-          if (outfit.id === this.props.currentProduct) {
-            var removeIndex = newOutfitsData.map(item => item.id).indexOf(this.props.currentProduct);
+          if (outfit.id === currentId) {
+            var removeIndex = newOutfitsData.map(item => item.id).indexOf(currentId);
             ~removeIndex && newOutfitsData.splice(removeIndex, 1);
           }
         })
         this.setState({outfitsData: newOutfitsData});
-        this.props.addToOutfit(this.props.currentProduct);
+        this.props.addToOutfit(currentId);
       } else {
         this.getOutfitData();
-        this.props.addToOutfit(this.props.currentProduct);
+        this.props.addToOutfit(currentId);
       }
     } else {
       let idToNum = parseInt(e.target.id);
@@ -92,7 +87,8 @@ class OutfitsWidget extends React.Component {
           handleClick={this.handleClick}
           addToOutfit={this.props.addToOutfit}
           handleTextChange={this.handleTextChange}
-          widget={'outfits'}/>
+          widget={'outfits'}
+          productRating={this.props.productRating}/>
     </div>
   )}
 }

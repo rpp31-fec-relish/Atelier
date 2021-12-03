@@ -36,15 +36,15 @@ function QandA(props) {
     setCurrPageCounter(currPageCounter + 1);
   }
 
-  // useEffect(() => {
-  //   document.addEventListener('mousedown', (event) => {
-  //     helperFunctions.postInteraction({
-  //       element: event.target.outerHTML.toString(),
-  //       widget: 'QandA',
-  //       time: Date.now().toString()
-  //     });
-  //   });
-  // }, []);
+  useEffect(() => {
+    document.addEventListener('mousedown', (event) => {
+      helperFunctions.postInteraction({
+        element: event.target.outerHTML.toString(),
+        widget: 'QandA',
+        time: Date.now().toString()
+      });
+    });
+  }, []);
 
   useEffect(() => {
     console.log('QandA mounted');

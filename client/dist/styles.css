@@ -173,23 +173,25 @@ body {
   font-size: 12px;
 }
 
-.carousel-related {
+.RP-carousel {
   position: relative;
-  align-items: center;
   display: flex;
-  margin-left: 0;
   justify-content: space-between;
 }
 
-.carousel-outfits {
+.RP-arrow {
   position: relative;
-  align-items: center;
+  margin-top: 100px;
+}
+
+.Outfits-carousel {
+  position: relative;
   display: flex;
-  margin-left: 0;
+  justify-content: space-between;
 }
 
 .Outfit-add-remove {
-  margin-left: 70;
+  margin-left: 0;
   min-height: 196px;
   width: 127px;
   border: 1px solid black;
@@ -207,7 +209,6 @@ body {
 
 #OutfitItem {
   border: 1px solid black;
-  margin-left: 7.1%;
 }
 
 .RP-star-modal {
@@ -238,7 +239,7 @@ body {
   text-align: center;
 }
 
-#RP-modal {
+.modal-table {
   margin-left: auto;
   margin-right: auto;
   left: 0;
@@ -258,32 +259,13 @@ body {
   z-index: 1;
 }
 
-#toggle-modal {
+#RP-modal {
+  text-align: center;
+}
+
+.toggle-modal {
   font-size: 30px;
   align-items: center;
-}
-
-#RP-comparison-1 {
-  position: absolute;
-  left: 5px;
-}
-
-#RP-comparison-2 {
-  position: absolute;
-  right: 5px;
-}
-
-#modal-contents {
-  display: inline-table;
-  list-style: none;
-}
-
-#modal-contents li:before {
-  content: '✓';
-}
-
-#modal-contents li:after {
-  content: '✓';
 }
 
 #QuestionHelpful {
