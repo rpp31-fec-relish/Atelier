@@ -97,3 +97,32 @@ function App(props) {
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
+
+
+//
+// Code for logging user interactions
+//
+
+document.addEventListener('mousedown', (event) => {
+
+  let OverviewNode = document.getElementById('Overview');
+  let QANode = document.getElementById('QandAContainer');
+  let RelatedNode = document.getElementById('RelatedProductsAndOutfits');
+  let ReviewsNode = document.getElementById('ReviewsWidget');
+
+  let clickedWidget = null;
+  if (OverviewNode.contains(event.target)) {
+    clickedWidget = 'Overview';
+  } else if (QANode.contains(event.target)) {
+    clickedWidget = 'Q&A';
+  } else if (RelatedNode.contains(event.target)) {
+    clickedWidget = 'RelatedProductsAndOutfits';
+  } else if (ReviewsNode.contains(event.target)) {
+    clickedWidget = 'Reviews';
+  }
+  helperFunctions.postInteraction({
+    element: event.target.outerHTML.toString(),
+    widget: clickedWidget,
+    time: Date.now().toString()
+  });
+});
