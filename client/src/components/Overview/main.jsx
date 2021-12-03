@@ -12,8 +12,6 @@ class Overview extends React.Component {
     super(props);
 
     this.state = {
-      product: null,
-      productStyles: null,
       currentStyle: null
     }
 
@@ -36,68 +34,39 @@ class Overview extends React.Component {
     this.setState({currentStyle: productStyle});
   }
 
-  getProductsAndStyles() {
-
-    // todo: clear currentStyle when product changes
-    // had to do it nested like this to have access to
-    // all the results for one setState
-    helperFunctions.getProductById(this.props.currentProduct)
-    .then((product) => {
-      return helperFunctions.getProductStylesById(this.props.currentProduct)
-        .then((productStyles) => {
-          this.setState({
-            product: product,
-            productStyles: productStyles,
-            currentStyle: this.getDefaultStyle(productStyles)
-          });
-        })
-    })
-    .catch((error) => console.error(error));
-
-  }
-
   componentDidMount() {
-
-    this.getProductsAndStyles();
+    if (this.props.currentProductStyles.length != 0) {
+      this.setState({currentStyle: this.getDefaultStyle(this.props.currentProductStyles)});
+    }
 
   }
 
   componentDidUpdate(prevProps) {
 
-    if (prevProps.currentProduct != this.props.currentProduct) {
-      this.getProductsAndStyles();
+    if ((prevProps.currentProductStyles.length === 0 && this.props.currentProductStyles.length > 0) || prevProps.currentProductStyles[0].style_id != this.props.currentProductStyles[0].style_id) {
+      this.setState({currentStyle: this.getDefaultStyle(this.props.currentProductStyles)});
     }
 
   }
 
-  // table for now, will do layout properly in CSS
   render() {
-    if (this.state.product === null
+    if (this.props.currentProductData.length === 0
       || this.state.currentStyle === null
-      || this.state.productStyles == null) {
+      || this.props.currentProductStyles.length === 0) {
       return null;
     }
+    console.log('currentStyle: ', this.state.currentStyle);
     return (
-      <div id='overview'>
-        <table>
-          <tbody>
-            <tr>
-              <td>
-                <OverviewImages product={this.state.product} currentStyle={this.state.currentStyle}/>
-              </td>
-              <td>
-                <OverviewInformation product={this.state.product} currentStyle={this.state.currentStyle}/>
-                <OverviewStyles productStyles={this.state.productStyles} currentStyle={this.state.currentStyle} setStyle={this.setCurrentStyle.bind(this)}/>
-                <OverviewCart currentProduct={this.props.currentProduct} currentStyle={this.state.currentStyle}/>
-              </td>
-            </tr>
-            <tr>
-              <td colSpan='2'>
-                <OverviewDescription product={this.state.product}/>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div id='Overview'>
+        <div id='OverviewMain'>
+          <OverviewImages product={this.props.currentProductData} currentStyle={this.state.currentStyle}/>
+          <div id='OverviewInteract'>
+            <OverviewInformation product={this.props.currentProductData} currentStyle={this.state.currentStyle}/>
+            <OverviewStyles productStyles={this.props.currentProductStyles} currentStyle={this.state.currentStyle} setStyle={this.setCurrentStyle.bind(this)}/>
+            <OverviewCart currentProduct={this.props.currentProduct} currentStyle={this.state.currentStyle} addToOutfit={this.props.addToOutfit}/>
+          </div>
+        </div>
+        <OverviewDescription product={this.props.currentProductData}/>
       </div>
     );
   }
