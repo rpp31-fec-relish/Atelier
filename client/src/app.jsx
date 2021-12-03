@@ -6,16 +6,31 @@ import Related from './components/Related/main.jsx';
 import Reviews from './components/Reviews/main.jsx';
 import helperFunctions from './helperFunctions.js';
 
+const Default_Product = 59553
+
 function App(props) {
-  const [currentProduct, setCurrentProduct] = useState(59553);
+  const [currentProductInfo, setCurrentProductInfo] = useState({
+    productNumber: null,
+    productData: {},
+    productStyles: []
+  });
   const [outfits, setOutfits] = useState([]);
-  const [currentProductData, setCurrentProductData] = useState([]);
-  const [currentProductStyles, setCurrentProductStyles] = useState([]);
 
   const changeCurrentProduct = (productId) =>  {
-    console.log(productId);
     window.history.replaceState(null, `${productId}`, `/${productId}`);
-    setCurrentProduct(productId);
+
+    let APIcalls = [];
+    APIcalls.push(helperFunctions.getProductById(productId));
+    APIcalls.push(helperFunctions.getProductStylesById(productId));
+    Promise.all(APIcalls)
+      .then(results => {
+        setCurrentProductInfo({
+          productNumber: productId,
+          productData: results[0],
+          productStyles: results[1]
+        })
+      })
+      .catch((error) => console.error(error));
   }
 
   const addToOutfit = (productId) => {
@@ -33,35 +48,44 @@ function App(props) {
   useEffect(() => {
     if (window.location.pathname != '/'
       && !isNaN(Number(window.location.pathname.substring(1, 6)))
-      && Number(window.location.pathname.substring(1, 6)) != currentProduct) {
+      && Number(window.location.pathname.substring(1, 6)) != currentProductInfo.productNumber) {
         // if current URL has a productId, update currentProduct
-        console.log(`${window.location.pathname.substring(1, 6)} != ${currentProduct}`);
-        setCurrentProduct(Number(window.location.pathname.substring(1, 6)));
-    } else if (window.location.pathname === '/') {
+        console.log(`${window.location.pathname.substring(1, 6)} != ${currentProductInfo.productNumber}`);
+        changeCurrentProduct(window.location.pathname.substring(1, 6));
+    } else if (window.location.pathname === '/' && currentProductInfo.productNumber != null) {
       // if the URL path is /, set the URL to the currentProduct
-      window.history.replaceState(null, `${currentProduct}`, `/${currentProduct}`);
+      window.history.replaceState(null, `${currentProductInfo.productNumber}`, `/${currentProductInfo.productNumber}`);
+    } else if (window.location.pathname === '/'){
+      changeCurrentProduct(59553);
+      window.history.replaceState(null, '59553', '/59553');
     }
   });
 
-  useEffect(() => {
-    helperFunctions.getProductById(currentProduct)
-      .then((product) => {
-        return helperFunctions.getProductStylesById(currentProduct)
-          .then((productStyles) => {
-            setCurrentProductData(product);
-            setCurrentProductStyles(productStyles);
-          })
-      })
-      .catch((error) => console.error(error));
-  }, [currentProduct]);
+  if (currentProductInfo.productNumber === null) {
+    return null;
+  }
 
   return (
     <div>
       <h1 id='title'>ATELIER</h1>
-      <Overview currentProduct={currentProduct} addToOutfit={addToOutfit.bind(this)} currentProductData={currentProductData} currentProductStyles={currentProductStyles}/>
-      <Related currentProduct={currentProduct} outfits={outfits} addToOutfit={addToOutfit} changeCurrentProduct={changeCurrentProduct}/>
-      <QandA currentProduct={currentProduct} currentProductData={currentProductData} currentProductStyles={currentProductStyles}/>
-      <Reviews currentProduct={currentProduct} currentProductData={currentProductData} currentProductStyles={currentProductStyles}/>
+      <Overview
+        currentProduct={currentProductInfo.productNumber}
+        addToOutfit={addToOutfit.bind(this)}
+        currentProductData={currentProductInfo.productData}
+        currentProductStyles={currentProductInfo.productStyles}/>
+      <Related
+        currentProduct={currentProductInfo.productNumber}
+        outfits={outfits}
+        addToOutfit={addToOutfit}
+        changeCurrentProduct={changeCurrentProduct}/>
+      <QandA
+        currentProduct={currentProductInfo.productNumber}
+        currentProductData={currentProductInfo.productData}
+        currentProductStyles={currentProductInfo.productStyles}/>
+      <Reviews
+        currentProduct={currentProductInfo.productNumber}
+        currentProductData={currentProductInfo.productData}
+        currentProductStyles={currentProductInfo.productStyles}/>
     </div>
   );
 
