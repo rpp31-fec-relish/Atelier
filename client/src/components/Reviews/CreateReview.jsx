@@ -11,6 +11,7 @@ function CreateReview(props) {
   const[characteristics, setCurrentCharacteristics] = useState({})
   const[missingVariables, setMissingVariables] = useState({})
   const[missingVariablesArr, setMissingVariablesArr] = useState([])
+  const[registerPhotos, setPhotos] = useState([])
 
   useEffect(() => {
     let productCharacteristics = {}
@@ -43,6 +44,13 @@ function CreateReview(props) {
     setRating(rate)
   }
 
+  const selectPhotos = (event) => {
+    console.log("Photo target event: ",event.target.files)
+    console.log("Photo target event[0]: ",event.target.files[0])
+
+    setPhotos(event.target.files[0]);
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -51,18 +59,19 @@ function CreateReview(props) {
     let missingPortion = {};
 
     let review = {
-      product_id: props.currentProduct,
+      product_id: parseInt(props.currentProduct),
       recommend: recommend,
       summary:e.target[1].value,
       body: e.target[2].value,
       name: e.target[3].value,
       email: e.target[4].value,
+      //photos: [URL.createObjectURL(registerPhotos)],
       rating: rating,
       characteristics: {
 
       }
     }
-
+    console.log("photos registered: ",registerPhotos);
     if (review.summary.length > 60) {
       incomplete = true
       missingPortion.summary = 'Your Summary can not be more then 60 characters'
@@ -95,6 +104,10 @@ function CreateReview(props) {
       incomplete = true
       missingPortion.rating = 'You must provide a star rating'
     }
+    if (review.photos && review.photos.length > 5) {
+      incomplete = true
+      missingPortion.photos = 'You can only upload 5 photos! Please limit your pictures!'
+    }
 
     characteristicNames.map((trait) => {
       review.characteristics[characteristics[trait].id] = characteristics[trait].value;
@@ -104,7 +117,6 @@ function CreateReview(props) {
         missingPortion[trait] = trait + ' is empty! Please fill out all elements of the review.';
       }
     });
-
     if (incomplete) {
       let variablesArr = Object.keys(missingPortion)
       setMissingVariablesArr(variablesArr)
@@ -166,6 +178,12 @@ function CreateReview(props) {
             Email:
             <input className="createReviewEmail" name="email"></input>
           </label>
+          <br/>
+          <label>
+            Add a Picture!
+            <input onChange={selectPhotos} type='file' name="image"/>
+            {registerPhotos.length != 0 ? <ImageThumb image={registerPhotos} />:null}
+          </label>
           {characteristicNames.map((trait) => <div className="charactersiticSelect" key = {characteristics[trait].id}>
               {trait}:
               <input type="radio" value="1" onChange={handleChange}name={trait}/>
@@ -180,7 +198,7 @@ function CreateReview(props) {
               <label>{traits(trait, 4)}</label>
           </div>
           )}
-          <button className="createReviewSubmitButton" type='submit' >Submit</button>
+          <button className="createReviewSubmitButton" type='submit'>Submit</button>
         </form>
         {missingVariablesArr.map((variable) => <div className='missingVaribale' key={variable}>{missingVariables[variable]}</div>)}
       </div>
@@ -188,4 +206,11 @@ function CreateReview(props) {
   )
 }
 
+/**
+ * Component to display thumbnail of image.
+ */
+ const ImageThumb = ({ image }) => {
+   console.log("Image Thumbnail = ", image)
+  return <img src={URL.createObjectURL(image)} alt={image.name} />;
+};
 export default CreateReview;
