@@ -13,9 +13,15 @@ class RelatedProduct extends React.Component {
   }
 
   weightedAverage = (ratings) => {
-    let result = (ratings[5] * 5 + ratings[4] * 4 + ratings[3] * 3 + ratings[2] * 2 + ratings[1] * 1) / ((ratings[5] * 1 + ratings[4] * 1 + ratings[3] * 1 + ratings[2] * 1 + ratings[1] * 1));
+    let total = 0;
+    let totalWeight = 0;
+    for (const [key, weight] of Object.entries(ratings)) {
+      total += (key * parseInt(weight));
+      totalWeight += parseInt(weight);
+    }
 
-    return result;
+    total = Math.round((total / totalWeight) * 10) / 10;
+    return total;
   }
 
   componentDidMount() {
@@ -23,7 +29,6 @@ class RelatedProduct extends React.Component {
     .then((metaData)  => {
       let ratings = metaData.ratings;
       let avg = this.weightedAverage(ratings);
-      avg = Math.round(avg * 10) / 10;
       this.setState({ratingAverage: avg})
     })
     .catch((err) => {

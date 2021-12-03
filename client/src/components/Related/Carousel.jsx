@@ -123,7 +123,7 @@ class Carousel extends React.Component {
             <tbody>
               <tr>
                 <td className='Outfit-add-remove'>
-                  <div onClick={(e) => {this.props.handleClick(e)}}>{this.props.handleTextChange()}</div>
+                  <div onClick={(e) => {this.props.handleAddOrRemove(e)}}>{this.props.handleTextChange()}</div>
                 </td>
                 {this.props.outfitData.slice(this.state.outfitIndex, this.indexSet(3, this.props.widget)).map((outfit) => <OutfitItem
                   key={'outfit_' + outfit.id}
@@ -134,10 +134,10 @@ class Carousel extends React.Component {
                   image={outfit.image}
                   removeOutfit={this.props.removeOutfit}
                   assignImage={this.props.assignImage}
-                  handleClick={this.props.handleClick}
                   addToOutfit={this.props.addToOutfit}
                   changeCurrentProduct={this.props.changeCurrentProduct}
                   productRating={this.props.productRating}
+                  handleRemove={this.props.handleRemove}
                 />)}
               </tr>
             </tbody>

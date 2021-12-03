@@ -14,11 +14,14 @@ class Related extends React.Component {
       relatedProductsId: [],
       relatedProductsData: [],
       singleRelatedProductFeature: [],
-      allStyles: []
+      allStyles: [],
+      outfitsData: []
     }
 
     this.assignImage = this.assignImage.bind(this);
     this.showModal = this.showModal.bind(this);
+    this.updateOutfitsData = this.updateOutfitsData.bind(this);
+    this.handleTextChange = this.handleTextChange.bind(this);
   }
 
   componentDidMount() {
@@ -82,12 +85,71 @@ class Related extends React.Component {
       })
       .catch(err => console.error(err));
 
+    this.setState({outfitsId: [...this.props.outfits]});
+
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.currentProduct !== this.props.currentProduct) {
       this.setState({ relatedProductsId: [] })
       this.componentDidMount();
+    }
+    if (prevProps.outfits.length + 1 === this.props.outfits.length && this.props.outfits.includes(this.props.currentProduct) && !prevProps.outfits.includes(this.props.currentProduct)) {
+      this.updateOutfitsData('add');
+    } else if (prevProps.outfits.length - 1 === this.props.outfits.length && !this.props.outfits.includes(this.props.currentProduct) && prevProps.outfits.includes(this.props.currentProduct)) {
+      this.updateOutfitsData('remove');
+    }
+
+    this.handleTextChange();
+  }
+
+  handleTextChange(itemId = this.props.currentProduct) {
+    if (this.props.outfits.includes(itemId)) {
+      return '- REMOVE FROM OUTFIT';
+    } else {
+      return '+ ADD TO OUTFIT';
+    }
+  }
+
+  updateOutfitsData(action) {
+    if (action === 'add' || !action) {
+      let CPD = this.props.currentProductData;
+      let data = {
+        id: CPD.id,
+        name: CPD.name,
+        category: CPD.category,
+        price: CPD.default_price,
+        image: null
+      };
+
+      helperFunctions.getProductStylesById(CPD.id)
+        .then(styles => {
+          data.image = styles[0].photos;
+          return data;
+        })
+        .then(relevantData => {
+          this.setState({outfitsData: [...this.state.outfitsData, relevantData]});
+        })
+        .catch(err => console.error(err));
+    } else if (action === 'remove') {
+      let currentId = this.props.currentProduct;
+      let newOutfitsData = [...this.state.outfitsData];
+      newOutfitsData.forEach(outfit => {
+        if (outfit.id === parseInt(currentId)) {
+          var removeIndex = newOutfitsData.map(item => item.id).indexOf(parseInt(currentId));
+          ~removeIndex && newOutfitsData.splice(removeIndex, 1);
+        }
+      })
+      this.setState({outfitsData: newOutfitsData});
+    } else {
+      let newOutfitsData = [...this.state.outfitsData];
+      newOutfitsData.forEach(outfit => {
+        if (outfit.id === action) {
+          var removeIndex = newOutfitsData.map(item => item.id).indexOf(action);
+          ~removeIndex && newOutfitsData.splice(removeIndex, 1);
+        }
+      })
+      this.setState({outfitsData: newOutfitsData});
     }
   }
 
@@ -122,7 +184,6 @@ class Related extends React.Component {
       }
 
       for (var i = 0; i < currentFeatures.length; i++) {
-        // also space before every capital if there isnt one already
         if (currentFeatures[i].value == null) {
           currentFeatures[i].value = ''
         }
@@ -200,7 +261,10 @@ class Related extends React.Component {
             changeCurrentProduct={this.props.changeCurrentProduct}
             showModal={this.showModal}
             currentProductData={this.props.currentProductData}
-            productRating={this.props.productRating}/>
+            productRating={this.props.productRating}
+            outfitsData={this.state.outfitsData}
+            updateOutfitsData={this.updateOutfitsData}
+            handleTextChange={this.handleTextChange}/>
         </div>
       </div>
     );
