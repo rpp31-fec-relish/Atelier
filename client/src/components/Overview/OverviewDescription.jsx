@@ -5,7 +5,10 @@ class OverviewDescription extends React.Component {
   render() {
     if (this.props.product) {
       return (
-        <div id='overviewDescription'>
+        <div id='OverviewDescription'>
+          <div id='OverviewSlogan'>
+            {this.props.product.slogan}
+          </div>
           {this.props.product.description}
         </div>
       );

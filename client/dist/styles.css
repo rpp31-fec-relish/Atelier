@@ -6,6 +6,108 @@ body {
   text-align: center;
 }
 
+#title {
+  font-family: "adobe-clean", sans-serif;
+  text-align: left;
+  background-color: lightskyblue;
+  padding: 20px;
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+#Overview {
+  font-family: "adobe-clean", sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-left: 2%;
+  padding-right: 2%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+#OverviewMain {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+#OverviewImage {
+  background-color: lightgray;
+  flex-grow: 2;
+  min-width: fit-content;
+  width: 50%;
+  padding: 10px;
+}
+
+#OverviewImage img {
+  height: 500px;
+  max-width: 100%;
+}
+
+#OverviewInteract {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-width: 20%;
+  gap: 20px;
+  text-align: left;
+}
+
+#OverviewRating {
+  font-weight: lighter;
+  color: rgb(110, 110, 110);
+  font-size: 14px;
+}
+
+#OverviewCategory {
+  font-weight: lighter;
+  color: rgb(110, 110, 110);
+  font-size: 18px;
+}
+
+#OverviewProductName {
+  font-weight: bold;
+  font-size: 42px;
+}
+
+#OverviewPrice {
+  margin-top: 15px;
+  font-size: 18px;
+}
+
+#CurrentStyle {
+  margin-bottom: 5px;
+}
+
+#StylePicker img {
+  margin: 1px;
+}
+
+#OverviewDescription {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: medium;
+  text-align: left;
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+#OverviewSlogan {
+  font-weight: bold;
+  font-size: 20px;
+  padding-bottom: 10px;
+}
+
+.OverviewSelectedStyle {
+  border: 5px solid black;
+}
+
 #QandAContainer {
   font-family: Arial;
   font-weight: lighter;

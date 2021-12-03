@@ -55,6 +55,13 @@ class OverviewCart extends React.Component {
     }
   }
 
+  favoriteListener(event) {
+
+    this.props.addToOutfit(this.props.currentProduct);
+    console.log(`Added ${this.props.currentProduct} to outfit`);
+
+  }
+
   selectSizeListener(event) {
 
     if (event.target.value === 'default' || event.target.value === null) {
@@ -97,15 +104,16 @@ class OverviewCart extends React.Component {
   componentDidUpdate(prevProps) {
 
     // if the style changed, reset the size & quantity info
-    if (this.props.currentProduct.id != prevProps.currentProduct.id
-      || this.props.currentStyle.style_id != prevProps.currentStyle.style_id) {
+    if ( this.state.sku != null &&
+      (this.props.currentProduct != prevProps.currentProduct
+      || this.props.currentStyle.style_id != prevProps.currentStyle.style_id)) {
         this.setState({sku: null, quantity: 1});
     }
     this.toggleSelectors();
   }
 
   render() {
-    if (this.props.currentStyle) {
+    if (this.props.currentStyle != null) {
       return (
         <div>
           <select name='size' value={(this.state.sku === null) ? 'default' : this.state.sku} id='SizeDropdown' onChange={this.selectSizeListener.bind(this)}>
@@ -116,8 +124,9 @@ class OverviewCart extends React.Component {
             <option value='Select Quantity' disabled>Select Quantity</option>
             {this.createQuantities()}
           </select>
+          <br />
           <button id='addToCartButton' onClick={this.addToCartListener.bind(this)}>Add To Cart</button>
-          <button>Favorite</button>
+          <button id='favoriteButton' onClick={this.favoriteListener.bind(this)}>Favorite</button>
         </div>
       );
     } else {

@@ -17,13 +17,13 @@ class OverviewStyles extends React.Component {
           if (url) {
             return (<img className='OverviewSelectedStyle' id={index} key={index} src={url} width='50' height='50' onClick={this.handleStyleClick.bind(this)}/>);
           } else {
-            return (<img className='OverviewSelectedStyle' id={index} key={index} src='./images/missingImage.svg' width='50' height='50'/>);
+            return (<img className='OverviewSelectedStyle' id={index} key={index} src='./images/missingImage.svg' width='50' height='50' onClick={this.handleStyleClick.bind(this)}/>);
           }
         } else {
           if (url) {
             return (<img id={index} key={index} src={url} width='50' height='50' onClick={this.handleStyleClick.bind(this)}/>);
           } else {
-            return (<img id={index} key={index} src='./images/missingImage.svg' width='50' height='50'/>);
+            return (<img id={index} key={index} src='./images/missingImage.svg' width='50' height='50' onClick={this.handleStyleClick.bind(this)}/>);
           }
         }
       });
@@ -36,7 +36,7 @@ class OverviewStyles extends React.Component {
       return (
         <div>
           <div id='CurrentStyle'>
-            STYLE > {this.props.currentStyle.name}
+            <b>STYLE > </b> {this.props.currentStyle.name}
           </div>
           <div id='StylePicker'>
             {this.constructStylePicker()}
