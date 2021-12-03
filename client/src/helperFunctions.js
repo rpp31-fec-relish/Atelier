@@ -404,8 +404,32 @@ const helperFunctions = {
     .catch((err) => {
       console.error('Error sending new cart item to the server: ', err);
     });
-  }
+  },
 
+  postInteraction(interaction) {
+    // I: an interaction object with the parameters:
+    //   element: string,
+    //   widget: string,
+    //   time: string
+    // O: a promise that will resolve when interaction is posted
+    if (!interaction.element || !interaction.widget || !interaction.time){
+      return new Error('interaction object missing required parameter');
+    }
+    return axios(`/api/interactions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: interaction
+    })
+    .then((response) => {
+      console.log('New Interaction Posted: ', interaction);
+      return response.status;
+    })
+    .catch((err) => {
+      console.error('Error posting new interaction to the server: ', err);
+    });
+  }
 
 
 }

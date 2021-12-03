@@ -25,7 +25,7 @@ class Overview extends React.Component {
         }
       }
       // if no style marked default, choose first style
-      return this.productStyles[0];
+      return productStyles[0];
     }
   }
 
@@ -35,9 +35,17 @@ class Overview extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.currentProductStyles.length != 0) {
+    if (this.props.currentProductStyles.length > 0) {
       this.setState({currentStyle: this.getDefaultStyle(this.props.currentProductStyles)});
     }
+
+    document.addEventListener('mousedown', (event) => {
+      helperFunctions.postInteraction({
+        element: event.target.outerHTML.toString(),
+        widget: 'Overview',
+        time: Date.now().toString()
+      });
+    });
 
   }
 
