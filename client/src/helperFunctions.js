@@ -301,8 +301,8 @@ const helperFunctions = {
     //  email (string),
     //  photos (array of urls)
     // O: A promise which will resolve with '201' if successfully posted
-    if (!answer.question_id || !answer.body || !answer.name || question.email){
-      return new Error('question object missing required parameter');
+    if (!answer.question_id || !answer.body || !answer.name || !answer.email){
+      return new Error('answer object missing required parameter');
     }
     return axios(`/api/qa/questions/${answer.question_id}/answers`, {
       method: 'POST',
