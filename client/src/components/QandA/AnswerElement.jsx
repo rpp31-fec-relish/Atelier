@@ -34,9 +34,16 @@ function AnswerElement({answer, timeStamp, id}) {
     }
   };
 
+  const photos = answer.photos.map(photo => {
+    return (
+      <img className="QandAphotos" src={photo} width={100} height={100} key={photo}/>
+    )
+  })
+
   return(
     <div key={id} id='AnswerBody'>
     <div> A : {answer.body}</div>
+    <div className="QandAPhotoContainer">{photos}</div>
     <div id='AnswerHelpful'>
       by {answer.answerer_name}, {timeStamp} |
       Helpful?

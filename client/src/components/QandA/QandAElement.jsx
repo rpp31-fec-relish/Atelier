@@ -34,6 +34,10 @@ function QandAElement({question, currPageCounter, setCurrPageCounter, modalClick
     }
   };
 
+  const addAnswerHandler = () => {
+    modalClick(question.question_id);
+  };
+
   const answers = Object.entries(question.answers).sort((a, b) => b[1].helpfulness - a[1].helpfulness).map((answerEntry) => {
     let dateTime = question.answers[answerEntry[0]].date.split('-');
     let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -49,7 +53,7 @@ function QandAElement({question, currPageCounter, setCurrPageCounter, modalClick
       <div id='QuestionHelpful'>
       Helpful?
       <button id='HelpfulButton' questionid={question.question_id} onClick={handleHelpfulClicked}> Yes ({helpfulness})</button> |
-      <button id='AddAnswerButton' onClick={modalClick}> Add Answer </button>
+      <button id='AddAnswerButton' onClick={addAnswerHandler}> Add Answer </button>
         </div>
       <div>{answers.slice(0, currPageCounter)}</div>
       <div>
@@ -66,7 +70,7 @@ function QandAElement({question, currPageCounter, setCurrPageCounter, modalClick
       <div id='QuestionHelpful'>
       Helpful?
       <button id='HelpfulButton' questionid={question.question_id} onClick={handleHelpfulClicked}> Yes ({helpfulness})</button> |
-        <button id='AddAnswerButton' onClick={modalClick}> Add Answer </button>
+        <button id='AddAnswerButton' questionid={question.question_id} onClick={addAnswerHandler}> Add Answer </button>
         </div>
       <div>{answers}</div>
 

@@ -12,13 +12,18 @@ function QandA(props) {
   const [showAnswerModal, setShowAnswerModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState(" ");
   const [searchResults, setSearchResults] = useState([]);
+  const [currQuestionId, setCurrQuestionId] = useState(1);
+  const [answersSubmitted, addSumbission] = useState(0);
 
 
   const openQuestionModal = () => {
     setShowQuestionModal(prev => !prev);
   }
 
-  const openAnswerModal = () => {
+  const openAnswerModal = (questionId) => {
+    if(questionId) {
+      setCurrQuestionId(questionId);
+    }
     setShowAnswerModal(prev => !prev);
   }
 
@@ -41,7 +46,7 @@ function QandA(props) {
     .catch((err) => {
       console.error('Error setting state of QandA', err)
     });
-  }, [props.currentProduct]);
+  }, [props.currentProduct, answersSubmitted]);
 
 
   useEffect(() => {
@@ -65,7 +70,7 @@ function QandA(props) {
           <button id='MoreAnswerdQuestionsButton'> MORE ANSWERED QUESTIONS </button>
           <button id='AddQuestionButtton' onClick={openQuestionModal}> ADD A QUESTION + </button>
           <QuestionModal showModal={showQuestionModal} setShowModal={openQuestionModal} />
-          <AnswerModal showModal={showAnswerModal} setShowModal={openAnswerModal} />
+          <AnswerModal showModal={showAnswerModal} setShowModal={openAnswerModal} currQuestionId={currQuestionId} addSumbission={addSumbission}/>
         </div>
       </div>
     );
