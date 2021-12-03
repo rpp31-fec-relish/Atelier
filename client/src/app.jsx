@@ -12,8 +12,7 @@ function App(props) {
   const [currentProductInfo, setCurrentProductInfo] = useState({
     productNumber: null,
     productData: {},
-    productStyles: [],
-    productRating: null
+    productStyles: []
   });
   const [outfits, setOutfits] = useState([]);
   const [productRating, setProductRating] = useState(0);
