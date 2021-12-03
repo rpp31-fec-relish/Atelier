@@ -77,7 +77,7 @@ class Carousel extends React.Component {
               widget={this.props.widget}
             />
           </div>
-          <table>
+          <table className="RP-table">
             <tbody>
               <tr>
                 {this.props.data.slice(this.state.relatedIndex, this.indexSet(4, this.props.widget)).map((item) => <RelatedProduct
@@ -119,11 +119,13 @@ class Carousel extends React.Component {
               widget={this.props.widget}
             />
           </div>
-          <table>
+          <table className="Outfit-table">
             <tbody>
               <tr>
                 <td className='Outfit-add-remove'>
-                  <div onClick={(e) => {this.props.handleAddOrRemove(e)}}>{this.props.handleTextChange()}</div>
+                  <div onClick={(e) => {this.props.handleAddOrRemove(e)}}>
+                    {this.props.outfits.includes(this.props.currentProduct) ? '- REMOVE FROM OUTFIT' : '+ ADD TO OUTFIT'}
+                  </div>
                 </td>
                 {this.props.outfitData.slice(this.state.outfitIndex, this.indexSet(3, this.props.widget)).map((outfit) => <OutfitItem
                   key={'outfit_' + outfit.id}
@@ -152,29 +154,6 @@ class Carousel extends React.Component {
               widget={this.props.widget}
             />
           </div>
-          {/* <div className="Outfit-add-remove">
-            <div onClick={(e) => {this.props.handleClick(e)}}>{this.props.handleTextChange()}</div>
-          </div>
-          {this.props.outfitData.slice(this.state.outfitIndex, this.indexSet(3, this.props.widget)).map((outfit) => <OutfitItem
-            key={'outfit_' + outfit.id}
-            id={outfit.id}
-            name={outfit.name}
-            category={outfit.category}
-            price={outfit.price}
-            image={outfit.image}
-            removeOutfit={this.props.removeOutfit}
-            assignImage={this.props.assignImage}
-            handleClick={this.props.handleClick}
-            addToOutfit={this.props.addToOutfit}
-            changeCurrentProduct={this.props.changeCurrentProduct}/>)}
-          <Arrow
-            direction='right'
-            handleClick={ this.nextSlide }
-            glyph='&#9654;'
-            outfitIndex={this.state.outfitIndex}
-            max={this.props.outfitData.length}
-            widget={this.props.widget}/>
-        </div> */}
         </div>
       )
     }

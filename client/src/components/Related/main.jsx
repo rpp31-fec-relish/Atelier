@@ -21,7 +21,6 @@ class Related extends React.Component {
     this.assignImage = this.assignImage.bind(this);
     this.showModal = this.showModal.bind(this);
     this.updateOutfitsData = this.updateOutfitsData.bind(this);
-    this.handleTextChange = this.handleTextChange.bind(this);
   }
 
   componentDidMount() {
@@ -84,12 +83,9 @@ class Related extends React.Component {
         })
       })
       .catch(err => console.error(err));
-
-    this.setState({outfitsId: [...this.props.outfits]});
-
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     if (prevProps.currentProduct !== this.props.currentProduct) {
       this.setState({ relatedProductsId: [] })
       this.componentDidMount();
@@ -99,38 +95,36 @@ class Related extends React.Component {
     } else if (prevProps.outfits.length - 1 === this.props.outfits.length && !this.props.outfits.includes(this.props.currentProduct) && prevProps.outfits.includes(this.props.currentProduct)) {
       this.updateOutfitsData('remove');
     }
-
-    this.handleTextChange();
-  }
-
-  handleTextChange(itemId = this.props.currentProduct) {
-    if (this.props.outfits.includes(itemId)) {
-      return '- REMOVE FROM OUTFIT';
-    } else {
-      return '+ ADD TO OUTFIT';
-    }
   }
 
   updateOutfitsData(action) {
     if (action === 'add' || !action) {
       let CPD = this.props.currentProductData;
-      let data = {
-        id: CPD.id,
-        name: CPD.name,
-        category: CPD.category,
-        price: CPD.default_price,
-        image: null
-      };
+      let removeDuplicates = this.state.outfitsData.map(item => item.id).indexOf(CPD.id);
+      if (removeDuplicates > -1) {
+        let newOutfitsData = [...this.state.outfitsData];
+        newOutfitsData.splice(removeDuplicates, 1);
+        this.setState({outfitsData: newOutfitsData});
+        this.handleTextChange();
+      } else {
+        let data = {
+          id: CPD.id,
+          name: CPD.name,
+          category: CPD.category,
+          price: CPD.default_price,
+          image: null
+        };
 
-      helperFunctions.getProductStylesById(CPD.id)
-        .then(styles => {
-          data.image = styles[0].photos;
-          return data;
-        })
-        .then(relevantData => {
-          this.setState({outfitsData: [...this.state.outfitsData, relevantData]});
-        })
-        .catch(err => console.error(err));
+        helperFunctions.getProductStylesById(CPD.id)
+          .then(styles => {
+            data.image = styles[0].photos;
+            return data;
+          })
+          .then(relevantData => {
+            this.setState({outfitsData: [...this.state.outfitsData, relevantData]});
+          })
+          .catch(err => console.error(err));
+      }
     } else if (action === 'remove') {
       let currentId = this.props.currentProduct;
       let newOutfitsData = [...this.state.outfitsData];
@@ -141,6 +135,7 @@ class Related extends React.Component {
         }
       })
       this.setState({outfitsData: newOutfitsData});
+    // for the outfit item's 'x' button, action = the id
     } else {
       let newOutfitsData = [...this.state.outfitsData];
       newOutfitsData.forEach(outfit => {
@@ -244,7 +239,7 @@ class Related extends React.Component {
           singleRelatedProductFeature={this.state.singleRelatedProductFeature}
           allStyles={this.state.allStyles}></Modal>
         <div id="RelatedProductsAndOutfits">
-          <h4>RELATED PRODUCTS</h4>
+          <h4 className="RP-titles">RELATED PRODUCTS</h4>
           <RelatedProductsWidget
             currentProduct={this.props.currentProduct}
             assignImage={this.assignImage}
@@ -252,7 +247,7 @@ class Related extends React.Component {
             showModal={this.showModal}
             setRelatedProductFeatures={this.setRelatedProductFeatures}
             relatedProductsData={this.state.relatedProductsData}/>
-          <h4>YOUR OUTFITS</h4>
+          <h4 className="RP-titles">YOUR OUTFITS</h4>
           <OutfitsWidget
             currentProduct={this.props.currentProduct}
             outfits={this.props.outfits}
@@ -263,8 +258,7 @@ class Related extends React.Component {
             currentProductData={this.props.currentProductData}
             productRating={this.props.productRating}
             outfitsData={this.state.outfitsData}
-            updateOutfitsData={this.updateOutfitsData}
-            handleTextChange={this.handleTextChange}/>
+            updateOutfitsData={this.updateOutfitsData}/>
         </div>
       </div>
     );

@@ -41,9 +41,9 @@ class RelatedProduct extends React.Component {
       <td id="RelatedProduct">
         <div className="RP-star-modal" id={this.props.id} onClick={(e) => this.props.showModal(e)}>&#9734;</div>
         <input id="RP-image" type="image" src={this.props.assignImage(this.props.image)} onClick={() => this.props.changeCurrentProduct(this.props.id)} alt="image"></input>
-        <div>{this.props.category}</div>
-        <div>{this.props.name}</div>
-        <div>{this.props.price}</div>
+        <div className="RP-smallerText">{this.props.category.toUpperCase()}</div>
+        <div className="RP-bold">{this.props.name}</div>
+        <div className="RP-smallerText">{this.props.price}</div>
         <div id="RP-rating">
           <Stars stars={this.state.ratingAverage ? this.state.ratingAverage : 0}/>
         </div>
