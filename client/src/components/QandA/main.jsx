@@ -12,8 +12,9 @@ function QandA(props) {
   const [showAnswerModal, setShowAnswerModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState(" ");
   const [searchResults, setSearchResults] = useState([]);
-  const [currQuestionId, setCurrQuestionId] = useState(1);
+  const [currQuestionId, setCurrQuestionId] = useState(0);
   const [answersSubmitted, addSumbission] = useState(0);
+  const [loadMoreQuestionsText, changeQuestionText] = useState('MORE ANSWERED QUESTIONS');
 
 
   const openQuestionModal = () => {
@@ -31,22 +32,77 @@ function QandA(props) {
     setSearchTerm(event.target.value);
   };
 
+  const handleMoreQuestions = () => {
+    setCurrPageCounter(currPageCounter + 1);
+  }
+
+  useEffect(() => {
+    document.addEventListener('mousedown', (event) => {
+      helperFunctions.postInteraction({
+        element: event.target.outerHTML.toString(),
+        widget: 'QandA',
+        time: Date.now().toString()
+      });
+    });
+  }, []);
 
   useEffect(() => {
     console.log('QandA mounted');
     let currentProduct = props.currentProduct;
-    helperFunctions.getQuestionsById(currentProduct, currPageCounter, 2)
+    // console.log("getting questions for", currentProduct);
+    helperFunctions.getQuestionsById(currentProduct,  currPageCounter, 3)
     .then((questions) => {
-      console.log('questions from fetch', questions);
-      setCurrQuestions(questions);
-      setCurrPageCounter(currPageCounter + 1);
+      setCurrQuestions([...new Set(questions)]);
+      setCurrPageCounter(1);
       setSearchTerm(" ")
       setSearchTerm("")
     })
     .catch((err) => {
       console.error('Error setting state of QandA', err)
     });
-  }, [props.currentProduct, answersSubmitted]);
+  }, [props.currentProduct]);
+
+  useEffect(() => {
+    console.log('QandA mounted');
+    let currentProduct = props.currentProduct;
+    // console.log("getting questions for", currentProduct);
+    helperFunctions.getQuestionsById(currentProduct,  currPageCounter, 3)
+    .then((questions) => {
+      // console.log('questions from fetch', questions);
+      if(currPageCounter > 1) {
+        if(questions.length === 0) {
+          changeQuestionText('NO MORE QUESTIONS TO LOAD');
+        }
+        setCurrQuestions([...new Set(currQuestions.concat(questions))]);
+      }
+      else {
+        setCurrQuestions([...new Set(questions)]);
+      }
+      setCurrPageCounter(currPageCounter);
+      setSearchTerm(" ")
+      setSearchTerm("")
+    })
+    .catch((err) => {
+      console.error('Error setting state of QandA', err)
+    });
+  }, [currPageCounter]);
+
+  useEffect(() => {
+    console.log('QandA mounted');
+    let currentProduct = props.currentProduct;
+    // console.log("getting questions for", currentProduct);
+    helperFunctions.getQuestionsById(currentProduct,  1, 3*currPageCounter)
+    .then((questions) => {
+      setCurrQuestions([...new Set(questions)]);
+      setCurrPageCounter(currPageCounter);
+      setSearchTerm(" ")
+      setSearchTerm("")
+    })
+    .catch((err) => {
+      console.error('Error setting state of QandA', err)
+    });
+  }, [answersSubmitted]);
+
 
 
   useEffect(() => {
@@ -67,7 +123,7 @@ function QandA(props) {
         <div id='MoreAnswersContainer'>
         </div>
         <div id='AskMoreQuestionsContainer'>
-          <button id='MoreAnswerdQuestionsButton'> MORE ANSWERED QUESTIONS </button>
+          <button id='MoreAnswerdQuestionsButton' onClick={handleMoreQuestions}> {loadMoreQuestionsText} </button>
           <button id='AddQuestionButtton' onClick={openQuestionModal}> ADD A QUESTION + </button>
           <QuestionModal showModal={showQuestionModal} setShowModal={openQuestionModal} />
           <AnswerModal showModal={showAnswerModal} setShowModal={openAnswerModal} currQuestionId={currQuestionId} addSumbission={addSumbission}/>
