@@ -39,6 +39,14 @@ class Overview extends React.Component {
       this.setState({currentStyle: this.getDefaultStyle(this.props.currentProductStyles)});
     }
 
+    document.addEventListener('mousedown', (event) => {
+      helperFunctions.postInteraction({
+        element: event.target.outerHTML.toString(),
+        widget: 'Overview',
+        time: Date.now().toString()
+      });
+    });
+
   }
 
   componentDidUpdate(prevProps) {
