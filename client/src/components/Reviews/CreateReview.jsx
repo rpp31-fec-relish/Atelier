@@ -13,23 +13,14 @@ function CreateReview(props) {
   const[missingVariablesArr, setMissingVariablesArr] = useState([])
 
   useEffect(() => {
-    //move to main when working on meta data
-    //this will be gottent rid of for optimization
-    let currentProduct = props.currentProduct;
-    helperFunctions.getReviewsMetaById(currentProduct)
-    .then((metaData)  => {
-      let productCharacteristics = {}
-      Object.keys(metaData.characteristics).map((key) => {
-        productCharacteristics[key] = {
-          id: metaData.characteristics[key].id,
-          value: 0
-        }
-      })
-      setCurrentCharacteristics(productCharacteristics)
+    let productCharacteristics = {}
+    Object.keys(props.characteristics).map((key) => {
+      productCharacteristics[key] = {
+        id: props.characteristics[key].id,
+        value: 0
+      }
     })
-    .catch((err) => {
-      console.error('Error setting state of reviewMetaData', err)
-    })
+    setCurrentCharacteristics(productCharacteristics)
   }, [])
 
   let characteristicNames = Object.keys(characteristics);

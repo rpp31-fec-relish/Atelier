@@ -10,11 +10,27 @@ class Reviews extends React.Component {
     super(props);
     this.state = {
       reviewsArr: [],
+      currentReviewsArr: [],
       reviewCount: 2,
       displayCreateReview: false,
+      ratings: {},
+      characteristics: {},
+      recommended: {},
+      ratingAverage: 0,
+      filters: {
+        1: false,
+        2: false,
+        3: false,
+        4: false,
+        5: false
+      }
     }
     this.handleClickOne = this.handleClickOne.bind(this);
     this.handleClickTwo = this.handleClickTwo.bind(this);
+    this.weightedAverage = this.weightedAverage.bind(this);
+    this.filterFunction = this.filterFunction.bind(this);
+    this.clearFiltersFunction = this.clearFiltersFunction.bind(this);
+    this.currentReviewsFunction = this.currentReviewsFunction.bind(this);
   }
 
 
@@ -24,11 +40,29 @@ class Reviews extends React.Component {
     helperFunctions.getReviewsById(currentProduct)
     .then((reviews) => {
       this.setState({
-        reviewsArr:reviews
+        reviewsArr:reviews,
+        currentReviewsArr:reviews
       })
     })
     .catch((err) => {
       console.error('Error setting state of reviews', err)
+    })
+
+    helperFunctions.getReviewsMetaById(currentProduct)
+    .then((metaData)  => {
+      let ratings = metaData.ratings
+      let avg = this.weightedAverage(ratings);
+      console.log('metadata: ', metaData)
+
+      this.setState({
+        ratings: ratings,
+        characteristics: metaData.characteristics,
+        recommended: metaData.recommended,
+        ratingAverage: avg
+      })
+    })
+    .catch((err) => {
+      console.error('Error setting state of reviewMetaData', err)
     })
   }
 
@@ -37,6 +71,12 @@ class Reviews extends React.Component {
     if (prevProps.currentProduct !== this.props.currentProduct) {
       this.componentDidMount();
     }
+  }
+
+  weightedAverage(ratings) {
+    let result = (ratings[5] * 5 + ratings[4] * 4 + ratings[3] * 3 + ratings[2] * 2 + ratings[1] * 1) / ((ratings[5] * 1 + ratings[4] * 1 + ratings[3] * 1 + ratings[2] * 1 + ratings[1] * 1))
+
+    return result;
   }
 
   handleClickOne() {
@@ -51,16 +91,70 @@ class Reviews extends React.Component {
     }))
   }
 
+  filterFunction(rating) {
+    this.setState(prevState =>({
+      ...prevState,
+      filters:{
+        ...prevState.filters,
+        [rating]: (!prevState.filters[rating])
+      }
+    }), () => {
+      console.log(this.state.filters[rating])
+      console.log(this.state.filters);
+      this.currentReviewsFunction()
+    })
+  }
+
+  currentReviewsFunction() {
+    let slicedReviews = this.state.reviewsArr.slice();
+    let reviewsToReturn = []
+
+    for (let j in this.state.filters) {
+      if (this.state.filters[j]) {
+        for (let i = 0; i < slicedReviews.length; i++) {
+          if (slicedReviews[i].rating.toString() === j){
+            reviewsToReturn.push(slicedReviews[i])
+          }
+        }
+      }
+    }
+
+    console.log('reviews to return: ',reviewsToReturn)
+
+    if (reviewsToReturn.length === 0) {
+      this.setState({
+        currentReviewsArr: this.state.reviewsArr
+      })
+    } else {
+      this.setState({
+        currentReviewsArr: reviewsToReturn
+      })
+    }
+  }
+
+  clearFiltersFunction() {
+    this.setState({
+      filters: {
+          1: false,
+          2: false,
+          3: false,
+          4: false,
+          5: false
+        },
+      currentReviewsArr: this.state.reviewsArr
+    })
+  }
+
   render() {
     return (
       <div className="reviews">
-        <ReviewList reviewsArr={this.state.reviewsArr} currentProduct={this.props.currentProduct} reviewCount={this.state.reviewCount}/>
-        <ReviewMeta currentProduct={this.props.currentProduct}/>
+        <ReviewList reviewsArr={this.state.currentReviewsArr} currentProduct={this.props.currentProduct} reviewCount={this.state.reviewCount}/>
+        <ReviewMeta currentProduct={this.props.currentProduct} ratings={this.state.ratings} characteristics={this.state.characteristics} recommended={this.state.recommended} ratingAverage={this.state.ratingAverage} filterFunction={this.filterFunction} filters={this.state.filters} clearFiltersFunction={this.state.clearFiltersFunction}/>
         <div className= "reviewButtonsDiv">
           <button className="createReviewLinkButton" onClick={this.handleClickOne}>Create review</button>
           <button className="reviewListMoreReviewsbutton" onClick={this.handleClickTwo}>More Reviews</button>
         </div>
-        {this.state.displayCreateReview ? <CreateReview currentProduct={this.props.currentProduct} displayCreateReview={this.handleClickOne}/> : null}
+        {this.state.displayCreateReview ? <CreateReview currentProduct={this.props.currentProduct} characteristics={this.state.characteristics} displayCreateReview={this.handleClickOne}/> : null}
       </div>
     )
   }
