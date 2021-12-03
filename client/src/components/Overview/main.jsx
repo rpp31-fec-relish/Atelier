@@ -35,25 +35,27 @@ class Overview extends React.Component {
   }
 
   componentDidMount() {
-
-    this.setState({currentStyle: this.getDefaultStyle(this.props.currentProductStyles)});
+    if (this.props.currentProductStyles.length != 0) {
+      this.setState({currentStyle: this.getDefaultStyle(this.props.currentProductStyles)});
+    }
 
   }
 
   componentDidUpdate(prevProps) {
 
-    if (prevProps.currentProductData.id != this.props.currentProductData.id) {
+    if ((prevProps.currentProductStyles.length === 0 && this.props.currentProductStyles.length > 0) || prevProps.currentProductStyles[0].style_id != this.props.currentProductStyles[0].style_id) {
       this.setState({currentStyle: this.getDefaultStyle(this.props.currentProductStyles)});
     }
 
   }
 
   render() {
-    if (this.props.currentProductData === null
+    if (this.props.currentProductData.length === 0
       || this.state.currentStyle === null
-      || this.props.currentProductStyles == null) {
+      || this.props.currentProductStyles.length === 0) {
       return null;
     }
+    console.log('currentStyle: ', this.state.currentStyle);
     return (
       <div id='Overview'>
         <div id='OverviewMain'>
