@@ -80,7 +80,8 @@ function App(props) {
         outfits={outfits}
         addToOutfit={addToOutfit}
         changeCurrentProduct={changeCurrentProduct}
-        productRating={productRating}/>
+        productRating={productRating}
+        currentProductData={currentProductInfo.productData}/>
       <QandA
         currentProduct={currentProductInfo.productNumber}
         currentProductData={currentProductInfo.productData}
