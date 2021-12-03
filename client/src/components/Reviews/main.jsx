@@ -10,6 +10,7 @@ class Reviews extends React.Component {
     super(props);
     this.state = {
       reviewsArr: [],
+      currentReviewsArr: [],
       reviewCount: 2,
       displayCreateReview: false,
       ratings: {},
@@ -37,7 +38,8 @@ class Reviews extends React.Component {
     helperFunctions.getReviewsById(currentProduct)
     .then((reviews) => {
       this.setState({
-        reviewsArr:reviews
+        reviewsArr:reviews,
+        currentReviewsArr:reviews
       })
     })
     .catch((err) => {
@@ -97,33 +99,34 @@ class Reviews extends React.Component {
     }))
     console.log(this.state.filters[rating])
     console.log(this.state.filters);
-    //so we succesfully connected this to the meta, now we need edit the change for the review. shoudl be an on change.
+    this.currentReviewsFunction()
+  }
 
-    //so, to be clear, it wants us to filter all reviews by those stars. and they are additive. its also a toggle.
+  //can optimize this function
+  currentReviewsFunction() {
+    let slicedReviews = this.state.reviewsArr.slice();
+    let reviewsToReturn = []
 
-    /*so...local state. thats the best i can think of here, if the local state is true for anything, then we should filter out by the reviews alone. so a state set up like this:
-    filters: {  1: false,
-                2: false,
-                3: false,
-                4: false,
-                5: false}
+    for (let j in this.state.filters) {
+      if (this.state.filters[j]) {
+        for (let i = 0; i < slicedReviews.length; i++) {
+          if (slicedReviews[i].rating.toString() === j){
+            reviewsToReturn.push(slicedReviews[i])
+          }
+        }
+      }
+    }
 
-    as we go click it will change the filter to be the what it was and wasnt before.
-
-    we can have a component did update that looks through the currently displayed review list, so it passes through the review system and then grabs any reviews with that specific rating, slices it into an array, and then puts that array into the arrays and pass it along. so we need to change where the reviews aray is coming from. we sho-uld probablhy create a varible that exists that it pulls from, then we can modify it at this level depending on the clicks to pass through.
-
-    keep in mind we also have to think about how this will effect the sort method. its currently sorting based off of when you click,a nd comes in initially based of relavence, but if it comes in after clicked on some sorting nad wants to narrow it down, you may need to have it re initalize the sort method. hrm..thats a problem for further down, th emain concern is getting thit to actuallhy pass a new array that has been filltered.
-
-    ok, things needed to fhti scomponent did update function: updates a sliced array...we coudl just slice the entire array, then we can have a check against a list of filters. if it isnt in there then we can just splice it out. then if they click on more fliters it just reruns and re renders. cost no more api calls, but it could be expensive locally. every tim eit clicks a filter it will continue to pull that one back. we could also look for the ones tha tmatch, add them to a new array, and return that array. but then once its added how does it get rid of it? no, the one that makes sense is that each time its changed, slice the array, then loop over it, if any of the reviews match any of the current true perameters, keep it, otherwise throw it out.
-
-    the button will be passing on the top level amongst the review portion. it will keep an eye for on change. if any of the filters = true, it will apear as a button on the main page, else its null.
-    */
+    console.log('reviews to return: ',reviewsToReturn)
+    this.setState({
+      currentReviewsArr: reviewsToReturn
+    })
   }
 
   render() {
     return (
       <div className="reviews">
-        <ReviewList reviewsArr={this.state.reviewsArr} currentProduct={this.props.currentProduct} reviewCount={this.state.reviewCount}/>
+        <ReviewList reviewsArr={this.state.currentReviewsArr} currentProduct={this.props.currentProduct} reviewCount={this.state.reviewCount}/>
         <ReviewMeta currentProduct={this.props.currentProduct} ratings={this.state.ratings} characteristics={this.state.characteristics} recommended={this.state.recommended} ratingAverage={this.state.ratingAverage} filterFunction={this.filterFunction}/>
         <div className= "reviewButtonsDiv">
           <button className="createReviewLinkButton" onClick={this.handleClickOne}>Create review</button>
