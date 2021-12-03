@@ -29,6 +29,8 @@ class Reviews extends React.Component {
     this.handleClickTwo = this.handleClickTwo.bind(this);
     this.weightedAverage = this.weightedAverage.bind(this);
     this.filterFunction = this.filterFunction.bind(this);
+    this.clearFiltersFunction = this.clearFiltersFunction.bind(this);
+    this.currentReviewsFunction = this.currentReviewsFunction.bind(this);
   }
 
 
@@ -103,7 +105,6 @@ class Reviews extends React.Component {
     })
   }
 
-  //can optimize this function
   currentReviewsFunction() {
     let slicedReviews = this.state.reviewsArr.slice();
     let reviewsToReturn = []
@@ -119,20 +120,36 @@ class Reviews extends React.Component {
     }
 
     console.log('reviews to return: ',reviewsToReturn)
-    this.setState({
-      currentReviewsArr: reviewsToReturn
-    })
+
+    if (reviewsToReturn.length === 0) {
+      this.setState({
+        currentReviewsArr: this.state.reviewsArr
+      })
+    } else {
+      this.setState({
+        currentReviewsArr: reviewsToReturn
+      })
+    }
   }
 
   clearFiltersFunction() {
-
+    this.setState({
+      filters: {
+          1: false,
+          2: false,
+          3: false,
+          4: false,
+          5: false
+        },
+      currentReviewsArr: this.state.reviewsArr
+    })
   }
 
   render() {
     return (
       <div className="reviews">
         <ReviewList reviewsArr={this.state.currentReviewsArr} currentProduct={this.props.currentProduct} reviewCount={this.state.reviewCount}/>
-        <ReviewMeta currentProduct={this.props.currentProduct} ratings={this.state.ratings} characteristics={this.state.characteristics} recommended={this.state.recommended} ratingAverage={this.state.ratingAverage} filterFunction={this.filterFunction}/>
+        <ReviewMeta currentProduct={this.props.currentProduct} ratings={this.state.ratings} characteristics={this.state.characteristics} recommended={this.state.recommended} ratingAverage={this.state.ratingAverage} filterFunction={this.filterFunction} filters={this.state.filters} clearFiltersFunction={this.state.clearFiltersFunction}/>
         <div className= "reviewButtonsDiv">
           <button className="createReviewLinkButton" onClick={this.handleClickOne}>Create review</button>
           <button className="reviewListMoreReviewsbutton" onClick={this.handleClickTwo}>More Reviews</button>
