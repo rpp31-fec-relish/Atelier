@@ -15,6 +15,7 @@ function App(props) {
     productStyles: []
   });
   const [outfits, setOutfits] = useState([]);
+  const [productRating, setProductRating] = useState(0);
 
   const changeCurrentProduct = (productId) =>  {
     window.history.replaceState(null, `${productId}`, `/${productId}`);
@@ -72,12 +73,14 @@ function App(props) {
         currentProduct={currentProductInfo.productNumber}
         addToOutfit={addToOutfit.bind(this)}
         currentProductData={currentProductInfo.productData}
-        currentProductStyles={currentProductInfo.productStyles}/>
+        currentProductStyles={currentProductInfo.productStyles}
+        productRating={productRating}/>
       <Related
         currentProduct={currentProductInfo.productNumber}
         outfits={outfits}
         addToOutfit={addToOutfit}
-        changeCurrentProduct={changeCurrentProduct}/>
+        changeCurrentProduct={changeCurrentProduct}
+        productRating={productRating}/>
       <QandA
         currentProduct={currentProductInfo.productNumber}
         currentProductData={currentProductInfo.productData}
@@ -85,7 +88,8 @@ function App(props) {
       <Reviews
         currentProduct={currentProductInfo.productNumber}
         currentProductData={currentProductInfo.productData}
-        currentProductStyles={currentProductInfo.productStyles}/>
+        currentProductStyles={currentProductInfo.productStyles}
+        setCurrentProductRating={setProductRating.bind(this)}/>
     </div>
   );
 
