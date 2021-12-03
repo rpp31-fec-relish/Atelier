@@ -36,21 +36,21 @@ function QandA(props) {
     setCurrPageCounter(currPageCounter + 1);
   }
 
-  useEffect(() => {
-    document.addEventListener('mousedown', (event) => {
-      helperFunctions.postInteraction({
-        element: event.target.outerHTML.toString(),
-        widget: 'QandA',
-        time: Date.now().toString()
-      });
-    });
-  }, []);
+  // useEffect(() => {
+  //   document.addEventListener('mousedown', (event) => {
+  //     helperFunctions.postInteraction({
+  //       element: event.target.outerHTML.toString(),
+  //       widget: 'QandA',
+  //       time: Date.now().toString()
+  //     });
+  //   });
+  // }, []);
 
   useEffect(() => {
     console.log('QandA mounted');
     let currentProduct = props.currentProduct;
     // console.log("getting questions for", currentProduct);
-    helperFunctions.getQuestionsById(currentProduct,  currPageCounter, 3)
+    helperFunctions.getQuestionsById(currentProduct,  currPageCounter, 2)
     .then((questions) => {
       setCurrQuestions([...new Set(questions)]);
       setCurrPageCounter(1);
@@ -66,7 +66,7 @@ function QandA(props) {
     console.log('QandA mounted');
     let currentProduct = props.currentProduct;
     // console.log("getting questions for", currentProduct);
-    helperFunctions.getQuestionsById(currentProduct,  currPageCounter, 3)
+    helperFunctions.getQuestionsById(currentProduct,  currPageCounter, 2)
     .then((questions) => {
       // console.log('questions from fetch', questions);
       if(currPageCounter > 1) {
@@ -91,7 +91,7 @@ function QandA(props) {
     console.log('QandA mounted');
     let currentProduct = props.currentProduct;
     // console.log("getting questions for", currentProduct);
-    helperFunctions.getQuestionsById(currentProduct,  1, 3*currPageCounter)
+    helperFunctions.getQuestionsById(currentProduct,  1, 2*currPageCounter)
     .then((questions) => {
       setCurrQuestions([...new Set(questions)]);
       setCurrPageCounter(currPageCounter);
@@ -120,8 +120,6 @@ function QandA(props) {
         <div id='QandATitle'>Questions & Answers</div>
         <input type='text' id='QandASearchBar'placeholder='HAVE A QUESTION? SEARCH FOR ANSWERS...' value={searchTerm} onChange={handleChange}></input>
         <QandAElementContainer questions={searchResults} currPageCounter={currPageCounter} setCurrPageCounter={setCurrPageCounter} modalClick={openAnswerModal}/>
-        <div id='MoreAnswersContainer'>
-        </div>
         <div id='AskMoreQuestionsContainer'>
           <button id='MoreAnswerdQuestionsButton' onClick={handleMoreQuestions}> {loadMoreQuestionsText} </button>
           <button id='AddQuestionButtton' onClick={openQuestionModal}> ADD A QUESTION + </button>

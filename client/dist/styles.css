@@ -137,6 +137,12 @@ body {
   margin-bottom: 15px;
 }
 
+#QandAElementContainer {
+  overflow: hidden;
+  overflow-y: scroll;
+  max-height: 500px;
+}
+
 #MoreAnswers {
   font-weight: bold;
   border: none;
