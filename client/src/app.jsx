@@ -102,10 +102,6 @@ ReactDOM.render(<App />, document.getElementById('app'));
 //
 // Code for logging user interactions
 //
-let OverviewNode = document.getElementById('Overview');
-let QANode = document.getElementById('QandAContainer');
-let RelatedNode = document.getElementById('RelatedProductsAndOutfits');
-let ReviewsNode = document.getElementById('ReviewsWidget');
 
 document.addEventListener('mousedown', (event) => {
 
