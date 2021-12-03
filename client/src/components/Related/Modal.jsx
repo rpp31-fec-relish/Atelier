@@ -1,76 +1,39 @@
 import React from 'react';
 
-export default class Modal extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      allStyles: []
-    }
+const Modal = (props) => {
+  let {onClose, show, currentProductData, singleRelatedProductFeature, allStyles} = props;
 
-    this.onClose = this.onClose.bind(this);
+  const handleClose = (e) => { onClose && onClose(e); }
+
+  if (!show) {
+    return null;
   }
-
-  onClose(e) {
-    this.props.onClose && this.props.onClose(e);
-  }
-
-  render() {
-    if (!this.props.show) {
-      return null;
-    }
-
-    return (
+  return (
+    <div className="modal-table">
       <table id="RP-modal">
-        <div className="modal-title">COMPARING</div>
-        <tr>
-          <th>Current Product Name</th>
-          <th> </th>
-          <th>Compared Product Name</th>
-        </tr>
-        <tr>
-          <td>&#10003;</td>
-          <td>GMO and Pesticide-free</td>
-          <td>&#10003;</td>
-        </tr>
-        <tr>
-          <td>&#10003;</td>
-          <td>Made with 100% Genetic Modification</td>
-          <td>&#10003;</td>
-        </tr>
-        <tr>
-          <td>&#10003;</td>
-          <td>This is made up</td>
-          <td>&#10003;</td>
-        </tr>
-        <tr>
-          <td>&#10003;</td>
-          <td>It doesn't matter</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>&#10003;</td>
-          <td>Feature description</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>Uses React Hooks and Redux</td>
-          <td>&#10003;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>Angular</td>
-          <td>&#10003;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>Some other product comparison metric</td>
-          <td>&#10003;</td>
-        </tr>
-        <div>
-          <div id="toggle-modal" onClick={(e) => {this.onClose(e);}}>&#9746;</div>
-        </div>
+        <caption>COMPARING</caption>
+        <thead>
+          <tr>
+            <th>{currentProductData ? currentProductData.name : 'Current Product Name'}</th>
+            <th> </th>
+            <th>{singleRelatedProductFeature[0] ? singleRelatedProductFeature[0].name : 'Related Product Name'}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {allStyles.map(entry => {
+            return (
+              <tr key={'modal-entry_' + entry.key}>
+                <td>{entry.current ? '✓' : ''}</td>
+                <td>{entry.characteristic}</td>
+                <td>{entry.compare ? '✓' : ''}</td>
+              </tr>
+            )
+          })}
+        </tbody>
       </table>
-    )
-  }
+      <div className="toggle-modal" onClick={(e) => {handleClose(e);}}>&#9746;</div>
+    </div>
+  )
 }
+
+export default Modal;
