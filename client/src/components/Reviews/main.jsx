@@ -96,10 +96,11 @@ class Reviews extends React.Component {
         ...prevState.filters,
         [rating]: (!prevState.filters[rating])
       }
-    }))
-    console.log(this.state.filters[rating])
-    console.log(this.state.filters);
-    this.currentReviewsFunction()
+    }), () => {
+      console.log(this.state.filters[rating])
+      console.log(this.state.filters);
+      this.currentReviewsFunction()
+    })
   }
 
   //can optimize this function
@@ -121,6 +122,10 @@ class Reviews extends React.Component {
     this.setState({
       currentReviewsArr: reviewsToReturn
     })
+  }
+
+  clearFiltersFunction() {
+
   }
 
   render() {
