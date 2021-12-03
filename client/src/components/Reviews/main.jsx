@@ -35,7 +35,13 @@ class Reviews extends React.Component {
 
 
   componentDidMount(){
-    console.log('reviews mounted');
+    document.addEventListener('mousedown', (event) => {
+      helperFunctions.postInteraction({
+        element: event.target.outerHTML.toString(),
+        widget: 'Review',
+        time: Date.now().toString()
+      });
+    });
     let currentProduct = this.props.currentProduct;
     helperFunctions.getReviewsById(currentProduct)
     .then((reviews) => {
