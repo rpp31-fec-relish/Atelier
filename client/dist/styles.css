@@ -161,10 +161,43 @@ body {
 
 #RelatedProductsAndOutfits h4 {
   text-align: left;
-  font-family: Arial;
+  font-family: "adobe-clean", sans-serif;
   font-weight: lighter;
   color: rgb(110, 110, 110);
   font-size: 12px;
+}
+
+.RP-titles {
+  margin-left: 10%;
+}
+
+.RP-table {
+  margin-left: 10%;
+}
+
+#RelatedProduct {
+  border: 1px solid rgb(87, 87, 87);
+  text-align: left;
+  font-family: "adobe-clean", sans-serif;
+  color: rgb(87, 87, 87);
+  font-size: 12px;
+}
+
+#OutfitItem {
+  border: 1px solid rgb(87, 87, 87);
+  text-align: left;
+  font-family: "adobe-clean", sans-serif;
+  color: rgb(87, 87, 87);
+  font-size: 12px;
+}
+
+.RP-smallerText {
+  font-weight: lighter;
+  font-size: 10px;
+}
+
+.RP-bold {
+  font-weight: bolder;
 }
 
 .RP-carousel {
@@ -176,6 +209,14 @@ body {
 .RP-arrow {
   position: relative;
   margin-top: 100px;
+}
+
+#Related-arrows {
+  min-width: 50%;
+}
+
+.Outfit-table {
+  margin-left: 10%;
 }
 
 .Outfits-carousel {
@@ -191,18 +232,10 @@ body {
   border: 1px solid black;
   text-align: center;
   padding: 1em;
-  font-family: Arial;
+  font-family: "adobe-clean", sans-serif;
   font-weight: lighter;
   color: rgb(110, 110, 110);
   font-size: 12px;
-}
-
-#RelatedProduct {
-  border: 1px solid black;
-}
-
-#OutfitItem {
-  border: 1px solid black;
 }
 
 .RP-star-modal {
@@ -212,7 +245,7 @@ body {
   text-shadow: lightgray 1px 1px 1px;
 }
 
-.Outfit-star-modal {
+.Outfit-x-button {
   position: absolute;
   color: black;
   font-size: 25px;

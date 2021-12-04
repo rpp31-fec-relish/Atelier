@@ -13,9 +13,15 @@ class RelatedProduct extends React.Component {
   }
 
   weightedAverage = (ratings) => {
-    let result = (ratings[5] * 5 + ratings[4] * 4 + ratings[3] * 3 + ratings[2] * 2 + ratings[1] * 1) / ((ratings[5] * 1 + ratings[4] * 1 + ratings[3] * 1 + ratings[2] * 1 + ratings[1] * 1));
+    let total = 0;
+    let totalWeight = 0;
+    for (const [key, weight] of Object.entries(ratings)) {
+      total += (key * parseInt(weight));
+      totalWeight += parseInt(weight);
+    }
 
-    return result;
+    total = Math.round((total / totalWeight) * 10) / 10;
+    return total;
   }
 
   componentDidMount() {
@@ -23,7 +29,6 @@ class RelatedProduct extends React.Component {
     .then((metaData)  => {
       let ratings = metaData.ratings;
       let avg = this.weightedAverage(ratings);
-      avg = Math.round(avg * 10) / 10;
       this.setState({ratingAverage: avg})
     })
     .catch((err) => {
@@ -36,9 +41,9 @@ class RelatedProduct extends React.Component {
       <td id="RelatedProduct">
         <div className="RP-star-modal" id={this.props.id} onClick={(e) => this.props.showModal(e)}>&#9734;</div>
         <input id="RP-image" type="image" src={this.props.assignImage(this.props.image)} onClick={() => this.props.changeCurrentProduct(this.props.id)} alt="image"></input>
-        <div>{this.props.category}</div>
-        <div>{this.props.name}</div>
-        <div>{this.props.price}</div>
+        <div className="RP-smallerText">{this.props.category.toUpperCase()}</div>
+        <div className="RP-bold">{this.props.name}</div>
+        <div className="RP-smallerText">{this.props.price}</div>
         <div id="RP-rating">
           <Stars stars={this.state.ratingAverage ? this.state.ratingAverage : 0}/>
         </div>
