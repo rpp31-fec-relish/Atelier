@@ -366,11 +366,17 @@ body {
 #RP-image {
   width: 150px;
   height: 150px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #Outfit-image {
   width: 150px;
   height: 150px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .Outfit-text-change {
