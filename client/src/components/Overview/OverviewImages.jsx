@@ -18,7 +18,6 @@ class OverviewImages extends React.Component {
     if (defaultStyle && defaultStyle.photos && defaultStyle.photos.length > 0) {
       for (let i = 0; i < defaultStyle.photos.length; i++) {
         if (defaultStyle.photos[i].url) {
-          console.log('default style:', defaultStyle.photos[i]);
           this.setState({currentImage: defaultStyle.photos[i]});
           return;
         }

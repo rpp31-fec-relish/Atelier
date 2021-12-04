@@ -54,7 +54,6 @@ class Overview extends React.Component {
       || this.props.currentProductStyles.length === 0) {
       return null;
     }
-    console.log('currentStyle: ', this.state.currentStyle);
     return (
       <div id='Overview'>
         <div id='OverviewMain'>
