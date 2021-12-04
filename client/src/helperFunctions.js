@@ -170,7 +170,7 @@ const helperFunctions = {
     //  ?photos (array of strings),
     //  characteristics (object of key=characteristic_id value=int)
     // O: A promise which will resolve with '201' if successfully posted
-    if (!review.product_id || !review.rating || !review.body || !review.recommend || !review.name || !review.email || !review.characteristics) {
+    if (!review.product_id || !review.rating || !review.body || (review.recommend === undefined) || !review.name || !review.email || !review.characteristics) {
       return new Error('review object missing required parameter');
     }
     return axios('/api/reviews', {
@@ -421,7 +421,7 @@ const helperFunctions = {
       data: interaction
     })
     .then((response) => {
-      console.log('New Interaction Posted: ', interaction);
+      //console.log('New Interaction Posted: ', interaction);
       return response.status;
     })
     .catch((err) => {
