@@ -242,6 +242,11 @@ body {
   padding-left: 75px;
 }
 
+.QandAphotos {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
 .fileSelect {
   font-family: "adobe-clean", sans-serif;
   background-color: rgb(220, 220, 220);
