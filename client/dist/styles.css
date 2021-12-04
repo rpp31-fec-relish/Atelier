@@ -6,6 +6,11 @@ body {
   text-align: center;
 }
 
+.hideMe {
+  visibility: hidden;
+  display: none;
+}
+
 #title {
   font-family: "adobe-clean", sans-serif;
   text-align: left;
@@ -58,7 +63,7 @@ body {
 #OverviewMain {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
   align-items: flex-start;
   gap: 20px;
 }
@@ -72,9 +77,12 @@ body {
 }
 
 #OverviewImage img {
-  height: 500px;
   border: solid white 2px;
-  max-width: 100%;
+  max-width: 90%;
+}
+
+.OverviewImageHeightFixed img{
+  height: 500px;
 }
 
 #OverviewImageGallery {
@@ -96,8 +104,13 @@ body {
   margin: 5px;
 }
 
-#OverviewInteract {
+#removable {
   flex-grow: 1;
+  justify-content: flex-start;
+  gap: 20px;
+}
+
+#OverviewInteract {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
