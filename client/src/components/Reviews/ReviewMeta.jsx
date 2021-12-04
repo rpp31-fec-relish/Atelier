@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import helperFunctions from '../../helperFunctions';
-import Slider, {Range} from 'rc-slider';
 import Stars from '../../../../node_modules/react-stars-display/';
 
 //refactor into functional component
