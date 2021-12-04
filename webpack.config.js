@@ -43,4 +43,9 @@ module.exports = {
     filename: 'app.js',
     path: DIST_DIR,
   },
+  resolve: {
+    fallback: {
+      tty: false
+    },
+  },
 };

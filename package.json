@@ -29,6 +29,7 @@
     "@babel/compat-data": "^7.16.4",
     "@babel/core": "^7.15.8",
     "@babel/preset-react": "^7.14.5",
+    "@progress/kendo-react-charts": "^4.12.0",
     "@testing-library/jest-dom": "^5.15.0",
     "axios": "^0.24.0",
     "babel-jest": "^27.3.1",
@@ -39,7 +40,7 @@
     "express": "^4.17.1",
     "jest": "^27.3.1",
     "nodemon": "^2.0.14",
-    "rc-slider": "^9.7.4",
+    "progress-bar": "^0.1.1",
     "react": "^17.0.2",
     "react-cli": "^0.3.1",
     "react-dom": "^17.0.2",
@@ -48,9 +49,12 @@
     "regenerator-runtime": "^0.13.9",
     "sass-loader": "^12.3.0",
     "ts-jest": "^27.0.7",
+    "tty": "^1.0.1",
+    "tty-browserify": "^0.0.1",
     "webpack": "^5.59.1"
   },
   "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.16.4",
     "@babel/preset-env": "^7.16.4",
     "@testing-library/dom": "^8.11.1",
     "@testing-library/react": "^12.1.2",
@@ -61,5 +65,8 @@
     "sass": "^1.44.0",
     "url-loader": "^4.1.1",
     "webpack-cli": "^4.9.1"
+  },
+  "browser": {
+    "tty": false
   }
 }

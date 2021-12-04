@@ -17,6 +17,7 @@ class Reviews extends React.Component {
       characteristics: {},
       recommended: {},
       ratingAverage: 0,
+      totalRating: 0,
       filters: {
         1: false,
         2: false,
@@ -57,13 +58,14 @@ class Reviews extends React.Component {
     helperFunctions.getReviewsMetaById(currentProduct)
     .then((metaData)  => {
       let ratings = metaData.ratings
-      let avg = this.weightedAverage(ratings);
+      let [avg, count] = this.weightedAverage(ratings);
       this.props.setCurrentProductRating(avg);
       this.setState({
         ratings: ratings,
         characteristics: metaData.characteristics,
         recommended: metaData.recommended,
-        ratingAverage: avg
+        ratingAverage: avg,
+        totalRating: count,
       })
     })
     .catch((err) => {
@@ -86,7 +88,7 @@ class Reviews extends React.Component {
       totalWeight += parseInt(weight);
     }
     total = Math.round((total / totalWeight) * 10) / 10;
-    return total;
+    return [total, totalWeight];
   }
 
   handleClickOne() {
@@ -159,7 +161,7 @@ class Reviews extends React.Component {
     return (
       <div className="reviews" id="reviews">
         <ReviewList reviewsArr={this.state.currentReviewsArr} currentProduct={this.props.currentProduct} reviewCount={this.state.reviewCount}/>
-        <ReviewMeta currentProduct={this.props.currentProduct} ratings={this.state.ratings} characteristics={this.state.characteristics} recommended={this.state.recommended} ratingAverage={this.state.ratingAverage} filterFunction={this.filterFunction} filters={this.state.filters} clearFiltersFunction={this.state.clearFiltersFunction}/>
+        <ReviewMeta currentProduct={this.props.currentProduct} ratings={this.state.ratings} characteristics={this.state.characteristics} recommended={this.state.recommended} ratingAverage={this.state.ratingAverage} ratingCount={this.state.totalRating} filterFunction={this.filterFunction} filters={this.state.filters} clearFiltersFunction={this.state.clearFiltersFunction}/>
         <div className= "reviewButtonsDiv">
           <button className="createReviewLinkButton" onClick={this.handleClickOne}>Create review</button>
           <button className="reviewListMoreReviewsbutton" onClick={this.handleClickTwo}>More Reviews</button>

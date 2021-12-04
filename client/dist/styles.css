@@ -367,6 +367,13 @@ table {
 .reviewMeta {
   border-style: transparent;
   grid-area: reviewMeta;
+  grid-template-areas: "." "." "ratingBar" ".";
+}
+
+.ratingBar {
+
+  display: grid;
+  grid-area: reviewMeta;
 }
 
 .reviewList {
