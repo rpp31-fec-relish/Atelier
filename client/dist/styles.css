@@ -6,13 +6,19 @@ body {
   text-align: center;
 }
 
+.hideMe {
+  visibility: hidden;
+  display: none;
+}
+
 #title {
   font-family: "adobe-clean", sans-serif;
   text-align: left;
-  background-color: lightskyblue;
   padding: 20px;
   margin-left: 2%;
   margin-right: 2%;
+  border: solid #c29b48 5px;
+  border-radius: 25px;
 }
 
 #Overview {
@@ -26,29 +32,85 @@ body {
   padding-bottom: 20px;
 }
 
+#Overview select {
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  padding: 4px;
+  margin: 10px;
+  font-family: inherit;
+  font-size: 16px;
+  border: 1px solid black;
+  border-radius: 5px;
+  text-align: center;
+  width: 25%;
+}
+
+#Overview button {
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  padding: 4px;
+  margin: 10px;
+  font-family: inherit;
+  font-size: 16px;
+  border: 1px solid black;
+  border-radius: 5px;
+  text-align: center;
+  width: 25%;
+}
+
 #OverviewMain {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
   align-items: flex-start;
   gap: 20px;
 }
 
 #OverviewImage {
-  background-color: lightgray;
   flex-grow: 2;
   min-width: fit-content;
   width: 50%;
   padding: 10px;
+  position: relative;
 }
 
 #OverviewImage img {
+  border: solid white 2px;
+  max-width: 90%;
+}
+
+.OverviewImageHeightFixed img{
   height: 500px;
-  max-width: 100%;
+}
+
+#OverviewImageGallery {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: absolute;
+  overflow: hidden;
+  overflow-y: scroll;
+  max-height: 500px;
+  min-width: 75px;
+}
+
+#OverviewImageGallery img {
+  height: 50px;
+  width: 50px;
+  min-height: 50px;
+  min-width: 50px;
+  margin: 5px;
+}
+
+#removable {
+  flex-grow: 1;
+  justify-content: flex-start;
+  gap: 20px;
 }
 
 #OverviewInteract {
-  flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -84,7 +146,8 @@ body {
 }
 
 #StylePicker img {
-  margin: 1px;
+  margin: 10px;
+  border-radius: 25px;
 }
 
 #OverviewDescription {
@@ -109,7 +172,7 @@ body {
 }
 
 #QandAContainer {
-  font-family: Arial;
+  font-family: "adobe-clean", sans-serif;
   font-weight: lighter;
   font-size: 12px;
   text-align: left;
@@ -120,13 +183,14 @@ body {
 }
 
 #QandATitle {
-  font-family: Arial;
+  font-family: "adobe-clean", sans-serif;
   font-size:25px;
   font-weight: lighter;
   margin-bottom: 15px;
 }
 
 #QandASearchBar {
+  font-family: "adobe-clean", sans-serif;
   border: 1px solid grey;
   font-weight: bold;
   width: 75%;
@@ -137,7 +201,25 @@ body {
   margin-bottom: 15px;
 }
 
+#QandAElementContainer {
+  font-family: "adobe-clean", sans-serif;
+  overflow: hidden;
+  overflow-y: scroll;
+  max-height: 500px;
+}
+
+.nameField, .emailField, .answerField{
+  font-family: "adobe-clean", sans-serif;
+  font-size:25px;
+  margin: 15px 15px 15px;
+}
+
+.answerField {
+  text-align: center;
+}
+
 #MoreAnswers {
+  font-family: "adobe-clean", sans-serif;
   font-weight: bold;
   border: none;
   background: transparent;
@@ -145,13 +227,42 @@ body {
   margin-bottom: 15px;
 }
 
-#MoreAnswerdQuestionsButton, #AddQuestionButtton {
+#MoreAnswerdQuestionsButton, #AddQuestionButtton, input {
+  font-family: "adobe-clean", sans-serif;
   border-radius: 0px;
   background: transparent;
   padding: 15px;
   margin-right: 15px;
   border: 1px solid rgb(92, 92, 92);
 }
+
+.Submit > .answerSubmit, .questionSubmit {
+  margin-left: 150px;
+  padding-right: 75px;
+  padding-left: 75px;
+}
+
+.QandAphotos {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.fileSelect {
+  font-family: "adobe-clean", sans-serif;
+  background-color: rgb(220, 220, 220);
+  border: 2px dashed rgb(92, 92, 92);
+  color: black;
+  padding: 50px 50px;
+  text-align: center;
+  display: inline-block;
+  font-size:30px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-bottom: 25px;
+  margin-top: 25px;
+  margin-left: 30px;
+}
+
 
 #RelatedProductsAndOutfits {
   max-width: 960px;
@@ -161,47 +272,81 @@ body {
 
 #RelatedProductsAndOutfits h4 {
   text-align: left;
-  font-family: Arial;
+  font-family: "adobe-clean", sans-serif;
   font-weight: lighter;
   color: rgb(110, 110, 110);
   font-size: 12px;
 }
 
-.carousel-related {
+.RP-titles {
+  margin-left: 10%;
+}
+
+.RP-table {
+  margin-left: 10%;
+}
+
+#RelatedProduct {
+  border: 1px solid rgb(87, 87, 87);
+  text-align: left;
+  font-family: "adobe-clean", sans-serif;
+  color: rgb(87, 87, 87);
+  font-size: 12px;
+}
+
+#OutfitItem {
+  border: 1px solid rgb(87, 87, 87);
+  text-align: left;
+  font-family: "adobe-clean", sans-serif;
+  color: rgb(87, 87, 87);
+  font-size: 12px;
+}
+
+.RP-smallerText {
+  font-weight: lighter;
+  font-size: 10px;
+}
+
+.RP-bold {
+  font-weight: bolder;
+}
+
+.RP-carousel {
   position: relative;
-  align-items: center;
   display: flex;
-  margin-left: 0;
   justify-content: space-between;
 }
 
-.carousel-outfits {
+.RP-arrow {
   position: relative;
-  align-items: center;
+  margin-top: 100px;
+}
+
+#Related-arrows {
+  min-width: 50%;
+}
+
+.Outfit-table {
+  margin-left: 10%;
+}
+
+.Outfits-carousel {
+  position: relative;
   display: flex;
-  margin-left: 0;
+  justify-content: space-between;
 }
 
 .Outfit-add-remove {
-  margin-left: 70;
+  margin-left: 0;
   min-height: 196px;
   width: 127px;
   border: 1px solid black;
   text-align: center;
   padding: 1em;
-  font-family: Arial;
+  font-family: "adobe-clean", sans-serif;
   font-weight: lighter;
   color: rgb(110, 110, 110);
   font-size: 12px;
-}
-
-#RelatedProduct {
-  border: 1px solid black;
-}
-
-#OutfitItem {
-  border: 1px solid black;
-  margin-left: 7.1%;
 }
 
 .RP-star-modal {
@@ -211,7 +356,7 @@ body {
   text-shadow: lightgray 1px 1px 1px;
 }
 
-.Outfit-star-modal {
+.Outfit-x-button {
   position: absolute;
   color: black;
   font-size: 25px;
@@ -232,7 +377,7 @@ body {
   text-align: center;
 }
 
-#RP-modal {
+.modal-table {
   margin-left: auto;
   margin-right: auto;
   left: 0;
@@ -252,32 +397,13 @@ body {
   z-index: 1;
 }
 
-#toggle-modal {
+#RP-modal {
+  text-align: center;
+}
+
+.toggle-modal {
   font-size: 30px;
   align-items: center;
-}
-
-#RP-comparison-1 {
-  position: absolute;
-  left: 5px;
-}
-
-#RP-comparison-2 {
-  position: absolute;
-  right: 5px;
-}
-
-#modal-contents {
-  display: inline-table;
-  list-style: none;
-}
-
-#modal-contents li:before {
-  content: '✓';
-}
-
-#modal-contents li:after {
-  content: '✓';
 }
 
 #QuestionHelpful {
@@ -400,6 +526,7 @@ table {
     "reviewListItemScore . reviewListInfo"
     ". reviewListItemSummary . "
     "reviewListItemBody reviewListItemBody reviewListItemBody"
+    ". reviewListPhotosTag ."
     ". reviewListItemRecommend ."
     ". reviewListItemResponse ."
     ". reviewListHelpfulness .";
@@ -544,4 +671,25 @@ table {
   width: 600px;
   height: auto;
   padding: 15px;
+}
+
+.reviewListPhotosTag{
+  grid-area: reviewListPhotosTag;
+  grid-template-areas: ". . . . ."
+}
+
+.reviewListPhotos{
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 100px;
+  height: auto;
+}
+
+.thumbnail {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 100px;
+  height: auto;
 }

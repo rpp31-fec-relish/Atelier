@@ -66,65 +66,94 @@ class Carousel extends React.Component {
   render() {
     if (this.props.widget === 'related') {
       return (
-        <div className='carousel-related'>
-          <Arrow
-            direction='left'
-            handleClick={ this.previousSlide }
-            glyph='&#9664;'
-            relatedIndex={this.state.relatedIndex}
-            max={this.props.data.length}
-            widget={this.props.widget}/>
-          {this.props.data.slice(this.state.relatedIndex, this.indexSet(4, this.props.widget)).map((item) => <RelatedProduct
-            key={'relatedProduct_' + item.id}
-            id={item.id}
-            name={item.name}
-            category={item.category}
-            price={item.price}
-            image={item.image}
-            assignImage={this.props.assignImage}
-            changeCurrentProduct={this.props.changeCurrentProduct}
-            showModal={this.props.showModal}/>)}
-          <Arrow
+        <div className='RP-carousel'>
+          <div className='RP-arrow'>
+            <Arrow
+              direction='left'
+              handleClick={ this.previousSlide }
+              glyph='&#9664;'
+              relatedIndex={this.state.relatedIndex}
+              max={this.props.data.length}
+              widget={this.props.widget}
+            />
+          </div>
+          <table className="RP-table">
+            <tbody>
+              <tr>
+                {this.props.data.slice(this.state.relatedIndex, this.indexSet(4, this.props.widget)).map((item) => <RelatedProduct
+                  key={'relatedProduct_' + item.id}
+                  id={item.id}
+                  name={item.name}
+                  category={item.category}
+                  price={item.price}
+                  image={item.image}
+                  assignImage={this.props.assignImage}
+                  changeCurrentProduct={this.props.changeCurrentProduct}
+                  showModal={this.props.showModal}
+                />)}
+              </tr>
+            </tbody>
+          </table>
+          <div className='RP-arrow'>
+            <Arrow
             direction='right'
             handleClick={ this.nextSlide }
             glyph='&#9654;'
             relatedIndex={this.state.relatedIndex}
             max={this.props.data.length}
-            widget={this.props.widget}/>
+            widget={this.props.widget}
+            />
+          </div>
         </div>
       )
     } else if (this.props.widget === 'outfits') {
       return (
-        <div className='carousel-outfits'>
-          <Arrow
-            direction='left'
-            handleClick={ this.previousSlide }
-            glyph='&#9664;'
-            outfitIndex={this.state.outfitIndex}
-            max={this.props.outfitData.length}
-            widget={this.props.widget}/>
-          <div className="Outfit-add-remove">
-            <div onClick={(e) => {this.props.handleClick(e)}}>{this.props.handleTextChange()}</div>
+        <div className='Outfits-carousel'>
+          <div className='RP-arrow'>
+            <Arrow
+              direction='left'
+              handleClick={ this.previousSlide }
+              glyph='&#9664;'
+              outfitIndex={this.state.outfitIndex}
+              max={this.props.outfitData.length}
+              widget={this.props.widget}
+            />
           </div>
-          {this.props.outfitData.slice(this.state.outfitIndex, this.indexSet(3, this.props.widget)).map((outfit) => <OutfitItem
-            key={'outfit_' + outfit.id}
-            id={outfit.id}
-            name={outfit.name}
-            category={outfit.category}
-            price={outfit.price}
-            image={outfit.image}
-            assignImage={this.props.assignImage}
-            outfits={this.props.outfits}
-            handleClick={this.props.handleClick}
-            addToOutfit={this.props.addToOutfit}
-            changeCurrentProduct={this.props.changeCurrentProduct}/>)}
-          <Arrow
-            direction='right'
-            handleClick={ this.nextSlide }
-            glyph='&#9654;'
-            outfitIndex={this.state.outfitIndex}
-            max={this.props.outfitData.length}
-            widget={this.props.widget}/>
+          <table className="Outfit-table">
+            <tbody>
+              <tr>
+                <td className='Outfit-add-remove'>
+                  <div onClick={(e) => {this.props.handleAddOrRemove(e)}}>
+                    {this.props.outfits.includes(this.props.currentProduct) ? '- REMOVE FROM OUTFIT' : '+ ADD TO OUTFIT'}
+                  </div>
+                </td>
+                {this.props.outfitData.slice(this.state.outfitIndex, this.indexSet(3, this.props.widget)).map((outfit) => <OutfitItem
+                  key={'outfit_' + outfit.id}
+                  id={outfit.id}
+                  name={outfit.name}
+                  category={outfit.category}
+                  price={outfit.price}
+                  image={outfit.image}
+                  removeOutfit={this.props.removeOutfit}
+                  assignImage={this.props.assignImage}
+                  addToOutfit={this.props.addToOutfit}
+                  changeCurrentProduct={this.props.changeCurrentProduct}
+                  productRating={this.props.productRating}
+                  handleRemove={this.props.handleRemove}
+                />)}
+              </tr>
+            </tbody>
+          </table>
+          <div className='RP-arrow'>
+            <Arrow
+              direction='right'
+              handleClick={ this.nextSlide }
+              glyph='&#9654;'
+              outfitIndex={this.state.outfitIndex}
+              max={this.props.outfitData.length}
+              widget={this.props.widget}
+            />
+          </div>
         </div>
       )
     }

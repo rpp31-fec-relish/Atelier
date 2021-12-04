@@ -170,7 +170,7 @@ const helperFunctions = {
     //  ?photos (array of strings),
     //  characteristics (object of key=characteristic_id value=int)
     // O: A promise which will resolve with '201' if successfully posted
-    if (!review.product_id || !review.rating || !review.body || !review.recommend || !review.name || !review.email || !review.characteristics) {
+    if (!review.product_id || !review.rating || !review.body || (review.recommend === undefined) || !review.name || !review.email || !review.characteristics) {
       return new Error('review object missing required parameter');
     }
     return axios('/api/reviews', {
@@ -220,7 +220,6 @@ const helperFunctions = {
   getQuestionsById(product_id, page = 1, count = 2) {
     // I: A product id number or string, optionally a page number and count per page
     // O: A promise that resolves to an array of question objects
-
     return axios(`/api/qa/questions?product_id=${product_id}&page=${page}&count=${count}`, {
       method: 'GET'
     })
@@ -422,14 +421,27 @@ const helperFunctions = {
       data: interaction
     })
     .then((response) => {
-      console.log('New Interaction Posted: ', interaction);
+      //console.log('New Interaction Posted: ', interaction);
       return response.status;
     })
     .catch((err) => {
       console.error('Error posting new interaction to the server: ', err);
     });
-  }
+  },
 
+ postImage(file) {
+    return axios(`https://api.cloudinary.com/v1_1/dpwwavsdm/image/upload`, {
+      method: 'POST',
+      data: file
+    })
+    .then((response) =>{
+      console.log('Image posted successfully: ', response.status);
+      return response;
+    })
+    .catch((err) => {
+      console.error('Error posting Image to cloudinary: ', err);
+    })
+  }
 
 }
 

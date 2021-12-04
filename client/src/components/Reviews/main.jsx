@@ -35,7 +35,6 @@ class Reviews extends React.Component {
 
 
   componentDidMount(){
-    console.log('reviews mounted');
     let currentProduct = this.props.currentProduct;
     helperFunctions.getReviewsById(currentProduct)
     .then((reviews) => {
@@ -52,8 +51,7 @@ class Reviews extends React.Component {
     .then((metaData)  => {
       let ratings = metaData.ratings
       let avg = this.weightedAverage(ratings);
-      console.log('metadata: ', metaData)
-
+      this.props.setCurrentProductRating(avg);
       this.setState({
         ratings: ratings,
         characteristics: metaData.characteristics,
@@ -73,10 +71,15 @@ class Reviews extends React.Component {
     }
   }
 
-  weightedAverage(ratings) {
-    let result = (ratings[5] * 5 + ratings[4] * 4 + ratings[3] * 3 + ratings[2] * 2 + ratings[1] * 1) / ((ratings[5] * 1 + ratings[4] * 1 + ratings[3] * 1 + ratings[2] * 1 + ratings[1] * 1))
-
-    return result;
+  weightedAverage = (ratings) => {
+    let total = 0;
+    let totalWeight = 0;
+    for (const [key, weight] of Object.entries(ratings)) {
+      total += (key * parseInt(weight));
+      totalWeight += parseInt(weight);
+    }
+    total = Math.round((total / totalWeight) * 10) / 10;
+    return total;
   }
 
   handleClickOne() {
@@ -147,7 +150,7 @@ class Reviews extends React.Component {
 
   render() {
     return (
-      <div className="reviews">
+      <div className="reviews" id="ReviewsWidget">
         <ReviewList reviewsArr={this.state.currentReviewsArr} currentProduct={this.props.currentProduct} reviewCount={this.state.reviewCount}/>
         <ReviewMeta currentProduct={this.props.currentProduct} ratings={this.state.ratings} characteristics={this.state.characteristics} recommended={this.state.recommended} ratingAverage={this.state.ratingAverage} filterFunction={this.filterFunction} filters={this.state.filters} clearFiltersFunction={this.state.clearFiltersFunction}/>
         <div className= "reviewButtonsDiv">

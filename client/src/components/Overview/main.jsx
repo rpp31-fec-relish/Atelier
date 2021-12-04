@@ -38,15 +38,6 @@ class Overview extends React.Component {
     if (this.props.currentProductStyles.length > 0) {
       this.setState({currentStyle: this.getDefaultStyle(this.props.currentProductStyles)});
     }
-
-    document.addEventListener('mousedown', (event) => {
-      helperFunctions.postInteraction({
-        element: event.target.outerHTML.toString(),
-        widget: 'Overview',
-        time: Date.now().toString()
-      });
-    });
-
   }
 
   componentDidUpdate(prevProps) {
@@ -63,15 +54,16 @@ class Overview extends React.Component {
       || this.props.currentProductStyles.length === 0) {
       return null;
     }
-    console.log('currentStyle: ', this.state.currentStyle);
     return (
       <div id='Overview'>
         <div id='OverviewMain'>
           <OverviewImages product={this.props.currentProductData} currentStyle={this.state.currentStyle}/>
-          <div id='OverviewInteract'>
-            <OverviewInformation product={this.props.currentProductData} currentStyle={this.state.currentStyle}/>
-            <OverviewStyles productStyles={this.props.currentProductStyles} currentStyle={this.state.currentStyle} setStyle={this.setCurrentStyle.bind(this)}/>
-            <OverviewCart currentProduct={this.props.currentProduct} currentStyle={this.state.currentStyle} addToOutfit={this.props.addToOutfit}/>
+          <div id='removable'>
+            <div id='OverviewInteract'>
+              <OverviewInformation product={this.props.currentProductData} currentStyle={this.state.currentStyle} productRating={this.props.productRating}/>
+              <OverviewStyles productStyles={this.props.currentProductStyles} currentStyle={this.state.currentStyle} setStyle={this.setCurrentStyle.bind(this)}/>
+              <OverviewCart currentProduct={this.props.currentProduct} currentStyle={this.state.currentStyle} addToOutfit={this.props.addToOutfit}/>
+            </div>
           </div>
         </div>
         <OverviewDescription product={this.props.currentProductData}/>

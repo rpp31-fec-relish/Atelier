@@ -1,18 +1,55 @@
 import React from 'react';
+import helperFunctions from './../../helperFunctions.js';
+import Stars from '../../../../node_modules/react-stars-display/';
 
-const RelatedProduct = (props) => {
-  let {id, name, category, price, image, assignImage, changeCurrentProduct, showModal} = props;
+class RelatedProduct extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      ratingAverage: 0
+    }
 
-  return (
-    <div id="RelatedProduct">
-      <div className="RP-star-modal" id={id} onClick={(e) => showModal(e)}>&#9734;</div>
-      <input id="RP-image" type="image" src={assignImage(image)} onClick={() => changeCurrentProduct(id)} alt="image"></input>
-      <div>{category}</div>
-      <div>{name}</div>
-      <div>{price}</div>
-      <div id="RP-rating">&#9733;&#9733;&#9733;&#9734;&#9734;</div>
-    </div>
-  )
+    this.weightedAverage = this.weightedAverage.bind(this)
+  }
+
+  weightedAverage = (ratings) => {
+    let total = 0;
+    let totalWeight = 0;
+    for (const [key, weight] of Object.entries(ratings)) {
+      total += (key * parseInt(weight));
+      totalWeight += parseInt(weight);
+    }
+
+    total = Math.round((total / totalWeight) * 10) / 10;
+    return total;
+  }
+
+  componentDidMount() {
+    helperFunctions.getReviewsMetaById(this.props.id)
+    .then((metaData)  => {
+      let ratings = metaData.ratings;
+      let avg = this.weightedAverage(ratings);
+      this.setState({ratingAverage: avg})
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+  }
+
+  render() {
+    return (
+      <td id="RelatedProduct">
+        <div className="RP-star-modal" id={this.props.id} onClick={(e) => this.props.showModal(e)}>&#9734;</div>
+        <input id="RP-image" type="image" src={this.props.assignImage(this.props.image)} onClick={() => this.props.changeCurrentProduct(this.props.id)} alt="image"></input>
+        <div className="RP-smallerText">{this.props.category.toUpperCase()}</div>
+        <div className="RP-bold">{this.props.name}</div>
+        <div className="RP-smallerText">{this.props.price}</div>
+        <div id="RP-rating">
+          <Stars stars={this.state.ratingAverage ? this.state.ratingAverage : 0}/>
+        </div>
+      </td>
+    )
+  }
 }
 
 export default RelatedProduct;
