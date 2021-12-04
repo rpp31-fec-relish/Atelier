@@ -3,48 +3,39 @@ import OutfitItem from './OutfitItem.jsx';
 import helperFunctions from './../../helperFunctions.js';
 import Carousel from './Carousel.jsx';
 
-class OutfitsWidget extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
+const OutfitsWidget = (props) => {
+  let {outfitsData, assignImage, outfits, changeCurrentProduct, currentProduct, showModal, addToOutfit, productRating, updateOutfitsData} = props;
 
-    this.handleRemove = this.handleRemove.bind(this);
-    this.handleAddOrRemove = this.handleAddOrRemove.bind(this);
-  }
-
-  handleRemove(id) {
-    this.props.updateOutfitsData(id);
-    this.props.addToOutfit(id.toString());
+  const handleRemove = (id) => {
+    updateOutfitsData(id);
+    addToOutfit(id.toString());
   };
 
-  handleAddOrRemove(e) {
+  const handleAddOrRemove = (e) => {
     e.preventDefault();
-    if (this.props.outfits.includes(this.props.currentProduct)) {
-      this.props.addToOutfit(this.props.currentProduct);
+    if (outfits.includes(currentProduct)) {
+      addToOutfit(currentProduct);
     } else {
-      this.props.addToOutfit(this.props.currentProduct);
+      addToOutfit(currentProduct);
     }
   }
 
-  render() {
-    return (
-      <div id="OutfitsWidget">
-        <Carousel
-          outfitData={this.props.outfitsData}
-          assignImage={this.props.assignImage}
-          outfits={this.props.outfits}
-          changeCurrentProduct={this.props.changeCurrentProduct}
-          currentProduct={this.props.currentProduct}
-          showModal={this.props.showModal}
-          handleClick={this.handleClick}
-          addToOutfit={this.props.addToOutfit}
-          widget={'outfits'}
-          productRating={this.props.productRating}
-          handleRemove={this.handleRemove}
-          handleAddOrRemove={this.handleAddOrRemove}/>
-    </div>
-  )}
+  return (
+    <div id="OutfitsWidget">
+      <Carousel
+        outfitData={outfitsData}
+        assignImage={assignImage}
+        outfits={outfits}
+        changeCurrentProduct={changeCurrentProduct}
+        currentProduct={currentProduct}
+        showModal={showModal}
+        addToOutfit={addToOutfit}
+        widget={'outfits'}
+        productRating={productRating}
+        handleRemove={handleRemove}
+        handleAddOrRemove={handleAddOrRemove}/>
+  </div>
+  )
 }
 
 export default OutfitsWidget;
