@@ -7,12 +7,13 @@ body {
 }
 
 #title {
-  font-family: "adobe-clean", sans-serif;
+  font-family: "Corinthia", sans-serif;
   text-align: left;
-  background-color: lightskyblue;
   padding: 20px;
   margin-left: 2%;
   margin-right: 2%;
+  border: solid #c29b48 5px;
+  border-radius: 25px;
 }
 
 #Overview {
@@ -35,7 +36,7 @@ body {
 }
 
 #OverviewImage {
-  background-color: lightgray;
+  background-color: #232426;
   flex-grow: 2;
   min-width: fit-content;
   width: 50%;
@@ -45,6 +46,7 @@ body {
 
 #OverviewImage img {
   height: 500px;
+  border: solid white 2px;
   max-width: 100%;
 }
 
@@ -98,7 +100,8 @@ body {
 }
 
 #StylePicker img {
-  margin: 1px;
+  margin: 10px;
+  border-radius: 25px;
 }
 
 #OverviewDescription {
