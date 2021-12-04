@@ -51,6 +51,7 @@
     "webpack": "^5.59.1"
   },
   "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.16.4",
     "@babel/preset-env": "^7.16.4",
     "@testing-library/dom": "^8.11.1",
     "@testing-library/react": "^12.1.2",
