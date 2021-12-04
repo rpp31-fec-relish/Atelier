@@ -11,6 +11,7 @@ function CreateReview(props) {
   const[characteristics, setCurrentCharacteristics] = useState({})
   const[missingVariables, setMissingVariables] = useState({})
   const[missingVariablesArr, setMissingVariablesArr] = useState([])
+  const[registerPhotos, setPhotos] = useState([])
 
   useEffect(() => {
     let productCharacteristics = {}
@@ -43,26 +44,48 @@ function CreateReview(props) {
     setRating(rate)
   }
 
+  const selectPhotos = (event) => {
+    console.log("Photo target event: ", event.target.files)
+    console.log("Photo target event[0]: ", event.target.files[0])
+
+    let photos=[]
+    for (let i = 0; i < event.target.files.length; i++) {
+      photos.push(event.target.files[i]);
+    }
+    // for(let file in event.target.files) {
+    //   photos.push(file);
+    // }
+    setPhotos(photos);
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     let emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     let incomplete = false
     let missingPortion = {};
+    let photos = []
+
+    if (registerPhotos.length > 0) {
+      registerPhotos.map((photo) => {
+        photos.push(URL.createObjectURL(photo))
+      })
+    }
 
     let review = {
-      product_id: props.currentProduct,
+      product_id: parseInt(props.currentProduct),
       recommend: recommend,
       summary:e.target[1].value,
       body: e.target[2].value,
       name: e.target[3].value,
       email: e.target[4].value,
+      photos: photos,
       rating: rating,
       characteristics: {
 
       }
     }
-
+    console.log("photos registered: ",registerPhotos);
     if (review.summary.length > 60) {
       incomplete = true
       missingPortion.summary = 'Your Summary can not be more then 60 characters'
@@ -95,6 +118,10 @@ function CreateReview(props) {
       incomplete = true
       missingPortion.rating = 'You must provide a star rating'
     }
+    if (review.photos && review.photos.length > 5) {
+      incomplete = true
+      missingPortion.photos = 'You can only upload 5 photos! Please limit your pictures!'
+    }
 
     characteristicNames.map((trait) => {
       review.characteristics[characteristics[trait].id] = characteristics[trait].value;
@@ -104,7 +131,6 @@ function CreateReview(props) {
         missingPortion[trait] = trait + ' is empty! Please fill out all elements of the review.';
       }
     });
-
     if (incomplete) {
       let variablesArr = Object.keys(missingPortion)
       setMissingVariablesArr(variablesArr)
@@ -130,8 +156,8 @@ function CreateReview(props) {
       'Width': ['Too narrow','Slightly narrow','Perfect','Slightly wide','Too wide'],
       'Comfort': ['Uncomfortable', 'Slightly uncomfortable', 'Ok','Comfortable','Perfect'],
       'Quality': ['Poor','Below average','What I expected','Pretty great', 'Perfect'],
-      'Length': ['Runs Short','Runs slightly short','Perfect','Runs slightly long','Runs long'],
-      'Fit': ['Runs Tight','Runs slightly Tight','Perfect','Runs slightly long','Runs long'],
+      'Length': ['Runs short','Runs slightly short','Perfect','Runs slightly long','Runs long'],
+      'Fit': ['Runs tight','Runs slightly tight','Perfect','Runs slightly loose','Runs loose'],
     }
     return traits[trait][index];
   }
@@ -166,6 +192,12 @@ function CreateReview(props) {
             Email:
             <input className="createReviewEmail" name="email"></input>
           </label>
+          <br/>
+          <label>
+            Add a Picture!
+            <input onChange={selectPhotos} type='file' multiple name="image"/>
+            {registerPhotos.map((image) => <img className='thumbnail' src={URL.createObjectURL(image)} alt={image.name} key={image.name}/>)}
+          </label>
           {characteristicNames.map((trait) => <div className="charactersiticSelect" key = {characteristics[trait].id}>
               {trait}:
               <input type="radio" value="1" onChange={handleChange}name={trait}/>
@@ -180,7 +212,7 @@ function CreateReview(props) {
               <label>{traits(trait, 4)}</label>
           </div>
           )}
-          <button className="createReviewSubmitButton" type='submit' >Submit</button>
+          <button className="createReviewSubmitButton" type='submit'>Submit</button>
         </form>
         {missingVariablesArr.map((variable) => <div className='missingVaribale' key={variable}>{missingVariables[variable]}</div>)}
       </div>

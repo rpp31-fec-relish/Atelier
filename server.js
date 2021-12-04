@@ -27,7 +27,9 @@ const API_URL = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/';
 // https://localhost:3000/api/products?count=10
 
 app.all('/api/*', (req, res) => {
+  if(req.url != "/api/interactions") {
   console.log(`Accepting ${req.method} call to API:`, req.url);
+  }
   //console.log(req.headers);
   let reqHeaders = {
     Authorization: token,
@@ -40,7 +42,7 @@ app.all('/api/*', (req, res) => {
     headers: reqHeaders,
     method: req.method
   }, (response) => {
-    console.log('RESPONSE: ', response.statusCode);
+    //console.log('RESPONSE: ', response.statusCode);
     let body = [];
     response.on('data', (chunk) => {
       body.push(chunk);
@@ -53,7 +55,9 @@ app.all('/api/*', (req, res) => {
   });
   if (req.method === 'POST') {
     if (Object.keys(req.body).length != 0) {  //non empty object
+      if(req.url != "/api/interactions") {
       console.log('POST: ', JSON.stringify(req.body));
+      }
       apiReq.write(JSON.stringify(req.body));
     }
   }

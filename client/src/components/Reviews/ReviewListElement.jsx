@@ -4,12 +4,6 @@ import helperFunctions from '../../helperFunctions';
 import Stars from '../../../../node_modules/react-stars-display/';
 import CheckMark from './ReviewImages/clipart2121718_smaller.png';
 
-//we also need to allow for image submission and display. clicking a thumbnail should open the image in a modal window (thats easy, onlcick fuction will create a heref tag/link to the image in question)
-
-//things I need to do tommorrow: finish the review metta display (mainly CSS i think), finish the sort method, finish the image thumbnail display, create a scrolling of the reviews (as well as fix the height), and finish the CSS for the create form, including making mandatory feilds and error trigger if feilds are not filled out or above charecter. big things are review meta, image display, and sort method.
-
-//make sure to ask team mates what they are doign for the click tracking, gives them monday to work on it, then organize it tuesday and impliment the click tracking however they are making it.
-
 function ReviewListElement({review, index}) {
 
   const[yesWasClicked, setYesWasClicked] = useState(false)
@@ -66,6 +60,12 @@ function ReviewListElement({review, index}) {
       </div>
       <div className="reviewListItemSummary">{review.summary}</div>
       <BodyLimit content={review.body} limit={250}/>
+      <div className='reviewListPhotosTag'>
+        {review.photos.map((image)=>
+        <a href={image.url} target="_blank" key={image.id}>
+          <img className='reviewListPhotos'  name='review photo' src={image.url}/>
+        </a>)}
+      </div>
       {wasRecommended ? <div className="reviewListItemRecommend"><img src={CheckMark} alt="CheckMark"/> I recommend this product</div>: ''}
       {hasResponse ? <div className="reviewListItemResponse">Seller Response: <br/> {review.response}</div> : ''}
       <div className="reviewListItemHelpfulness">Was this review helpful? <br/>
