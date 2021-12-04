@@ -36,7 +36,6 @@ body {
 }
 
 #OverviewImage {
-  background-color: #232426;
   flex-grow: 2;
   min-width: fit-content;
   width: 50%;
