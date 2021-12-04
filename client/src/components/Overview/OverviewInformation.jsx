@@ -15,7 +15,7 @@ class OverviewInformation extends React.Component {
         <div id='OverviewInformation'>
           <div id='OverviewRating'>
           <Stars stars={Math.round(this.props.productRating * 10)/10}/>
-            <a href='#reviews'>Read all Reviews</a>
+            <a href='#ReviewsWidget'>Read all Reviews</a>
           </div>
           <br />
           <div id='OverviewCategory'>
