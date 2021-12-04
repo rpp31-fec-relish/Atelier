@@ -26,20 +26,16 @@ function ReviewList(props) {
 
   const handleSort = (e) => {
     setSort(e.target.value);
-    console.log('i exist!: ', sortSetting);
     handleOrder(e.target.value);
   }
 
   const handleOrder = (sortBy) => {
-    console.log('i also exist!: ', sortBy)
     if (sortBy === 'Newest') {
       let newest = props.reviewsArr.slice().sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-      console.log(newest);
       sortReviews(newest);
     }
     if (sortBy === 'Helpful') {
       let helpful = props.reviewsArr.slice().sort((a, b) => b.helpfulness - a.helpfulness)
-      console.log(helpful);
       sortReviews(helpful);
     }
     if (sortBy === 'Relevant') {
