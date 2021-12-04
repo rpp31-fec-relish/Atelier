@@ -10,7 +10,7 @@ const Arrow = ({ direction, handleClick, glyph, relatedIndex, outfitIndex, max, 
   }
 
   return (
-    <div className={`slide-arrow ${direction}`} onClick={() => {handleClick(widget)} }>{ glyph }
+    <div id="Related-arrows" className={`slide-arrow ${direction}`} onClick={() => {handleClick(widget)} }>{ glyph }
     </div>
   )
 }

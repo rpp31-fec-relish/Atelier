@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 import helperFunctions from '../../helperFunctions.js';
 import AnswerElement from './AnswerElement.jsx';
 
-function QandAElement({question, currPageCounter, setCurrPageCounter, modalClick}) {
+function QandAElement({question, modalClick}) {
 
   const [masterHelpful, setMaster] = useState(false);
   const [helpfulClicked, toggleHelpful] = useState(false);
   const [helpfulness, setHelpfulness] = useState(question.question_helpfulness);
+  const [answerCount, setAnswerCount] = useState(2);
 
   const handleMoreToggle = () => {
-    setCurrPageCounter(currPageCounter + 2);
-    console.log(currPageCounter);
+    setAnswerCount(prev => prev + 2);
   };
 
   const handleClicks = (e) => {
@@ -44,7 +44,7 @@ function QandAElement({question, currPageCounter, setCurrPageCounter, modalClick
     let timeStamp = months[parseInt(dateTime[1])-1] + ' ' + dateTime[2].slice(0,2) + ', ' + dateTime[0];
     return (<AnswerElement answer={question.answers[answerEntry[0]]} timeStamp={timeStamp} id={answerEntry[0]} key={answerEntry[0]}/>);
   });
-  if (answers.length > 2 && currPageCounter <= answers.length) {
+  if (answers.length > 2 && answerCount <= answers.length) {
     return (
       <div key={question.question_id}>
         <div id='QuestionHeader'>
@@ -55,7 +55,7 @@ function QandAElement({question, currPageCounter, setCurrPageCounter, modalClick
       <button id='HelpfulButton' questionid={question.question_id} onClick={handleHelpfulClicked}> Yes ({helpfulness})</button> |
       <button id='AddAnswerButton' onClick={addAnswerHandler}> Add Answer </button>
         </div>
-      <div>{answers.slice(0, currPageCounter)}</div>
+      <div>{answers.slice(0, answerCount)}</div>
       <div>
       <button id='MoreAnswers' onClick={handleMoreToggle}> LOAD MORE ANSWERS </button>
       </div>
