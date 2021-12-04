@@ -55,9 +55,7 @@ app.all('/api/*', (req, res) => {
   });
   if (req.method === 'POST') {
     if (Object.keys(req.body).length != 0) {  //non empty object
-      if(req.url != "/api/interactions") {
       console.log('POST: ', JSON.stringify(req.body));
-      }
       apiReq.write(JSON.stringify(req.body));
     }
   }

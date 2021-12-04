@@ -12,6 +12,7 @@ function CreateReview(props) {
   const[missingVariables, setMissingVariables] = useState({})
   const[missingVariablesArr, setMissingVariablesArr] = useState([])
   const[registerPhotos, setPhotos] = useState([])
+  const[photosUrls, setPhotosUrls] = useState([])
 
   useEffect(() => {
     let productCharacteristics = {}
@@ -44,18 +45,29 @@ function CreateReview(props) {
     setRating(rate)
   }
 
-  const selectPhotos = (event) => {
+  const selectPhotos = async (event) => {
     console.log("Photo target event: ", event.target.files)
     console.log("Photo target event[0]: ", event.target.files[0])
 
-    let photos=[]
+    let photoUrls=[]
     for (let i = 0; i < event.target.files.length; i++) {
-      photos.push(event.target.files[i]);
+      let data = new FormData();
+      data.append('file', event.target.files[i]);
+      data.append('upload_preset', 'ml_default');
+      await helperFunctions.postImage(data).then((response) => {
+        console.log("postImg response data",response.data)
+        photoUrls.push(
+          {
+            "url":response.data.url,
+            "name":response.data.original_filename
+          }
+          );
+      });
     }
     // for(let file in event.target.files) {
     //   photos.push(file);
     // }
-    setPhotos(photos);
+    setPhotos(photoUrls);
   }
 
   const handleSubmit = (e) => {
@@ -68,7 +80,7 @@ function CreateReview(props) {
 
     if (registerPhotos.length > 0) {
       registerPhotos.map((photo) => {
-        photos.push(URL.createObjectURL(photo))
+        photos.push(photo.url)
       })
     }
 
@@ -196,7 +208,7 @@ function CreateReview(props) {
           <label>
             Add a Picture!
             <input onChange={selectPhotos} type='file' multiple name="image"/>
-            {registerPhotos.map((image) => <img className='thumbnail' src={URL.createObjectURL(image)} alt={image.name} key={image.name}/>)}
+            {registerPhotos.map((image) => <img className='thumbnail' src={image.url} alt={image.name} key={image.name}/>)}
           </label>
           {characteristicNames.map((trait) => <div className="charactersiticSelect" key = {characteristics[trait].id}>
               {trait}:

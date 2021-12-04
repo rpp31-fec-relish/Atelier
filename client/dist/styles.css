@@ -493,6 +493,24 @@ table {
 .reviewMeta {
   border-style: transparent;
   grid-area: reviewMeta;
+  grid-template-areas: "." "." "ratingBar" ".";
+}
+
+.ratingBar {
+
+  display: grid;
+  grid-area: reviewMeta;
+}
+
+.reviewMetaRating {
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.reviewMetaRecommended {
+  margin-top: 5px;
+  font-size:18px;
+  color: rgb(92, 92, 92);
 }
 
 .reviewList {
@@ -692,4 +710,9 @@ table {
   padding: 5px;
   width: 100px;
   height: auto;
+}
+
+.reviewProductRatings, .reviewRatingsBreakdown{
+  font-weight: bold;
+  padding: 5px;
 }
