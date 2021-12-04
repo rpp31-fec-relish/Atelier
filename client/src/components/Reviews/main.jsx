@@ -35,13 +35,6 @@ class Reviews extends React.Component {
 
 
   componentDidMount(){
-    document.addEventListener('mousedown', (event) => {
-      helperFunctions.postInteraction({
-        element: event.target.outerHTML.toString(),
-        widget: 'Review',
-        time: Date.now().toString()
-      });
-    });
     let currentProduct = this.props.currentProduct;
     helperFunctions.getReviewsById(currentProduct)
     .then((reviews) => {
@@ -157,7 +150,7 @@ class Reviews extends React.Component {
 
   render() {
     return (
-      <div className="reviews" id="reviews">
+      <div className="reviews" id="ReviewsWidget">
         <ReviewList reviewsArr={this.state.currentReviewsArr} currentProduct={this.props.currentProduct} reviewCount={this.state.reviewCount}/>
         <ReviewMeta currentProduct={this.props.currentProduct} ratings={this.state.ratings} characteristics={this.state.characteristics} recommended={this.state.recommended} ratingAverage={this.state.ratingAverage} filterFunction={this.filterFunction} filters={this.state.filters} clearFiltersFunction={this.state.clearFiltersFunction}/>
         <div className= "reviewButtonsDiv">

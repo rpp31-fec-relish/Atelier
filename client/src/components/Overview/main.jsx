@@ -38,15 +38,6 @@ class Overview extends React.Component {
     if (this.props.currentProductStyles.length > 0) {
       this.setState({currentStyle: this.getDefaultStyle(this.props.currentProductStyles)});
     }
-
-    document.addEventListener('mousedown', (event) => {
-      helperFunctions.postInteraction({
-        element: event.target.outerHTML.toString(),
-        widget: 'Overview',
-        time: Date.now().toString()
-      });
-    });
-
   }
 
   componentDidUpdate(prevProps) {
@@ -63,7 +54,6 @@ class Overview extends React.Component {
       || this.props.currentProductStyles.length === 0) {
       return null;
     }
-    console.log('currentStyle: ', this.state.currentStyle);
     return (
       <div id='Overview'>
         <div id='OverviewMain'>
