@@ -21,15 +21,29 @@ function AnswerModal(props) {
     }
   }
 
+  const updateFile = (e) => {
+    setPhotos(e.target.files);
+  }
+
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(e);
+    let photoURLS = [];
+
+    for(let i = 0; i < photos.length; i++) {
+      let data = new FormData();
+      data.append('file', photos[i]);
+      data.append('upload_preset', 'ml_default');
+      await helperFunctions.postImage(data).then((response) => {
+        photoURLS.push(response.data.url);
+      });
+    }
+
     let apiData = {
       question_id: props.currQuestionId,
       body: body,
       name: username,
       email: email,
-      photos: photos,
+      photos: photoURLS,
     };
     await helperFunctions.postAnswer(apiData).then(() => {
       props.addSumbission(count => count + 1);
@@ -59,9 +73,8 @@ function AnswerModal(props) {
               </div>
             </div>
             <div className="photoField">
-              <input type="file" id="files" className="inputFiles" style={{display: 'none'}} accept="image/*" multiple/>
-              <label htmlFor="files" id="inputLabel" className="fileSelect"> Click here to upload files!</label>
-              <div className="photoSubmission"></div>
+              <input type="file" id="file" className="inputFiles" onChange={updateFile} style={{display: 'none'}} accept="image/*" multiple/>
+              <label htmlFor="file" id="inputLabel" className="fileSelect"> Click here to upload files!</label>
             </div>
             <div className="Submit">
               <input className="AnswerSubmit" type="submit" placeholder="Submit Question"/>
