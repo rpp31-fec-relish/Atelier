@@ -9,6 +9,7 @@ class OverviewCart extends React.Component {
       sku: null,
       quantity: 1
     }
+    this.addedToOutfit = false;
   }
   // Component for selections and buttons for adding to cart / favoriting
   // todo: confirm skus exist
@@ -49,6 +50,8 @@ class OverviewCart extends React.Component {
       }
       Promise.all(results).then((result) => {
         console.log(result, `: Added ${this.state.quantity} of ${this.state.sku} (${this.props.currentStyle.style_id}) to cart`);
+        event.target.innerHTML = 'Added!';
+        setTimeout(() => {event.target.innerHTML = 'Add to Cart'}, 500);
       });
     } else {
       console.log('Should not happen - added to cart with a null sku');
@@ -56,10 +59,15 @@ class OverviewCart extends React.Component {
   }
 
   favoriteListener(event) {
-
+    // todo: detect if product is removed from outfit elsewhere
     this.props.addToOutfit(this.props.currentProduct);
-    console.log(`Added ${this.props.currentProduct} to outfit`);
-
+    if (this.addedToOutfit) {
+      event.target.innerHTML = '&#9734;';
+      this.addedToOutfit = false;
+    } else {
+      event.target.innerHTML = '&#9733;';
+      this.addedToOutfit = true;
+    }
   }
 
   selectSizeListener(event) {
@@ -117,7 +125,7 @@ class OverviewCart extends React.Component {
       return (
         <div>
           <select name='size' value={(this.state.sku === null) ? 'default' : this.state.sku} id='SizeDropdown' onChange={this.selectSizeListener.bind(this)}>
-            <option value='default' disabled>Select Size</option>
+            <option value='default' disabled>Select</option>
             {this.createSizes()}
           </select>
           <select name='quantity' value={this.state.quantity} id='QuantityDropdown' onChange={this.selectQuantityListener.bind(this)}>
@@ -126,7 +134,7 @@ class OverviewCart extends React.Component {
           </select>
           <br />
           <button id='addToCartButton' onClick={this.addToCartListener.bind(this)}>Add To Cart</button>
-          <button id='favoriteButton' onClick={this.favoriteListener.bind(this)}>Favorite</button>
+          <button id='favoriteButton' onClick={this.favoriteListener.bind(this)}>&#9734;</button>
         </div>
       );
     } else {
