@@ -428,6 +428,21 @@ const helperFunctions = {
       console.error('Error posting new interaction to the server: ', err);
     });
   },
+
+ postImage(file) {
+    return axios(`https://api.cloudinary.com/v1_1/dpwwavsdm/image/upload`, {
+      method: 'POST',
+      data: file
+    })
+    .then((response) =>{
+      console.log('Image posted successfully: ', response.status);
+      return response;
+    })
+    .catch((err) => {
+      console.error('Error posting Image to cloudinary: ', err);
+    })
+  }
+
 }
 
 
