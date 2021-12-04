@@ -125,7 +125,7 @@ class OverviewCart extends React.Component {
       return (
         <div>
           <select name='size' value={(this.state.sku === null) ? 'default' : this.state.sku} id='SizeDropdown' onChange={this.selectSizeListener.bind(this)}>
-            <option value='default' disabled>Select</option>
+            <option value='default' disabled>Select Size</option>
             {this.createSizes()}
           </select>
           <select name='quantity' value={this.state.quantity} id='QuantityDropdown' onChange={this.selectQuantityListener.bind(this)}>
