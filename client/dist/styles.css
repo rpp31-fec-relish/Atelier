@@ -472,6 +472,7 @@ table {
     "reviewListItemScore . reviewListInfo"
     ". reviewListItemSummary . "
     "reviewListItemBody reviewListItemBody reviewListItemBody"
+    ". reviewListPhotosTag ."
     ". reviewListItemRecommend ."
     ". reviewListItemResponse ."
     ". reviewListHelpfulness .";
@@ -616,4 +617,25 @@ table {
   width: 600px;
   height: auto;
   padding: 15px;
+}
+
+.reviewListPhotosTag{
+  grid-area: reviewListPhotosTag;
+  grid-template-areas: ". . . . ."
+}
+
+.reviewListPhotos{
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 100px;
+  height: auto;
+}
+
+.thumbnail {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 100px;
+  height: auto;
 }
