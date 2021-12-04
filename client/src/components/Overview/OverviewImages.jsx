@@ -22,6 +22,7 @@ class OverviewImages extends React.Component {
           return;
         }
       }
+      this.setState({currentImage: {url: PlaceholderPhoto, thumbnail_url: PlaceholderPhoto}});
     }
   }
 
@@ -50,6 +51,22 @@ class OverviewImages extends React.Component {
     this.setState({currentImage: this.props.currentStyle.photos[Number(event.target.id.substring(17))]});
   }
 
+  handleMainImageClick(event) {
+    let interactionsElement = document.getElementById('removable');
+    if (!interactionsElement.classList.contains('hideMe')) {
+      interactionsElement.classList.add('hideMe');
+    } else {
+      interactionsElement.classList.remove('hideMe');
+    }
+
+    let overviewImageElement = document.getElementById('OverviewImage');
+    if (!overviewImageElement.classList.contains('OverviewImageHeightFixed')) {
+      overviewImageElement.classList.add('OverviewImageHeightFixed');
+    } else {
+      overviewImageElement.classList.remove('OverviewImageHeightFixed');
+    }
+  }
+
 
   render() {
 
@@ -62,11 +79,11 @@ class OverviewImages extends React.Component {
     // todo: add alt text for accessibility
     if (this.props.currentStyle) {
       return (
-        <div id='OverviewImage'>
+        <div id='OverviewImage' className='OverviewImageHeightFixed'>
           <div id='OverviewImageGallery'>
             {this.createImages()}
           </div>
-          <img src={imageURL}></img>
+          <img src={imageURL} onClick={this.handleMainImageClick}></img>
         </div>
       );
     } else {

@@ -6,13 +6,19 @@ body {
   text-align: center;
 }
 
+.hideMe {
+  visibility: hidden;
+  display: none;
+}
+
 #title {
   font-family: "adobe-clean", sans-serif;
   text-align: left;
-  background-color: lightskyblue;
   padding: 20px;
   margin-left: 2%;
   margin-right: 2%;
+  border: solid #c29b48 5px;
+  border-radius: 25px;
 }
 
 #Overview {
@@ -26,16 +32,43 @@ body {
   padding-bottom: 20px;
 }
 
+#Overview select {
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  padding: 4px;
+  margin: 10px;
+  font-family: inherit;
+  font-size: 16px;
+  border: 1px solid black;
+  border-radius: 5px;
+  text-align: center;
+  width: 25%;
+}
+
+#Overview button {
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  padding: 4px;
+  margin: 10px;
+  font-family: inherit;
+  font-size: 16px;
+  border: 1px solid black;
+  border-radius: 5px;
+  text-align: center;
+  width: 25%;
+}
+
 #OverviewMain {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
   align-items: flex-start;
   gap: 20px;
 }
 
 #OverviewImage {
-  background-color: lightgray;
   flex-grow: 2;
   min-width: fit-content;
   width: 50%;
@@ -44,8 +77,12 @@ body {
 }
 
 #OverviewImage img {
+  border: solid white 2px;
+  max-width: 90%;
+}
+
+.OverviewImageHeightFixed img{
   height: 500px;
-  max-width: 100%;
 }
 
 #OverviewImageGallery {
@@ -53,16 +90,27 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   position: absolute;
+  overflow: hidden;
+  overflow-y: scroll;
+  max-height: 500px;
+  min-width: 75px;
 }
 
 #OverviewImageGallery img {
   height: 50px;
   width: 50px;
+  min-height: 50px;
+  min-width: 50px;
   margin: 5px;
 }
 
-#OverviewInteract {
+#removable {
   flex-grow: 1;
+  justify-content: flex-start;
+  gap: 20px;
+}
+
+#OverviewInteract {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -98,7 +146,8 @@ body {
 }
 
 #StylePicker img {
-  margin: 1px;
+  margin: 10px;
+  border-radius: 25px;
 }
 
 #OverviewDescription {
