@@ -45,10 +45,17 @@ function CreateReview(props) {
   }
 
   const selectPhotos = (event) => {
-    console.log("Photo target event: ",event.target.files)
-    console.log("Photo target event[0]: ",event.target.files[0])
+    console.log("Photo target event: ", event.target.files)
+    console.log("Photo target event[0]: ", event.target.files[0])
 
-    setPhotos(event.target.files[0]);
+    let photos=[]
+    for (let i = 0; i < event.target.files.length; i++) {
+      photos.push(event.target.files[i]);
+    }
+    // for(let file in event.target.files) {
+    //   photos.push(file);
+    // }
+    setPhotos(photos);
   }
 
   const handleSubmit = (e) => {
@@ -57,6 +64,13 @@ function CreateReview(props) {
     let emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     let incomplete = false
     let missingPortion = {};
+    let photos = []
+
+    if (registerPhotos.length > 0) {
+      registerPhotos.map((photo) => {
+        photos.push(URL.createObjectURL(photo))
+      })
+    }
 
     let review = {
       product_id: parseInt(props.currentProduct),
@@ -65,7 +79,7 @@ function CreateReview(props) {
       body: e.target[2].value,
       name: e.target[3].value,
       email: e.target[4].value,
-      //photos: [URL.createObjectURL(registerPhotos)],
+      photos: photos,
       rating: rating,
       characteristics: {
 
@@ -142,8 +156,8 @@ function CreateReview(props) {
       'Width': ['Too narrow','Slightly narrow','Perfect','Slightly wide','Too wide'],
       'Comfort': ['Uncomfortable', 'Slightly uncomfortable', 'Ok','Comfortable','Perfect'],
       'Quality': ['Poor','Below average','What I expected','Pretty great', 'Perfect'],
-      'Length': ['Runs Short','Runs slightly short','Perfect','Runs slightly long','Runs long'],
-      'Fit': ['Runs Tight','Runs slightly Tight','Perfect','Runs slightly long','Runs long'],
+      'Length': ['Runs short','Runs slightly short','Perfect','Runs slightly long','Runs long'],
+      'Fit': ['Runs tight','Runs slightly tight','Perfect','Runs slightly loose','Runs loose'],
     }
     return traits[trait][index];
   }
@@ -181,8 +195,8 @@ function CreateReview(props) {
           <br/>
           <label>
             Add a Picture!
-            <input onChange={selectPhotos} type='file' name="image"/>
-            {registerPhotos.length != 0 ? <ImageThumb image={registerPhotos} />:null}
+            <input onChange={selectPhotos} type='file' multiple name="image"/>
+            {registerPhotos.map((image) => <img className='thumbnail' src={URL.createObjectURL(image)} alt={image.name} key={image.name}/>)}
           </label>
           {characteristicNames.map((trait) => <div className="charactersiticSelect" key = {characteristics[trait].id}>
               {trait}:
@@ -206,11 +220,4 @@ function CreateReview(props) {
   )
 }
 
-/**
- * Component to display thumbnail of image.
- */
- const ImageThumb = ({ image }) => {
-   console.log("Image Thumbnail = ", image)
-  return <img src={URL.createObjectURL(image)} alt={image.name} />;
-};
 export default CreateReview;

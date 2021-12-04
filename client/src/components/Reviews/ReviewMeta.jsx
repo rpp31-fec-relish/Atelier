@@ -27,7 +27,7 @@ class ReviewMeta extends React.Component {
           this.props.filters[toggle] ? <div>{toggle} star filter applied</div> : null
         )}
             {Object.keys(this.props.ratings).map((rating) => <div onClick={(e) =>{this.props.filterFunction(rating)}} key={rating}>{rating}: {this.props.ratings[rating]}</div>)}
-          <div>Poduct Ratings:</div>
+          <div>Product Ratings:</div>
             {Object.keys(this.props.characteristics).map((trait) => <div key={this.props.characteristics[trait].id}>{trait}: {Math.round(this.props.characteristics[trait].value * 10)/10}</div>)}
       </div>
     )

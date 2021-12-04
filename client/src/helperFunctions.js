@@ -428,9 +428,7 @@ const helperFunctions = {
     .catch((err) => {
       console.error('Error posting new interaction to the server: ', err);
     });
-  }
-
-
+  },
 }
 
 
