@@ -109,7 +109,7 @@ body {
 }
 
 #QandAContainer {
-  font-family: Arial;
+  font-family: "adobe-clean", sans-serif;
   font-weight: lighter;
   font-size: 12px;
   text-align: left;
@@ -120,13 +120,14 @@ body {
 }
 
 #QandATitle {
-  font-family: Arial;
+  font-family: "adobe-clean", sans-serif;
   font-size:25px;
   font-weight: lighter;
   margin-bottom: 15px;
 }
 
 #QandASearchBar {
+  font-family: "adobe-clean", sans-serif;
   border: 1px solid grey;
   font-weight: bold;
   width: 75%;
@@ -137,7 +138,25 @@ body {
   margin-bottom: 15px;
 }
 
+#QandAElementContainer {
+  font-family: "adobe-clean", sans-serif;
+  overflow: hidden;
+  overflow-y: scroll;
+  max-height: 500px;
+}
+
+.nameField, .emailField, .answerField{
+  font-family: "adobe-clean", sans-serif;
+  font-size:25px;
+  margin: 15px 15px 15px;
+}
+
+.answerField {
+  text-align: center;
+}
+
 #MoreAnswers {
+  font-family: "adobe-clean", sans-serif;
   font-weight: bold;
   border: none;
   background: transparent;
@@ -145,13 +164,37 @@ body {
   margin-bottom: 15px;
 }
 
-#MoreAnswerdQuestionsButton, #AddQuestionButtton {
+#MoreAnswerdQuestionsButton, #AddQuestionButtton, input {
+  font-family: "adobe-clean", sans-serif;
   border-radius: 0px;
   background: transparent;
   padding: 15px;
   margin-right: 15px;
   border: 1px solid rgb(92, 92, 92);
 }
+
+.Submit > .answerSubmit, .questionSubmit {
+  margin-left: 150px;
+  padding-right: 75px;
+  padding-left: 75px;
+}
+
+.fileSelect {
+  font-family: "adobe-clean", sans-serif;
+  background-color: rgb(220, 220, 220);
+  border: 2px dashed rgb(92, 92, 92);
+  color: black;
+  padding: 50px 50px;
+  text-align: center;
+  display: inline-block;
+  font-size:30px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-bottom: 25px;
+  margin-top: 25px;
+  margin-left: 30px;
+}
+
 
 #RelatedProductsAndOutfits {
   max-width: 960px;
