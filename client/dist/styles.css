@@ -82,11 +82,17 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   position: absolute;
+  overflow: hidden;
+  overflow-y: scroll;
+  max-height: 500px;
+  min-width: 75px;
 }
 
 #OverviewImageGallery img {
   height: 50px;
   width: 50px;
+  min-height: 50px;
+  min-width: 50px;
   margin: 5px;
 }
 
