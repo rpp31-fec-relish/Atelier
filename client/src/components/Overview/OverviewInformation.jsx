@@ -1,4 +1,5 @@
 import React from 'react';
+import Stars from 'react-stars-display';
 
 class OverviewInformation extends React.Component {
 
@@ -13,7 +14,7 @@ class OverviewInformation extends React.Component {
       return (
         <div id='OverviewInformation'>
           <div id='OverviewRating'>
-            &#9733;&#9733;&#9733;&#9734;&#9734;&nbsp;&nbsp;
+          <Stars stars={Math.round(this.props.productRating * 10)/10}/>
             <a href='#reviews'>Read all Reviews</a>
           </div>
           <br />
