@@ -220,7 +220,6 @@ const helperFunctions = {
   getQuestionsById(product_id, page = 1, count = 2) {
     // I: A product id number or string, optionally a page number and count per page
     // O: A promise that resolves to an array of question objects
-    console.log(product_id, page, count);
     return axios(`/api/qa/questions?product_id=${product_id}&page=${page}&count=${count}`, {
       method: 'GET'
     })
@@ -233,7 +232,6 @@ const helperFunctions = {
       } else if (object.product_id != product_id ){
         throw new Error(`Server responded with questions for a different product.  Expected: ${product_id}, Received: ${object.product_id}`);
       } else {
-        console.log(product_id, object.results);
         return object.results;
       }
     })
