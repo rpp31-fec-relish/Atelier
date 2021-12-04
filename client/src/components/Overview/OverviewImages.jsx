@@ -22,6 +22,7 @@ class OverviewImages extends React.Component {
           return;
         }
       }
+      this.setState({currentImage: {url: PlaceholderPhoto, thumbnail_url: PlaceholderPhoto}});
     }
   }
 
