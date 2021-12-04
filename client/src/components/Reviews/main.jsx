@@ -104,8 +104,6 @@ class Reviews extends React.Component {
         [rating]: (!prevState.filters[rating])
       }
     }), () => {
-      console.log(this.state.filters[rating])
-      console.log(this.state.filters);
       this.currentReviewsFunction()
     })
   }
@@ -123,8 +121,6 @@ class Reviews extends React.Component {
         }
       }
     }
-
-    console.log('reviews to return: ',reviewsToReturn)
 
     if (reviewsToReturn.length === 0) {
       this.setState({
@@ -154,7 +150,7 @@ class Reviews extends React.Component {
     return (
       <div className="reviews" id="ReviewsWidget">
         <ReviewList reviewsArr={this.state.currentReviewsArr} currentProduct={this.props.currentProduct} reviewCount={this.state.reviewCount}/>
-        <ReviewMeta currentProduct={this.props.currentProduct} ratings={this.state.ratings} characteristics={this.state.characteristics} recommended={this.state.recommended} ratingAverage={this.state.ratingAverage} ratingCount={this.state.totalRating} filterFunction={this.filterFunction} filters={this.state.filters} clearFiltersFunction={this.state.clearFiltersFunction}/>
+        <ReviewMeta currentProduct={this.props.currentProduct} ratings={this.state.ratings} characteristics={this.state.characteristics} recommended={this.state.recommended} ratingAverage={this.state.ratingAverage} ratingCount={this.state.totalRating} filterFunction={this.filterFunction} filters={this.state.filters} clearFiltersFunction={this.clearFiltersFunction}/>
         <div className= "reviewButtonsDiv">
           <button className="createReviewLinkButton" onClick={this.handleClickOne}>Create review</button>
           <button className="reviewListMoreReviewsbutton" onClick={this.handleClickTwo}>More Reviews</button>
