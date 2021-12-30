@@ -28,7 +28,6 @@ function QuestionModal(props) {
       name: username,
       email: email,
     };
-    console.log(apiData);
     await helperFunctions.postQuestion(apiData).then(() => {
       console.log(apiData);
       // props.addSumbission(count => count + 1);
@@ -46,15 +45,17 @@ function QuestionModal(props) {
             <div className="nameField">
               <label htmlFor="name">Enter your name: </label>
               <input type="text" name="name" id="name" onChange={onChange} required/>
+              <div className="warning">For privacy reasons, do not use your full name or email address</div>
             </div>
             <div className="emailField">
               <label htmlFor="email">Enter your email: </label>
               <input type="email" name="email" id="email" onChange={onChange} required/>
+              <div className="warning">For authentication reasons, you will not be emailed</div>
             </div>
             <div className="answerField">
               <label>Write your question: </label>
               <div>
-              <textarea type="text" name="body" id="body" onChange={onChange} rows="4" cols="50" required/>
+              <textarea placeholder="Why did you like the product or not?" type="text" name="body" id="body" onChange={onChange} rows="4" cols="50" required/>
               </div>
             </div>
             <div className="Submit">

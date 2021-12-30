@@ -38,14 +38,20 @@ function AnswerElement({answer, timeStamp, id}) {
     return (
       <img className="QandAphotos" src={photo} width={100} height={100} key={photo}/>
     )
-  })
+  });
+
+  if (answer.answerer_name === 'Seller') {
+    var answerSpan = <span style={{'fontWeight': 'bold'}}>{answer.answerer_name}</span>;
+  } else {
+    var answerSpan = <span>{answer.answerer_name}</span>;
+  };
 
   return(
     <div key={id} id='AnswerBody'>
     <div> A : {answer.body}</div>
     <div className="QandAPhotoContainer">{photos}</div>
     <div id='AnswerHelpful'>
-      by {answer.answerer_name}, {timeStamp} |
+      by {answerSpan}, {timeStamp} |
       Helpful?
       <button id='HelpfulButton' answerid={id} onClick={handleHelpfulClicked}> Yes ({helpfulness})</button> |
       <button id='ReportButton' answerid={id} onClick={handleReportToggle}> {reportClicked} </button>

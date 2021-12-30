@@ -5,6 +5,7 @@ import QandA from './components/QandA/main.jsx';
 import Related from './components/Related/main.jsx';
 import Reviews from './components/Reviews/main.jsx';
 import helperFunctions from './helperFunctions.js';
+import Toggle from './components/toggleComponent.jsx';
 
 const Default_Product = 59553
 
@@ -47,6 +48,10 @@ function App(props) {
   }
 
   useEffect(() => {
+    helperFunctions.keepTheme();
+  })
+
+  useEffect(() => {
     if (window.location.pathname != '/'
       && !isNaN(Number(window.location.pathname.substring(1, 6)))
       && Number(window.location.pathname.substring(1, 6)) != currentProductInfo.productNumber) {
@@ -68,29 +73,34 @@ function App(props) {
 
   return (
     <div>
-      <h1 id='title'>ATELIER</h1>
-      <Overview
-        currentProduct={currentProductInfo.productNumber}
-        addToOutfit={addToOutfit.bind(this)}
-        currentProductData={currentProductInfo.productData}
-        currentProductStyles={currentProductInfo.productStyles}
-        productRating={productRating}/>
-      <Related
-        currentProduct={currentProductInfo.productNumber}
-        outfits={outfits}
-        addToOutfit={addToOutfit}
-        changeCurrentProduct={changeCurrentProduct}
-        productRating={productRating}
-        currentProductData={currentProductInfo.productData}/>
-      <QandA
-        currentProduct={currentProductInfo.productNumber}
-        currentProductData={currentProductInfo.productData}
-        currentProductStyles={currentProductInfo.productStyles}/>
-      <Reviews
-        currentProduct={currentProductInfo.productNumber}
-        currentProductData={currentProductInfo.productData}
-        currentProductStyles={currentProductInfo.productStyles}
-        setCurrentProductRating={setProductRating.bind(this)}/>
+      <div id='pageHeader'>
+        <div id='title'>ATELIER</div>
+        <Toggle />
+      </div>
+      <div id='componentContainer'>
+        <Overview
+          currentProduct={currentProductInfo.productNumber}
+          addToOutfit={addToOutfit.bind(this)}
+          currentProductData={currentProductInfo.productData}
+          currentProductStyles={currentProductInfo.productStyles}
+          productRating={productRating}/>
+        <Related
+          currentProduct={currentProductInfo.productNumber}
+          outfits={outfits}
+          addToOutfit={addToOutfit}
+          changeCurrentProduct={changeCurrentProduct}
+          productRating={productRating}
+          currentProductData={currentProductInfo.productData}/>
+        <QandA
+          currentProduct={currentProductInfo.productNumber}
+          currentProductData={currentProductInfo.productData}
+          currentProductStyles={currentProductInfo.productStyles}/>
+        <Reviews
+          currentProduct={currentProductInfo.productNumber}
+          currentProductData={currentProductInfo.productData}
+          currentProductStyles={currentProductInfo.productStyles}
+          setCurrentProductRating={setProductRating.bind(this)}/>
+      </div>
     </div>
   );
 

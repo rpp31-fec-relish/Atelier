@@ -13,6 +13,10 @@ function QandAElement({question, modalClick}) {
     setAnswerCount(prev => prev + 2);
   };
 
+  const resetAnswerCount = () => {
+    setAnswerCount(2);
+  }
+
   const handleClicks = (e) => {
     console.log(e);
   };
@@ -35,7 +39,7 @@ function QandAElement({question, modalClick}) {
   };
 
   const addAnswerHandler = () => {
-    modalClick(question.question_id);
+    modalClick(question.question_id, question.question_body);
   };
 
   const answers = Object.entries(question.answers).sort((a, b) => b[1].helpfulness - a[1].helpfulness).map((answerEntry) => {
@@ -44,7 +48,8 @@ function QandAElement({question, modalClick}) {
     let timeStamp = months[parseInt(dateTime[1])-1] + ' ' + dateTime[2].slice(0,2) + ', ' + dateTime[0];
     return (<AnswerElement answer={question.answers[answerEntry[0]]} timeStamp={timeStamp} id={answerEntry[0]} key={answerEntry[0]}/>);
   });
-  if (answers.length > 2 && answerCount <= answers.length) {
+
+  if (answers.length > 2 && answerCount < answers.length) {
     return (
       <div key={question.question_id}>
         <div id='QuestionHeader'>
@@ -54,10 +59,31 @@ function QandAElement({question, modalClick}) {
       Helpful?
       <button id='HelpfulButton' questionid={question.question_id} onClick={handleHelpfulClicked}> Yes ({helpfulness})</button> |
       <button id='AddAnswerButton' onClick={addAnswerHandler}> Add Answer </button>
-        </div>
-      <div>{answers.slice(0, answerCount)}</div>
+      </div>
+      <div>
+        {answers.slice(0, answerCount)}
+      </div>
       <div>
       <button id='MoreAnswers' onClick={handleMoreToggle}> LOAD MORE ANSWERS </button>
+      </div>
+      </div>
+    );
+  } else if (answerCount >= answers.length && answers.length !== 1) {
+    return (
+      <div key={question.question_id}>
+        <div id='QuestionHeader'>
+      Q : {question.question_body}
+        </div>
+      <div id='QuestionHelpful'>
+      Helpful?
+        <button id='HelpfulButton' questionid={question.question_id} onClick={handleHelpfulClicked}> Yes ({helpfulness})</button> |
+        <button id='AddAnswerButton' questionid={question.question_id} onClick={addAnswerHandler}> Add Answer </button>
+      </div>
+      <div>
+        {answers}
+      </div>
+      <div>
+      <button id='MoreAnswers' onClick={resetAnswerCount}> COLLAPSE ANSWERS </button>
       </div>
       </div>
     );
@@ -69,11 +95,12 @@ function QandAElement({question, modalClick}) {
         </div>
       <div id='QuestionHelpful'>
       Helpful?
-      <button id='HelpfulButton' questionid={question.question_id} onClick={handleHelpfulClicked}> Yes ({helpfulness})</button> |
+        <button id='HelpfulButton' questionid={question.question_id} onClick={handleHelpfulClicked}> Yes ({helpfulness})</button> |
         <button id='AddAnswerButton' questionid={question.question_id} onClick={addAnswerHandler}> Add Answer </button>
-        </div>
-      <div>{answers}</div>
-
+      </div>
+      <div>
+        {answers}
+      </div>
       </div>
     );
   }

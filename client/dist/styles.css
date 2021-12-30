@@ -1,5 +1,48 @@
+:root {
+  /** sunny side **/
+  --blue-background: #c2e9f6;
+  --blue-border: #72cce3;
+  --blue-color: #96dcee;
+  --yellow-background: #fffaa8;
+  --yellow-border: #f5eb71;
+  /** dark side **/
+  --indigo-background: #808fc7;
+  --indigo-border: #5d6baa;
+  --indigo-color: #6b7abb;
+  --gray-border: #e8e8ea;
+  --gray-dots: #e8e8ea;
+  /** general **/
+  --white: #fff;
+}
+
+.theme-dark {
+  --dark-text: #292929;
+  --light-text: #F9F8F8;
+  --dark-background: #2F4550;
+  --light-background: #586F7C;
+  --accent: #B8DBD9;
+  --button-border: #B8DBD9;
+}
+
+.theme-light {
+  --dark-text: #5E4B56;
+  --light-text: #5E4B56;
+  --dark-background: #DBE7E4;
+  --light-background: #EDDCD2;
+  --accent: #DBE7E4;
+  --button-border: #5E4B56;
+}
+
 html {
   scroll-behavior: smooth;
+  background-color: var(--dark-background);
+  color: var(--light-text);
+}
+
+button, select {
+  background-color: var(--light-background);
+  fill: var(--dark-text);
+  /* border-radius: 15px; */
 }
 
 body {
@@ -11,14 +54,196 @@ body {
   display: none;
 }
 
-#title {
-  font-family: "adobe-clean", sans-serif;
-  text-align: left;
-  padding: 20px;
+@keyframes reverse {
+  0% {
+      left: 47px;
+      width: 40px;
+  }
+  60% {
+      left: 3px;
+      width: 80px;
+  }
+  100% {
+      left: 3px;
+  }
+}
+
+@keyframes switch {
+  0% {
+      left: 3px;
+  }
+  60% {
+      left: 3px;
+      width: 80px;
+  }
+  100% {
+      left: 47px;
+      width: 40px;
+  }
+}
+
+.toggle--checkbox {
+  opacity: 0;
+}
+
+.toggle--checkbox:focus + .toggle--label {
+  outline: solid 3px var(--button-border);
+  transition: outline 100ms ease-in;
+}
+
+.container--toggle {
+  display: flex;
+  place-items: center;
+  min-height: 60px;
+  position: relative;
+  grid-area: toggle;
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+/* background */
+.toggle--label {
+  width: 100px;
+  height: 54px;
+  background: var(--indigo-color);
+  border-radius: 100px;
+  border: 3px solid var(--indigo-border);
+  display: flex;
+  position: relative;
+  transition: all 350ms ease-in;
+  color: var(--indigo-color);
+}
+
+.toggle--checkbox:checked + .toggle--label {
+  background: var(--blue-color);
+  color: var(--blue-color);
+  border-color: var(--blue-border);
+}
+
+/* sun and moon */
+.toggle--checkbox:checked + .toggle--label:before {
+  animation-name: reverse;
+  animation-duration: 350ms;
+  animation-fill-mode: forwards;
+  transition: all 360ms ease-in;
+  background: var(--yellow-background);
+  border-color: var(--yellow-border);
+}
+
+.toggle--label:before {
+  animation-name: switch;
+  animation-duration: 350ms;
+  animation-fill-mode: forwards;
+  content: '';
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--gray-border);
+  top: 4px;
+  left: 4px;
+  position: absolute;
+  border-radius: 40px;
+  background: white;
+}
+
+/* moon dimples */
+.toggle--label:after {
+  transition-delay: 0ms;
+  transition: all 250ms ease-in;
+  position: absolute;
+  content: '';
+  box-shadow: var(--gray-dots) -14px 0 0 1px, var(--gray-dots) -22px 12px 0 -1px;
+  left: 80px;
+  top: 10px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  opacity: 1;
+}
+
+.toggle--checkbox:checked + .toggle--label:after {
+  transition-delay: 50ms;
+  opacity: 0;
+}
+
+/* clouds */
+.toggle--checkbox:checked + .toggle--label .toggle--label-background {
+  width: 5px;
+  left: 65px;
+  top: 22px;
+}
+
+.toggle--checkbox:checked + .toggle--label .toggle--label-background:before {
+  top: -4px;
+  left: -5px;
+  width: 20px;
+  height: 5px;
+}
+
+.toggle--checkbox:checked + .toggle--label .toggle--label-background:after {
+  top: 3px;
+  width: 20px;
+  height: 5px;
+  left: -10px;
+}
+
+/* stars */
+.toggle--label-background {
+  border-radius: 5px;
+  position: relative;
+  background: white;
+  left: 32px;
+  width: 6px;
+  transition: all 150ms ease-in;
+  top: 25px;
+  height: 4px;
+}
+
+.toggle--label-background:before {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  top: -15px;
+  border-radius: 5px;
+  background: white;
+  left: -20px;
+  transition: all 150ms ease-in;
+}
+
+.toggle--label-background:after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  left: -20px;
+  top: 10px;
+  border-radius: 5px;
+  background: white;
+  transition: all 150ms ease-in;
+}
+/*
+#componentContainer {
+  background-color: var(--light-background);
+  color: var(--light-text);
+} */
+
+#pageHeader {
+  width: auto;
+  display:flex;
   margin-left: 2%;
   margin-right: 2%;
   border: solid #c29b48 5px;
   border-radius: 25px;
+  text-align: left;
+}
+
+#title {
+  border-radius: 20%;
+  justify-content: left;
+  font-family: "adobe-clean", sans-serif;
+  font-size: 25px;
+  font-weight: bold;
+  padding: 20px;
 }
 
 #Overview {
@@ -34,7 +259,6 @@ body {
 
 #Overview select {
   appearance: none;
-  background-color: transparent;
   border: none;
   padding: 4px;
   margin: 10px;
@@ -48,7 +272,6 @@ body {
 
 #Overview button {
   appearance: none;
-  background-color: transparent;
   border: none;
   padding: 4px;
   margin: 10px;
@@ -61,11 +284,13 @@ body {
 }
 
 #OverviewMain {
+  background-color: var(--light-background);
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: flex-start;
   gap: 20px;
+  border-radius: 10px;
 }
 
 #OverviewImage {
@@ -121,13 +346,11 @@ body {
 
 #OverviewRating {
   font-weight: lighter;
-  color: rgb(110, 110, 110);
   font-size: 14px;
 }
 
 #OverviewCategory {
   font-weight: lighter;
-  color: rgb(110, 110, 110);
   font-size: 18px;
 }
 
@@ -220,9 +443,10 @@ body {
 
 #MoreAnswers {
   font-family: "adobe-clean", sans-serif;
+  color: var(--light-text);
+  background-color: transparent;
   font-weight: bold;
   border: none;
-  background: transparent;
   margin-left: 15px;
   margin-bottom: 15px;
 }
@@ -230,7 +454,6 @@ body {
 #MoreAnswerdQuestionsButton, #AddQuestionButtton, input {
   font-family: "adobe-clean", sans-serif;
   border-radius: 0px;
-  background: transparent;
   padding: 15px;
   margin-right: 15px;
   border: 1px solid rgb(92, 92, 92);
@@ -251,7 +474,6 @@ body {
   font-family: "adobe-clean", sans-serif;
   background-color: rgb(220, 220, 220);
   border: 2px dashed rgb(92, 92, 92);
-  color: black;
   padding: 50px 50px;
   text-align: center;
   display: inline-block;
@@ -274,7 +496,6 @@ body {
   text-align: left;
   font-family: "adobe-clean", sans-serif;
   font-weight: lighter;
-  color: rgb(110, 110, 110);
   font-size: 12px;
 }
 
@@ -290,7 +511,6 @@ body {
   border: 1px solid rgb(87, 87, 87);
   text-align: left;
   font-family: "adobe-clean", sans-serif;
-  color: rgb(87, 87, 87);
   font-size: 12px;
 }
 
@@ -298,7 +518,6 @@ body {
   border: 1px solid rgb(87, 87, 87);
   text-align: left;
   font-family: "adobe-clean", sans-serif;
-  color: rgb(87, 87, 87);
   font-size: 12px;
 }
 
@@ -345,20 +564,17 @@ body {
   padding: 1em;
   font-family: "adobe-clean", sans-serif;
   font-weight: lighter;
-  color: rgb(110, 110, 110);
   font-size: 12px;
 }
 
 .RP-star-modal {
   position: absolute;
-  color: black;
   font-size: 17px;
   text-shadow: lightgray 1px 1px 1px;
 }
 
 .Outfit-x-button {
   position: absolute;
-  color: black;
   font-size: 25px;
   text-shadow: white 1px 1px 1px;
 }
@@ -386,7 +602,6 @@ body {
   height: 300px;
   font-family: Arial;
   font-weight: lighter;
-  color: rgb(110, 110, 110);
   font-size: 12px;
   width: 500px;
   overflow: auto;
@@ -411,10 +626,10 @@ body {
 }
 
 #HelpfulButton, #ReportButton, #AddAnswerButton {
+  color: var(--light-text);
   border: none;
-  background: transparent;
+  background-color: transparent;
   text-decoration: underline;
-  color: rgb(92, 92, 92);
 }
 
 .modalBackground {
@@ -429,11 +644,18 @@ body {
   left: 0;
 }
 
+.warning {
+  font-size: 15px;
+  font-weight: lighter;
+  font-style: italic;
+}
+
 .modalContainer {
-  width: 500px;
-  height: 500px;
+  color: var(--light-text);
+  width: 550px;
+  height: auto;
   border-radius: 12px;
-  background-color: white;
+  background-color: var(--light-background);
   box-shadow: rgba(0, 0, 0, .35) 0px, 5px, 15px;
   display: flex;
   flex-direction: column;
@@ -441,10 +663,10 @@ body {
 }
 
 .modalCloseButton {
+  background-color: transparent;
   display: flex;
   justify-content: flex-end;
   border: none;
-  background: transparent;
 }
 
 table {
@@ -459,8 +681,6 @@ table {
 #QuestionHeader {
   font-size:20px;
   font-weight:bold;
-  color: rgb(55, 54, 54);
-
 }
 
 #AnswerBody {
@@ -473,7 +693,6 @@ table {
 #AnswerHelpful {
   margin-top: 5px;
   font-size:15px;
-  color: rgb(92, 92, 92);
 }
 
 /* reviews CSS, under construction */
@@ -491,7 +710,6 @@ table {
 }
 
 .reviewMeta {
-  border-style: transparent;
   grid-area: reviewMeta;
   grid-template-areas: "." "." "ratingBar" ".";
 }
@@ -510,7 +728,6 @@ table {
 .reviewMetaRecommended {
   margin-top: 5px;
   font-size:18px;
-  color: rgb(92, 92, 92);
 }
 
 .reviewList {
@@ -603,7 +820,6 @@ table {
 
 .createReviewLinkButton{
   border-radius: 0px;
-  background: transparent;
   padding: 15px;
   margin-right: 15px;
   border: 1px solid rgb(92, 92, 92);
@@ -612,7 +828,6 @@ table {
 
 .reviewListMoreReviewsbutton{
   border-radius: 0px;
-  background: transparent;
   padding: 15px;
   margin-right: 15px;
   border: 1px solid rgb(92, 92, 92);
@@ -622,20 +837,17 @@ table {
 .reviewListItemHelpfulness, .reviewListItemHelpfulnesYes {
   margin-top: 5px;
   font-size:15px;
-  color: rgb(92, 92, 92);
   grid-area: reviewListHelpfulness
 }
 
 .reviewListInfo {
   margin-top: 5px;
   font-size:15px;
-  color: rgb(92, 92, 92);
   grid-area: reviewListInfo
 }
 
 .showButton {
   border-radius: 0px;
-  background: transparent;
   border: 1px solid rgb(92, 92, 92);
 }
 
@@ -671,7 +883,6 @@ table {
 
 .createReviewRecommend {
   border-radius: 0px;
-  background: transparent;
   padding: 15px;
   margin-right: 15px;
   border: 1px solid rgb(92, 92, 92);

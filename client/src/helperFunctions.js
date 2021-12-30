@@ -429,7 +429,7 @@ const helperFunctions = {
     });
   },
 
- postImage(file) {
+  postImage(file) {
     return axios(`https://api.cloudinary.com/v1_1/dpwwavsdm/image/upload`, {
       method: 'POST',
       data: file
@@ -441,6 +441,23 @@ const helperFunctions = {
     .catch((err) => {
       console.error('Error posting Image to cloudinary: ', err);
     })
+  },
+
+  setTheme(themeName) {
+    localStorage.setItem('theme', themeName);
+    document.documentElement.className = themeName;
+  },
+
+  keepTheme() {
+    if (localStorage.getItem('theme')) {
+      if (localStorage.getItem('theme') === 'theme-dark') {
+        this.setTheme('theme-dark');
+      } else if (localStorage.getItem('theme') === 'theme-light') {
+        this.setTheme('theme-light')
+      }
+    } else {
+      this.setTheme('theme-dark')
+    }
   }
 
 }

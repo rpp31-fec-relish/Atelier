@@ -13,6 +13,7 @@ function QandA(props) {
   const [searchTerm, setSearchTerm] = useState(" ");
   const [searchResults, setSearchResults] = useState([]);
   const [currQuestionId, setCurrQuestionId] = useState(0);
+  const [currQuestion, setCurrQuestion] = useState('');
   const [formsSubmitted, addSumbission] = useState(0);
   const [loadMoreQuestionsText, changeQuestionText] = useState('MORE ANSWERED QUESTIONS');
 
@@ -21,9 +22,10 @@ function QandA(props) {
     setShowQuestionModal(prev => !prev);
   }
 
-  const openAnswerModal = (questionId) => {
+  const openAnswerModal = (questionId, question) => {
     if(questionId) {
       setCurrQuestionId(questionId);
+      setCurrQuestion(question);
     }
     setShowAnswerModal(prev => !prev);
   }
@@ -46,6 +48,7 @@ function QandA(props) {
       setCurrPageCounter(1);
       setSearchTerm(" ")
       setSearchTerm("")
+      changeQuestionText('MORE ANSWERED QUESTIONS');
     })
     .catch((err) => {
       console.error('Error setting state of QandA', err)
@@ -60,9 +63,6 @@ function QandA(props) {
     .then((questions) => {
       // console.log('questions from fetch', questions);
       if(currPageCounter > 1) {
-        if(questions.length === 0) {
-          changeQuestionText('NO MORE QUESTIONS TO LOAD');
-        }
         setCurrQuestions([...new Set(currQuestions.concat(questions))]);
       }
       else {
@@ -71,6 +71,12 @@ function QandA(props) {
       setCurrPageCounter(currPageCounter);
       setSearchTerm(" ")
       setSearchTerm("")
+      return questions;
+    })
+    .then((questions) => {
+      if(questions.length === 0) {
+        changeQuestionText('NO MORE QUESTIONS');
+      }
     })
     .catch((err) => {
       console.error('Error setting state of QandA', err)
@@ -96,7 +102,7 @@ function QandA(props) {
 
 
   useEffect(() => {
-    if( searchTerm === "" ) {
+    if( searchTerm.length <= 3 ) {
         setSearchResults(currQuestions)
     } else {
       let results = currQuestions.filter(question => question.question_body.toLowerCase().includes(searchTerm.toLowerCase()));
@@ -114,7 +120,7 @@ function QandA(props) {
           <button id='MoreAnswerdQuestionsButton' onClick={handleMoreQuestions}> {loadMoreQuestionsText} </button>
           <button id='AddQuestionButtton' onClick={openQuestionModal}> ADD A QUESTION + </button>
           <QuestionModal showModal={showQuestionModal} setShowModal={openQuestionModal} currProduct={props.currentProduct} addSumbission={addSumbission}/>
-          <AnswerModal showModal={showAnswerModal} setShowModal={openAnswerModal} currQuestionId={currQuestionId} addSumbission={addSumbission}/>
+          <AnswerModal productData={props.currentProductData} showModal={showAnswerModal} setShowModal={openAnswerModal} currQuestionId={currQuestionId} currQuestion={currQuestion} addSumbission={addSumbission}/>
         </div>
       </div>
     );
